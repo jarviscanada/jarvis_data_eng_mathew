@@ -19,8 +19,8 @@ Monitoring Agent Scripts:
  - `host_usage.sh` should be set to run via crontab. It records the host's resource utilization in the database.
 
 ## Usage
-1. Install PostgreSQL and create the database PUBLIC.
-2. `cd` to the sql directory, then run the command `psql -h localhost -f ddl.sql PUBLIC`.
+1. Install PostgreSQL and create the database host_agent.
+2. `cd` to the sql directory, then run the command `psql -h localhost -U postgres -f ddl.sql host_agent`.
 3. `cd` to the scripts directory and run `./host_info.sh`
 4. Run `crontab -e` and add the line `* * * * * ~/dev/jarvis_data_eng_mathew/linux_sql/scripts/host_usage.sh` to the end of the file. `host_usage.sh` need not be used manually.
 
