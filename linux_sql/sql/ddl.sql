@@ -12,7 +12,7 @@ CREATE TABLE host_info (
 	cpu_mhz		INTEGER not null,
 	l2_cache	INTEGER not null,
 	mem_total	INTEGER not null,
-	timestamp	TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	curr_time	TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE host_usage (
@@ -22,5 +22,5 @@ CREATE TABLE host_usage (
 	cpu_kernel	REAL not null,
 	disk_io		REAL not null,
 	disk_avail	REAL not null,
-	timestamp	TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	curr_time	TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
