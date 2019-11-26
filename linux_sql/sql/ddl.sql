@@ -1,3 +1,8 @@
+DROP DATABASE IF EXISTS host_agent;
+
+CREATE DATABASE host_agent;
+\c host_agent;
+
 CREATE TABLE host_info (
 	id		SERIAL PRIMARY KEY,
 	hostname	VARCHAR not null,
