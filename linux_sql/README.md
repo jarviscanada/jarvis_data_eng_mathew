@@ -8,7 +8,7 @@ This tool is made to help the Infrastructure Team make decisions regarding serve
 
 ## Architecture & Design
 
-![System Diagram](assets/JRVS_Linux_SQL_Diagram.jpg)
+![System Diagram](assets/JRVS_linux_sql_diagram.jpg)
 
 Database Tables:
  - `host_info` contains the hardware information of each cluster node.
