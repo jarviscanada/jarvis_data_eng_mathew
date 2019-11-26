@@ -11,6 +11,7 @@ CREATE TABLE host_info (
 	cpu_model	VARCHAR not null,
 	cpu_mhz		INTEGER not null,
 	l2_cache	INTEGER not null,
+	mem_total	INTEGER not null,
 	timestamp	TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
