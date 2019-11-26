@@ -16,7 +16,7 @@ CREATE TABLE host_info (
 );
 
 CREATE TABLE host_usage (
-	id		SERIAL REFERENCES host_info(id) ON DELETE CASCADE,
+	id		SERIAL UNIQUE REFERENCES host_info(id) ON DELETE CASCADE,
 	memory_free	REAL not null,
 	cpu_idle	REAL not null,
 	cpu_kernel	REAL not null,
