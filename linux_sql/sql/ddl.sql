@@ -5,7 +5,7 @@ CREATE DATABASE host_agent;
 
 CREATE TABLE host_info (
 	id		SERIAL PRIMARY KEY,
-	hostname	VARCHAR not null,
+	hostname	VARCHAR not null UNIQUE,
 	cpu_count	INTEGER not null,
 	cpu_arch	VARCHAR not null,
 	cpu_model	VARCHAR not null,
