@@ -37,12 +37,31 @@ order by host_usage.id;
 -- Question 3, for this question I use an expanded version of the host_usage table
 -- This new table includes the "is_failed" column mentioned in the question
 select
-	host_usage_plus.id,
-	min(host_usage_plus.curr_time) over( partition by host_usage_plus.id) as current_time,
-	count(is_failed) over( partition by host_usage_plus.id) as failed_times
+	hup.id,
+	min(hup.curr_time) as first_fail,
+	count(hup.grp) as failed_times
 from
-	host_usage_plus
+	(
+		select 
+			host_usage_plus.*,
+			(
+				row_number() over(
+					order by
+						host_usage_plus.curr_time
+					) - row_number() over(
+						partition by host_usage_plus.is_failed
+						order by host_usage_plus.curr_time
+					)
+			) as grp
+		from
+			host_usage_plus
+	) hup			
 where
 	is_failed = 'failed'
+group by
+	hup.id,
+	hup.grp
+having 
+	count(grp) >= 3
 order by
-	host_usage_plus.id;
+	first_fail;
