@@ -3,9 +3,9 @@
 #This script pulls data from lscpu for the host_info table of the cluster resource monitor
 
 #validate number of arguments
-if [[ $# -ne 4 ]]; then
+if [[ $# -ne 5 ]]; then
 	echo "Incorrect number of arguments
-Usage: host_info.sh db-hostname db-port db-username host_agent"
+Usage: host_info.sh db-hostname db-port db-username db-password host_agent"
 	exit 1
 fi
 
@@ -13,7 +13,8 @@ fi
 db_host=$1
 db_port=$2
 db_uid=$3
-db_name=$4
+db_pass=$4
+db_name=$5
 
 #Collect host hardware information
 lscpu_out=$(lscpu)
@@ -25,6 +26,9 @@ l2_cache=$(echo "$lscpu_out" | grep "^L2 cache:" | awk '{ print $3 }' | sed 's/K
 mem_total=$(grep "^MemTotal" /proc/meminfo | awk '{ print $2 }')
 hostname=$(hostname -f)
 curr_time=$(date -u +"%Y-%m-%d %H:%M:%S")
+
+#Export postgres user's password
+export PGPASS="$db_pass"
 
 #Execute an upsert using the supplied heredoc
 psql -h $db_host -p $db_port -U $db_uid -w -d $db_name << EOF
