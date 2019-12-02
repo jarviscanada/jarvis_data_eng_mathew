@@ -21,12 +21,14 @@ fi
 
 # Start Docker if the user wants to start the psql container and it's not already running
 if [[ $docker_running -ne "0" ]]; then
-	echo "Docker isn't running"
+	if [[ $command = "stop" ]]; then
+		echo "Docker isn't running."
+		exit 0
+	fi
 	if [[ $command = "start" ]]; then
-		echo "Starting docker..."
+		echo "Docker isn't running. Starting docker..."
 		systemctl start docker
 	fi
-	exit 2
 fi
 
 #if user wants to start the instance and provided a password
