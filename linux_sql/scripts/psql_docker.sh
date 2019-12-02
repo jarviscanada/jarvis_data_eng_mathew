@@ -19,34 +19,23 @@ Please invoke with psql_docker.sh start|stop [db_password]'
 	exit 1
 fi
 
-#if user wants to stop the instance
-if [[ $command = 'stop' ]]; then
-	if [[ docker_running -ne "0" ]]; then
-		echo "Docker isn't running"
-		exit 2
+# Start Docker if the user wants to start the psql container and it's not already running
+if [[ $docker_running -ne "0" ]]; then
+	echo "Docker isn't running"
+	if [[ $command = "start" ]]; then
+		echo "Starting docker..."
+		systemctl start docker
 	fi
-	#find out Docker's psql container status
-	if [[ $docker_db_running = "false" ]]; then
-		echo "Docker has already stopped the database container!" >&2
-		exit 2
-	fi
-	docker stop jrvs_psql > /dev/null
-	echo "Postgres container stopped"
-	exit 0
+	exit 2
 fi
 
 #if user wants to start the instance and provided a password
 if [[ $command = "start" ]] && [[ $# -eq "2" ]]; then
-	#if Docker isn't running, start it
-	if [[ $docker_running -ne "0" ]]; then
-		echo "Docker isn't running. Starting Docker..."
-		systemctl start docker > /dev/null
-	fi
 
 	#If docker doesn't have psql, pull it
 	docker image ls | grep "^postgres" > /dev/null
 	docker_has_psql=$?
-	if [[ docker_has_psql -ne "0" ]]; then
+	if [[ $docker_has_psql -ne "0" ]]; then
 		echo "No Postgres image found. Pulling..."
 		docker pull postgres > /dev/null
 	fi
@@ -54,7 +43,7 @@ if [[ $command = "start" ]] && [[ $# -eq "2" ]]; then
 	#If the local volume doesn't exist, create it
 	docker volume ls | grep "pgdata$" > /dev/null
 	docker_has_volume=$?
-	if [[ docker_has_volume -ne "0" ]]; then
+	if [[ $docker_has_volume -ne "0" ]]; then
 		echo "Docker volume pgdata not found. Creating..."
 		docker volume create pgdata > /dev/null
 	fi
@@ -76,6 +65,18 @@ if [[ $command = "start" ]] && [[ $# -eq "2" ]]; then
 	echo "Creating and starting new Postgres container..."
 	docker run $docker_arg_string > /dev/null
 	echo "Postgres container running"
+	exit 0
+fi
+
+#if user wants to stop the instance
+if [[ $command = 'stop' ]]; then
+	#find out Docker's psql container status
+	if [[ $docker_db_running = "false" ]]; then
+		echo "Docker has already stopped the database container!" >&2
+		exit 2
+	fi
+	docker stop jrvs_psql > /dev/null
+	echo "Postgres container stopped"
 	exit 0
 fi
 
