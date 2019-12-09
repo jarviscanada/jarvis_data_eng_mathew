@@ -10,14 +10,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JavaGrepImp implements JavaGrep {
 
   private String regex;
   private String rootDir;
   private String outputFile;
+  private Logger jgrepLogger;
 
   public JavaGrepImp() {
+    jgrepLogger = LoggerFactory.getLogger(JavaGrepImp.class);
   }
 
   /**
@@ -87,7 +91,7 @@ public class JavaGrepImp implements JavaGrep {
         line = reader.readLine();
       }
     } catch (IOException ex) {
-      ex.printStackTrace();
+      jgrepLogger.error(ex.getMessage());
     }
     return lines;
   }
@@ -152,6 +156,7 @@ public class JavaGrepImp implements JavaGrep {
   }
 
   public static void main(String[] args) {
+    Logger logger = LoggerFactory.getLogger("Main");
     if (args.length != 3) {
       throw new IllegalArgumentException("USAGE: regex search_root output_file");
     }
@@ -163,7 +168,7 @@ public class JavaGrepImp implements JavaGrep {
     try {
       jgrep.process();
     } catch (IOException ex) {
-      ex.printStackTrace();
+      logger.error(ex.getMessage());
     }
   }
 }
