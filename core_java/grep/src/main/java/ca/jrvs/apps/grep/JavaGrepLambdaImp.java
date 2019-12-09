@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Java regex scanner. Recursively scans the given directory, looking for filenames which match
@@ -15,10 +17,13 @@ import java.util.stream.Collectors;
  */
 public class JavaGrepLambdaImp extends JavaGrepImp {
 
+  private Logger jgrepLogger;
+
   /**
-   * JavaGrepImp class constructor stub.
+   * JavaGrepImp class constructor.
    */
   public JavaGrepLambdaImp() {
+    jgrepLogger = LoggerFactory.getLogger(JavaGrepLambdaImp.class);
   }
 
   /**
@@ -33,7 +38,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
       lines = Files.readAllLines(file.toPath()); // Ed may not consider this "using streams"
     } catch (IOException ex) {
       System.err.println("Couldn't read file " + file.getName());
-      ex.printStackTrace();
+      jgrepLogger.error(ex.getMessage());
     }
     return lines;
   }
@@ -50,7 +55,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
       files = Files.walk(Paths.get(rootDir)).filter(x -> Files.isRegularFile(x))
           .map(Path::toFile).collect(Collectors.toList());
     } catch (IOException ex) {
-      ex.printStackTrace();
+      jgrepLogger.error(ex.getMessage());
     }
     return files;
   }
@@ -61,6 +66,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
    * @param args Invocation arguments. Should be regex, scan_directory, output_file
    */
   public static void main(String[] args) {
+    Logger logger = LoggerFactory.getLogger("Main");
     if (args.length != 3) {
       throw new IllegalArgumentException("Incorrect number of arguments\n"
           + "Usage: regex searchRoot outputFile");
@@ -72,7 +78,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
     try {
       jgrep.process();
     } catch (IOException ex) {
-      ex.printStackTrace();
+      logger.error(ex.getMessage());
     }
   }
 }
