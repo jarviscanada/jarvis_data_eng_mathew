@@ -2,6 +2,7 @@ package ca.jrvs.apps.grep;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Java regex scanner. Recursively scans the given directory, looking for filenames which match
- * the supplied regex. The results of the scan are written to the supplied output file.
+ * Java regex scanner. Recursively scans the given directory, looking for filenames which match the
+ * supplied regex. The results of the scan are written to the supplied output file.
  */
 public class JavaGrepLambdaImp extends JavaGrepImp {
 
@@ -28,6 +29,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
 
   /**
    * Overrides JavaGrepImp.readLines(). This implementation uses java.nio.Files.
+   *
    * @param file a File object which lines must be read from. This must be a file, not a directory
    * @return a List of Strings containing all readable lines of the supplied file
    */
@@ -35,9 +37,9 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
   public List<String> readLines(File file) {
     List<String> lines = new ArrayList<>();
     try {
-      lines = Files.readAllLines(file.toPath()); // Ed may not consider this "using streams"
-    } catch (IOException ex) {
-      System.err.println("Couldn't read file " + file.getName());
+      lines = Files.lines(file.toPath()).collect(Collectors.toList());
+    } catch (IOException | UncheckedIOException ex) {
+      jgrepLogger.error("Couldn't read file " + file.getName());
       jgrepLogger.error(ex.getMessage());
     }
     return lines;
@@ -45,6 +47,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
 
   /**
    * Override of JavaGrepImp.listFiles(). Implemented using java.nio, streams, and lambdas
+   *
    * @param rootDir input directory
    * @return A list of files found in the search root
    */
@@ -52,7 +55,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
   public List<File> listFiles(String rootDir) {
     List<File> files = new ArrayList<>();
     try {
-      files = Files.walk(Paths.get(rootDir)).filter(x -> Files.isRegularFile(x))
+      files = Files.walk(Paths.get(rootDir)).filter(Files::isRegularFile)
           .map(Path::toFile).collect(Collectors.toList());
     } catch (IOException ex) {
       jgrepLogger.error(ex.getMessage());
