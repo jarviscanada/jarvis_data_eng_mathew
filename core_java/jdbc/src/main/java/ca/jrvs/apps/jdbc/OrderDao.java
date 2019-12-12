@@ -30,7 +30,7 @@ public class OrderDao {
    */
   public Order findById(int orderID, Connection conn) {
     String statement = "select  c.first_name, c.last_name, c.email, "
-        + "o.order_id, o.creation_Timestamp, o.total_due, o.status, "
+        + "o.order_id, o.creation_date, o.total_due, o.status, "
         + "s.first_name, s.last_name, s.email, "
         + "ol.quantity, "
         + "p.code, p.name, p.size, p.variety, p.price "
@@ -74,7 +74,7 @@ public class OrderDao {
         order.setCustLName(results.getString(2));
         order.setCustEmail(results.getString(3));
         order.setOrderID(results.getInt(4));
-        order.setCreationTimestamp(Timestamp.valueOf(results.getString(5)));
+        order.setCreationDate(Timestamp.valueOf(results.getString(5)));
         order.setTotalDue(results.getDouble(6));
         order.setStatus(results.getString(7));
         order.setSalesFName(results.getString(8));
