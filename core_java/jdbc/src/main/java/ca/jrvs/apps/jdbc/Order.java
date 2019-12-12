@@ -32,7 +32,7 @@ public class Order {
   protected static final String DB_CUSTLNAME = "c.last_name";
   protected static final String DB_CUSTEMAIL = "c.email";
   protected static final String DB_ORDERID = "o.order_id";
-  protected static final String DB_CREATIONTimestamp = "o.creation_Timestamp";
+  protected static final String DB_CREATIONDATE = "o.creation_date";
   protected static final String DB_TOTALDUE = "o.total_due";
   protected static final String DB_STATUS = "o.status";
   protected static final String DB_SALESFNAME = "s.first_name";
@@ -43,7 +43,7 @@ public class Order {
   private String custLName;
   private String custEmail;
   private int orderID;
-  private Timestamp creationTimestamp;
+  private Timestamp creationDate;
   private double totalDue;
   private String status;
   private String salesFName;
@@ -58,14 +58,14 @@ public class Order {
 
   // Constructor that builds most of the order. The ordered products must be added with AddOrderItem
   protected Order(String custFName, String custLName, String custEmail, int orderID,
-      Timestamp creationTimestamp, double totalDue, String status, String salesFName,
+      Timestamp creationDate, double totalDue, String status, String salesFName,
       String salesLName,
       String salesEmail) {
     this.custFName = custFName;
     this.custLName = custLName;
     this.custEmail = custEmail;
     this.orderID = orderID;
-    this.creationTimestamp = creationTimestamp;
+    this.creationDate = creationDate;
     this.totalDue = totalDue;
     this.status = status;
     this.salesFName = salesFName;
@@ -145,12 +145,12 @@ public class Order {
     this.orderID = orderID;
   }
 
-  public Timestamp getCreationTimestamp() {
-    return creationTimestamp;
+  public Timestamp getCreationDate() {
+    return creationDate;
   }
 
-  public void setCreationTimestamp(Timestamp creationTimestamp) {
-    this.creationTimestamp = creationTimestamp;
+  public void setCreationDate(Timestamp creationDate) {
+    this.creationDate = creationDate;
   }
 
   public double getTotalDue() {
@@ -204,7 +204,7 @@ public class Order {
         + ", custLName='" + custLName + '\''
         + ", custEmail='" + custEmail + '\''
         + ", orderID=" + orderID
-        + ", creationTimestamp='" + creationTimestamp + '\''
+        + ", creationDate='" + creationDate + '\''
         + ", totalDue=" + totalDue
         + ", status='" + status + '\''
         + ", salesFName='" + salesFName + '\''
