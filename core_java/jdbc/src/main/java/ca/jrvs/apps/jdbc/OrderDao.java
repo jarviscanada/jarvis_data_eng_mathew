@@ -1,6 +1,7 @@
 package ca.jrvs.apps.jdbc;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +30,7 @@ public class OrderDao {
    */
   public Order findById(int orderID, Connection conn) {
     String statement = "select  c.first_name, c.last_name, c.email, "
-        + "o.order_id, o.creation_date, o.total_due, o.status, "
+        + "o.order_id, o.creation_Timestamp, o.total_due, o.status, "
         + "s.first_name, s.last_name, s.email, "
         + "ol.quantity, "
         + "p.code, p.name, p.size, p.variety, p.price "
@@ -59,38 +60,26 @@ public class OrderDao {
    * @return a filled-in Order object.
    */
   private Order processResults(ResultSet results) {
-    Order order;
-    String custFName;
-    String custLName;
-    String custEmail;
-    String creationDate;
-    String status;
-    String salesFName;
-    String salesLName;
-    String salesEmail;
+    int quantity;
     String prodCode;
     String prodName;
-    String prodVariety;
-    int orderID;
-    int quantity;
     int prodSize;
+    String prodVariety;
     double prodPrice;
-    double totalDue;
+    Order order = new Order();
+
     try {
       if (results.next()) {
-        custFName = results.getString(1);
-        custLName = results.getString(2);
-        custEmail = results.getString(3);
-        orderID = results.getInt(4);
-        creationDate = results.getString(5);
-        totalDue = results.getDouble(6);
-        status = results.getString(7);
-        salesFName = results.getString(8);
-        salesLName = results.getString(9);
-        salesEmail = results.getString(10);
-
-        order = new Order(custFName, custLName, custEmail, orderID, creationDate, totalDue, status,
-            salesFName, salesLName, salesEmail);
+        order.setCustFName(results.getString(1));
+        order.setCustLName(results.getString(2));
+        order.setCustEmail(results.getString(3));
+        order.setOrderID(results.getInt(4));
+        order.setCreationTimestamp(Timestamp.valueOf(results.getString(5)));
+        order.setTotalDue(results.getDouble(6));
+        order.setStatus(results.getString(7));
+        order.setSalesFName(results.getString(8));
+        order.setSalesLName(results.getString(9));
+        order.setSalesEmail(results.getString(10));
 
         do {
           quantity = results.getInt(11);
@@ -104,6 +93,7 @@ public class OrderDao {
         return order;
       }
     } catch (SQLException sqlex) {
+      daoLogger.error(MarkerFactory.getMarker("SQL"), "SQL Results processing failed.");
       daoLogger.error(MarkerFactory.getMarker("SQL"), sqlex.getMessage());
     }
     return null;

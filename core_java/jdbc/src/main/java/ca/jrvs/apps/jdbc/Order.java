@@ -1,5 +1,6 @@
 package ca.jrvs.apps.jdbc;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *   <li>customer's last name</li>
  *   <li>customer's email</li>
  *   <li>order's order ID</li>
- *   <li>order's creation date</li>
+ *   <li>order's creation Timestamp</li>
  *   <li>order's amount due</li>
  *   <li>order's status</li>
  *   <li>salesperson's first name</li>
@@ -31,7 +32,7 @@ public class Order {
   protected static final String DB_CUSTLNAME = "c.last_name";
   protected static final String DB_CUSTEMAIL = "c.email";
   protected static final String DB_ORDERID = "o.order_id";
-  protected static final String DB_CREATIONDATE = "o.creation_date";
+  protected static final String DB_CREATIONTimestamp = "o.creation_Timestamp";
   protected static final String DB_TOTALDUE = "o.total_due";
   protected static final String DB_STATUS = "o.status";
   protected static final String DB_SALESFNAME = "s.first_name";
@@ -42,7 +43,7 @@ public class Order {
   private String custLName;
   private String custEmail;
   private int orderID;
-  private String creationDate;
+  private Timestamp creationTimestamp;
   private double totalDue;
   private String status;
   private String salesFName;
@@ -57,13 +58,13 @@ public class Order {
 
   // Constructor that builds most of the order. The ordered products must be added with AddOrderItem
   protected Order(String custFName, String custLName, String custEmail, int orderID,
-      String creationDate, double totalDue, String status, String salesFName, String salesLName,
+      Timestamp creationTimestamp, double totalDue, String status, String salesFName, String salesLName,
       String salesEmail) {
     this.custFName = custFName;
     this.custLName = custLName;
     this.custEmail = custEmail;
     this.orderID = orderID;
-    this.creationDate = creationDate;
+    this.creationTimestamp = creationTimestamp;
     this.totalDue = totalDue;
     this.status = status;
     this.salesFName = salesFName;
@@ -72,17 +73,16 @@ public class Order {
     products = new ArrayList<>();
   }
 
-  private static class OrderedProduct {
+  protected static class OrderedProduct {
 
     int quantity;
-
     String prodCode;
     String prodName;
     int prodSize;
     String prodVariety;
     double prodPrice;
-    // Inner class OrderedProduct represents a set of Product information and quantity ordered.
 
+    // Inner class OrderedProduct represents a set of Product information and quantity ordered.
     OrderedProduct(int quantity, String prodCode, String prodName, int prodSize, String prodVariety,
         double prodPrice) {
       this.quantity = quantity;
@@ -144,12 +144,12 @@ public class Order {
     this.orderID = orderID;
   }
 
-  public String getCreationDate() {
-    return creationDate;
+  public Timestamp getCreationTimestamp() {
+    return creationTimestamp;
   }
 
-  public void setCreationDate(String creationDate) {
-    this.creationDate = creationDate;
+  public void setCreationTimestamp(Timestamp creationTimestamp) {
+    this.creationTimestamp = creationTimestamp;
   }
 
   public double getTotalDue() {
@@ -203,7 +203,7 @@ public class Order {
         + ", custLName='" + custLName + '\''
         + ", custEmail='" + custEmail + '\''
         + ", orderID=" + orderID
-        + ", creationDate='" + creationDate + '\''
+        + ", creationTimestamp='" + creationTimestamp + '\''
         + ", totalDue=" + totalDue
         + ", status='" + status + '\''
         + ", salesFName='" + salesFName + '\''
