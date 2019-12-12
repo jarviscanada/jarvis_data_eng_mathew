@@ -58,7 +58,8 @@ public class Order {
 
   // Constructor that builds most of the order. The ordered products must be added with AddOrderItem
   protected Order(String custFName, String custLName, String custEmail, int orderID,
-      Timestamp creationTimestamp, double totalDue, String status, String salesFName, String salesLName,
+      Timestamp creationTimestamp, double totalDue, String status, String salesFName,
+      String salesLName,
       String salesEmail) {
     this.custFName = custFName;
     this.custLName = custLName;
