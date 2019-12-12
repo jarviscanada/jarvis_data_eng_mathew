@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MarkerFactory;
 
 /**
- * A Data Access Object for looking up information about an order and the products ordered.
- * Orders are searched by Order ID, and the caller must supply a SQL Connection.
+ * A Data Access Object for looking up information about an order and the products ordered. Orders
+ * are searched by Order ID, and the caller must supply a SQL Connection.
  */
 public class OrderDao {
 
@@ -22,8 +22,9 @@ public class OrderDao {
 
   /**
    * Using the supplied connection, queries the database for information about the given Order ID.
+   *
    * @param orderID An int. The Order ID we want to look up
-   * @param conn an active SQL Connection
+   * @param conn    an active SQL Connection
    * @return An order object if we were able to retrieve an order, otherwise null
    */
   public Order findById(int orderID, Connection conn) {
@@ -45,7 +46,7 @@ public class OrderDao {
       ResultSet results = ps.executeQuery();
       return processResults(results);
     } catch (SQLException sqlex) {
-      daoLogger.error(MarkerFactory.getMarker("SQL"), sqlex.getSQLState());
+      daoLogger.error(MarkerFactory.getMarker("SQL"), sqlex.getMessage());
     }
     return null;
   }
@@ -53,6 +54,7 @@ public class OrderDao {
   /**
    * Parses the result set into variables for creating a new order. Since an order can have one or
    * more products, an Order lookup can contain multiple rows with different product information
+   *
    * @param results the ResultSet of our order lookup
    * @return a filled-in Order object.
    */
@@ -102,7 +104,7 @@ public class OrderDao {
         return order;
       }
     } catch (SQLException sqlex) {
-      daoLogger.error(MarkerFactory.getMarker("SQL"), sqlex.getSQLState());
+      daoLogger.error(MarkerFactory.getMarker("SQL"), sqlex.getMessage());
     }
     return null;
   }

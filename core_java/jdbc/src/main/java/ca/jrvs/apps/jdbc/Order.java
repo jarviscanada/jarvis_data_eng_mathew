@@ -27,16 +27,16 @@ import java.util.List;
  */
 public class Order {
 
-  protected static final String db_custFName = "c.first_name";
-  protected static final String db_custLName = "c.last_name";
-  protected static final String db_custEmail = "c.email";
-  protected static final String db_orderID = "o.order_id";
-  protected static final String db_creationDate = "o.creation_date";
-  protected static final String db_totalDue = "o.total_due";
-  protected static final String db_status = "o.status";
-  protected static final String db_salesFName = "s.first_name";
-  protected static final String db_salesLName = "s.last_name";
-  protected static final String db_salesEmail = "s.email";
+  protected static final String DB_CUSTFNAME = "c.first_name";
+  protected static final String DB_CUSTLNAME = "c.last_name";
+  protected static final String DB_CUSTEMAIL = "c.email";
+  protected static final String DB_ORDERID = "o.order_id";
+  protected static final String DB_CREATIONDATE = "o.creation_date";
+  protected static final String DB_TOTALDUE = "o.total_due";
+  protected static final String DB_STATUS = "o.status";
+  protected static final String DB_SALESFNAME = "s.first_name";
+  protected static final String DB_SALESLNAME = "s.last_name";
+  protected static final String DB_SALESEMAIL = "s.email";
 
   private String custFName;
   private String custLName;
@@ -55,6 +55,7 @@ public class Order {
     products = new ArrayList<>();
   }
 
+  // Constructor that builds most of the order. The ordered products must be added with AddOrderItem
   protected Order(String custFName, String custLName, String custEmail, int orderID,
       String creationDate, double totalDue, String status, String salesFName, String salesLName,
       String salesEmail) {
@@ -74,13 +75,14 @@ public class Order {
   private static class OrderedProduct {
 
     int quantity;
+
     String prodCode;
     String prodName;
     int prodSize;
     String prodVariety;
     double prodPrice;
-
     // Inner class OrderedProduct represents a set of Product information and quantity ordered.
+
     OrderedProduct(int quantity, String prodCode, String prodName, int prodSize, String prodVariety,
         double prodPrice) {
       this.quantity = quantity;
@@ -108,6 +110,90 @@ public class Order {
       String prodVariety, double prodPrice) {
     products.add(new OrderedProduct(quantity, prodCode, prodName, prodSize, prodVariety,
         prodPrice));
+  }
+
+  public String getCustFName() {
+    return custFName;
+  }
+
+  public void setCustFName(String custFName) {
+    this.custFName = custFName;
+  }
+
+  public String getCustLName() {
+    return custLName;
+  }
+
+  public void setCustLName(String custLName) {
+    this.custLName = custLName;
+  }
+
+  public String getCustEmail() {
+    return custEmail;
+  }
+
+  public void setCustEmail(String custEmail) {
+    this.custEmail = custEmail;
+  }
+
+  public int getOrderID() {
+    return orderID;
+  }
+
+  public void setOrderID(int orderID) {
+    this.orderID = orderID;
+  }
+
+  public String getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(String creationDate) {
+    this.creationDate = creationDate;
+  }
+
+  public double getTotalDue() {
+    return totalDue;
+  }
+
+  public void setTotalDue(double totalDue) {
+    this.totalDue = totalDue;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public String getSalesFName() {
+    return salesFName;
+  }
+
+  public void setSalesFName(String salesFName) {
+    this.salesFName = salesFName;
+  }
+
+  public String getSalesLName() {
+    return salesLName;
+  }
+
+  public void setSalesLName(String salesLName) {
+    this.salesLName = salesLName;
+  }
+
+  public String getSalesEmail() {
+    return salesEmail;
+  }
+
+  public void setSalesEmail(String salesEmail) {
+    this.salesEmail = salesEmail;
+  }
+
+  public List<OrderedProduct> getOrderedItems() {
+    return products;
   }
 
   @Override
