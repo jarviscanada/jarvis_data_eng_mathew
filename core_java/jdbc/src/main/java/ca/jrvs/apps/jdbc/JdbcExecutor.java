@@ -10,10 +10,12 @@ public class JdbcExecutor {
 
   OrderDao orderDB;
   Logger jdbcLogger;
+  private static final String PG_USER = System.getenv("PGUSER");
+  private static final String PG_PASS = System.getenv("PGPASS");
 
   public JdbcExecutor() {
-    DataSource ds = setupDataSource("jdbc:postgresql://localhost/hplussport", "postgres",
-        "password");
+    DataSource ds = setupDataSource("jdbc:postgresql://localhost/hplussport", PG_USER,
+        PG_PASS);
     Order order = null;
     jdbcLogger = LoggerFactory.getLogger(JdbcExecutor.class);
     orderDB = new OrderDao();
