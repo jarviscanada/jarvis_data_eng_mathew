@@ -12,7 +12,7 @@ import java.util.List;
  *   <li>customer's last name</li>
  *   <li>customer's email</li>
  *   <li>order's order ID</li>
- *   <li>order's creation Timestamp</li>
+ *   <li>order's creation date</li>
  *   <li>order's amount due</li>
  *   <li>order's status</li>
  *   <li>salesperson's first name</li>
