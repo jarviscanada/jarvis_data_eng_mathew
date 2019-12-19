@@ -3,11 +3,9 @@ package ca.jrvs.apps.twitter.service;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
 import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
-import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalMatchers;
@@ -31,11 +29,11 @@ public class TwitterServiceUnitTest {
   Tweet badGeoTweet;
   long testId = 123456789123L;
   String testStrId = "123456789123";
-  String[] testFields = {"idStr","text","location"};
+  String[] testFields = {"idStr", "text", "location"};
 
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     GeoLoc goodLoc = new GeoLoc();
     GeoLoc badLoc = new GeoLoc();
     goodLoc.setCoordinates(new float[]{-42.1235F, 111.111F});
@@ -78,31 +76,28 @@ public class TwitterServiceUnitTest {
     Mockito.when(mockDao.findById(testId)).thenReturn(goodTweet);
     // Good test, no fields to filter out
     Tweet returnedTweet = testService.showTweet(testStrId, new String[0]);
-    System.out.println(returnedTweet.toString());
     Assert.assertEquals(testStrId, returnedTweet.getIdStr());
 
     // Good test, filter fields
     returnedTweet = testService.showTweet(testStrId, testFields);
-    System.out.println(returnedTweet.toString());
     Assert.assertNull(returnedTweet.getEntities());
   }
 
   // Sad tests, illegal argument testing
   @Test(expected = IllegalArgumentException.class)
-  public void showTweet_IllegalId(){
+  public void showTweet_IllegalId() {
     Mockito.when(mockDao.findById(testId)).thenReturn(goodTweet);
     Mockito.when(mockDao.findById(AdditionalMatchers.not(Mockito.eq(testId))))
         .thenThrow(IllegalArgumentException.class);
     // Tweet doesn't exist test, no fields to test
-    Tweet returnedTweet = testService.showTweet("1111111111", new String[0]);
+    testService.showTweet("1111111111", new String[0]);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void showTweet_IllegalField(){
+  public void showTweet_IllegalField() {
     Mockito.when(mockDao.findById(testId)).thenReturn(goodTweet);
     // Field to filter for doesn't exist in the Tweet object.
-    Tweet returnedTweet = testService
-        .showTweet(testStrId, new String[]{"This field doesn't exist"});
+    testService.showTweet(testStrId, new String[]{"This field doesn't exist"});
   }
 
   @Test
@@ -114,12 +109,12 @@ public class TwitterServiceUnitTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void deleteTweets_MalformedId(){
+  public void deleteTweets_MalformedId() {
     testService.deleteTweets(new String[]{"This will throw IllegalArgument"});
   }
 
   @Test
-  public void deleteTweets_GoodAndBad(){
+  public void deleteTweets_GoodAndBad() {
     List<Tweet> deletedTweets;
     Mockito.when(mockDao.deleteById(testId)).thenReturn(goodTweet);
     Mockito.when(mockDao.deleteById(AdditionalMatchers.not(Mockito.eq(testId))))

@@ -40,8 +40,8 @@ public class TwitterService implements Service {
   public Tweet postTweet(Tweet tweet) throws IllegalArgumentException {
     String tweetText = tweet.getText();
     float[] coords = tweet.getLocation().getCoordinates();
-    float latitude = coords[0];
-    float longtitude = coords[1];
+    float latitude = coords[1];
+    float longtitude = coords[0];
 
     try {
       if (validatePost(tweetText, latitude, longtitude)) {
@@ -94,9 +94,9 @@ public class TwitterService implements Service {
       for (String field : fields) {
         Method getter = null;
         Method setter = null;
-        field = field.substring(0,1).toUpperCase() + field.substring(1);
-        for (Method m :tweetMethods){
-          if (m.getName().equals("get" + field)){
+        field = field.substring(0, 1).toUpperCase() + field.substring(1);
+        for (Method m : tweetMethods) {
+          if (m.getName().equals("get" + field)) {
             getter = m;
           }
           if (m.getName().equals("set" + field)) {
@@ -111,7 +111,7 @@ public class TwitterService implements Service {
             }
           }
         }
-        if (getter == null || setter == null){
+        if (getter == null || setter == null) {
           throw new IllegalArgumentException("The field " + field + " does not exist");
         }
       }
@@ -140,6 +140,9 @@ public class TwitterService implements Service {
       try {
         deletedTweets.add(dao.deleteById(idNum));
       } catch (IllegalArgumentException ignored) {
+        // TwitterDao.deleteByID() throws IllegalArgumentException if we can't delete a tweet with
+        // a given ID, we cant to continue attempting to delete tweets if this happens.
+        // May add a logging line here later.
       }
     }
     return deletedTweets;
