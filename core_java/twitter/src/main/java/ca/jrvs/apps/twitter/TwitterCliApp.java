@@ -54,7 +54,7 @@ public class TwitterCliApp {
   public static void main(String[] args) {
     if (args.length < 2) {
       throw new IllegalArgumentException("Not enough arguments.\n"
-          + "Expected: TwitterCLIApp post|show|delete [arguments]");
+          + "Usage: TwitterCLIApp post|show|delete [arguments]");
     } else {
       String command = args[0].toLowerCase();
       String[] commandArgs = Arrays.copyOfRange(args, 1, args.length);

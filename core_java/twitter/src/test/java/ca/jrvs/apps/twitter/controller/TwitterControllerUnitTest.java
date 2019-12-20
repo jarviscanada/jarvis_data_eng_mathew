@@ -1,6 +1,9 @@
 package ca.jrvs.apps.twitter.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
@@ -12,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,7 +39,7 @@ public class TwitterControllerUnitTest {
 
   @Test
   public void postTweet() {
-    Mockito.when(mockService.postTweet(Mockito.any())).thenReturn(goodTweet);
+    when(mockService.postTweet(any())).thenReturn(goodTweet);
     String[] textOnly = {"This is some tweet text"};
     String[] textWithGeo = {"This tweet has geo", "123", "-32.58"};
 
@@ -62,13 +64,13 @@ public class TwitterControllerUnitTest {
 
   @Test
   public void showTweet() {
-    Mockito.when(mockService.showTweet(Mockito.any(), Mockito.any())).thenReturn(goodTweet);
+    when(mockService.showTweet(any(), any())).thenReturn(goodTweet);
     assertNotNull(testController.showTweet(new String[]{"123456789"}));
   }
 
   @Test
   public void showTweet_WithFilters() {
-    Mockito.when(mockService.showTweet(Mockito.any(), Mockito.any())).thenReturn(goodTweet);
+    when(mockService.showTweet(any(), any())).thenReturn(goodTweet);
     assertNotNull(testController.showTweet(new String[]{"123456789", "id", "idStr", "text"}));
   }
 
@@ -81,7 +83,7 @@ public class TwitterControllerUnitTest {
   public void deleteTweet() {
     List<Tweet> tweetList = new ArrayList<>();
     tweetList.add(goodTweet);
-    Mockito.when(mockService.deleteTweets(Mockito.any())).thenReturn(tweetList);
+    when(mockService.deleteTweets(any())).thenReturn(tweetList);
     tweetList = testController.deleteTweet(new String[]{"1234567891"});
     assertFalse(tweetList.isEmpty());
   }

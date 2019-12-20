@@ -1,6 +1,7 @@
 package ca.jrvs.apps.twitter.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import ca.jrvs.apps.twitter.model.Tweet;
 import java.time.Instant;
@@ -14,7 +15,7 @@ public class TwitterControllerIntTest {
   String tweetIdStr;
 
   @BeforeClass
-  public static void setUp(){
+  public static void setUp() {
     controller = new TwitterController();
   }
 
@@ -30,8 +31,8 @@ public class TwitterControllerIntTest {
     controller.deleteTweet(new String[]{tweetNoGeo.getIdStr(), tweetWithGeo.getIdStr()});
   }
 
-  public void postTweetForTests(){
-    Tweet testTweet = controller.postTweet(new String[] {"Test tweet at " + Instant.now()});
+  public void postTweetForTests() {
+    Tweet testTweet = controller.postTweet(new String[]{"Test tweet at " + Instant.now()});
     tweetId = testTweet.getId();
     tweetIdStr = testTweet.getIdStr();
   }
@@ -41,7 +42,7 @@ public class TwitterControllerIntTest {
     String[] filterArgs;
     Tweet testTweet;
     postTweetForTests();
-    filterArgs = new String[]{tweetIdStr, "id","idStr"};
+    filterArgs = new String[]{tweetIdStr, "id", "idStr"};
 
     testTweet = controller.showTweet(new String[]{tweetIdStr});
     assertNotNull(testTweet);

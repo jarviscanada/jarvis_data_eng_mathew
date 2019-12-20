@@ -44,7 +44,7 @@ public class TwitterController implements Controller {
         tweetToPost.setLocation(location);
       } catch (NumberFormatException nfex) {
         throw new IllegalArgumentException(
-            "Second and third arguments must be floating-point numbers");
+            "Second and third arguments must be Longitude and Latitude");
       }
     } else if (args.length == 2 || args.length > 3) {
       throw new IllegalArgumentException("Incorrect number of args given. Expected 1 or 3");
