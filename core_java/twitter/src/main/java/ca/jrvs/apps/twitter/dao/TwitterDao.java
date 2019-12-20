@@ -81,7 +81,8 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
       return JsonUtil.toObject(EntityUtils.toString(httpHelper.httpGet(find).getEntity()),
           Tweet.class);
     } catch (IOException ex) {
-      throw new RuntimeException(ex.getMessage());
+      throw new IllegalArgumentException("Tweet does not exist, or you may not have permission to "
+          + "view it\nID: " + tweetId);
     }
   }
 
@@ -103,7 +104,8 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
       return JsonUtil
           .toObject(EntityUtils.toString(httpHelper.httpPost(delete).getEntity()), Tweet.class);
     } catch (IOException ex) {
-      throw new RuntimeException(ex.getMessage());
+      throw new IllegalArgumentException("You are not allowed to delete this tweet, or it doesn't "
+          + "exist.\nID: " + tweetId);
     }
   }
 }

@@ -76,6 +76,12 @@ public class TwitterHttpHelper implements HttpHelper {
     String status = tweet.getText();
     List<BasicNameValuePair> nvps = new ArrayList<>();
     nvps.add(new BasicNameValuePair("status", status));
+    if (tweet.getLocation() != null) {
+      float longitude = tweet.getLocation().getCoordinates()[0];
+      float latitude = tweet.getLocation().getCoordinates()[1];
+      nvps.add(new BasicNameValuePair("lat", Float.toString(latitude)));
+      nvps.add(new BasicNameValuePair("long", Float.toString(longitude)));
+    }
     try {
       post.setEntity(new UrlEncodedFormEntity(nvps));
     } catch (UnsupportedEncodingException ueex) {
