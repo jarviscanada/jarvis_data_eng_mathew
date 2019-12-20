@@ -2,6 +2,7 @@ package ca.jrvs.apps.twitter.utils;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 
 public class JsonUtil {
@@ -33,6 +34,23 @@ public class JsonUtil {
    */
   public static <T> String toJson(T obj) {
     ObjectMapper objMap = new ObjectMapper();
+    try {
+      return objMap.writeValueAsString(obj);
+    } catch (IOException ex) {
+      throw new RuntimeException(ex.getMessage());
+    }
+  }
+
+  /**
+   * Converts an object into a pretty JSON String
+   *
+   * @param obj the object to convert to JSON
+   * @param <T> The object's class
+   * @return a Pretty JSON String
+   */
+  public static <T> String toPrettyJson(T obj) {
+    ObjectMapper objMap = new ObjectMapper();
+    objMap.enable(SerializationFeature.INDENT_OUTPUT);
     try {
       return objMap.writeValueAsString(obj);
     } catch (IOException ex) {
