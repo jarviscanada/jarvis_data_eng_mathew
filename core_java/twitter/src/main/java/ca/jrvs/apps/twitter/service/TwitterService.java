@@ -1,6 +1,7 @@
 package ca.jrvs.apps.twitter.service;
 
 import ca.jrvs.apps.twitter.dao.TwitterDao;
+import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -39,21 +40,32 @@ public class TwitterService implements Service {
   @Override
   public Tweet postTweet(Tweet tweet) throws IllegalArgumentException {
     String tweetText = tweet.getText();
-    float[] coords = tweet.getLocation().getCoordinates();
-    float latitude = coords[1];
-    float longtitude = coords[0];
+    GeoLoc coords = tweet.getLocation();
+    float latitude;
+    float longitude;
+    boolean validCoords = false;
+    boolean hasCoords = false;
+    boolean validText = false;
 
-    try {
-      if (validatePost(tweetText, latitude, longtitude)) {
+    validText = validateText(tweetText);
+    if (coords != null) {
+      longitude = coords.getCoordinates()[0];
+      latitude = coords.getCoordinates()[1];
+      hasCoords = true;
+      validCoords = validateCoordinates(latitude, longitude);
+    }
+
+    if (validText) {
+      if (hasCoords && validCoords) {
+        return dao.create(tweet);
+      } else if (!hasCoords) {
         return dao.create(tweet);
       }
-    } catch (IllegalArgumentException iaex) {
-      LoggerFactory.getLogger(TwitterService.class).error(iaex.getMessage());
     }
     return null;
   }
 
-  private boolean validatePost(String tweetText, float latitude, float longtitude) {
+  private boolean validateText(String tweetText) {
     // Lazy length check. Twitter shortens URLs so actual tweet length may be shorter than this.
     // Due to UTF8 encoding quirks, Normalizing the tweet text may change its length, Twitter uses
     // NFC normalization before checking tweet length, so we do that too.
@@ -61,8 +73,12 @@ public class TwitterService implements Service {
     if (tweetText.length() > 280) {
       throw new IllegalArgumentException("Tweet text exceeds 280 characters");
     }
+    return true;
+  }
+
+  private boolean validateCoordinates(float latitude, float longitude) {
     // Geolocation check. Lat is +- 90, Long is +- 180
-    if (Math.abs(latitude) > 90 || Math.abs(longtitude) > 180) {
+    if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180) {
       throw new IllegalArgumentException("Coordinates are invalid");
     }
     return true;
