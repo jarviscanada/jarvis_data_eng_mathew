@@ -21,9 +21,9 @@ public class TwitterController implements Controller {
   }
 
   /**
-   * Parse user argument and post a tweet by calling service classes
+   * Parse user argument and post a tweet by calling service classes.
    *
-   * @param args
+   * @param args Post contents and optionally a longitude and latitude
    * @return a posted tweet
    * @throws IllegalArgumentException if args are invalid
    */
@@ -53,9 +53,9 @@ public class TwitterController implements Controller {
   }
 
   /**
-   * Parse user argument and search a tweet by calling service classes
+   * Parse user argument and search a tweet by calling service classes.
    *
-   * @param args
+   * @param args A Tweet ID and optionally fields to include in the response
    * @return a tweet
    * @throws IllegalArgumentException if args are invalid
    */
@@ -75,9 +75,9 @@ public class TwitterController implements Controller {
   }
 
   /**
-   * Parse user argument and delete tweets by calling service classes
+   * Parse user argument and delete tweets by calling service classes.
    *
-   * @param args
+   * @param args one or more tweet IDs
    * @return a list of deleted tweets
    * @throws IllegalArgumentException if args are invalid
    */

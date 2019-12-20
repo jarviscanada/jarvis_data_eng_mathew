@@ -41,7 +41,14 @@ public class JsonUtil {
     }
   }
 
-  public static <T> String toPrettyJson(T obj){
+  /**
+   * Converts an object into a pretty JSON String
+   *
+   * @param obj the object to convert to JSON
+   * @param <T> The object's class
+   * @return a Pretty JSON String
+   */
+  public static <T> String toPrettyJson(T obj) {
     ObjectMapper objMap = new ObjectMapper();
     objMap.enable(SerializationFeature.INDENT_OUTPUT);
     try {

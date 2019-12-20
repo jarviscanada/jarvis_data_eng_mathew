@@ -5,14 +5,21 @@ import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.utils.JsonUtil;
 import java.util.Arrays;
 
-public class TwitterCLIApp {
+public class TwitterCliApp {
 
   private TwitterController controller;
 
-  public TwitterCLIApp() {
+  public TwitterCliApp() {
     controller = new TwitterController();
   }
 
+  /**
+   * Main driver method of the TwitterCLIApp. Calls the controller based on the command received and
+   * pretty-prints the results as a JSON document
+   *
+   * @param command The command the app should perform, post | show | delete
+   * @param args    The arguments to be used with the command.
+   */
   public void run(String command, String[] args) {
     switch (command) {
       case "post":
@@ -24,6 +31,7 @@ public class TwitterCLIApp {
       case "delete":
         deleteTweet(args);
         break;
+      default:
     }
   }
 
@@ -50,7 +58,7 @@ public class TwitterCLIApp {
     } else {
       String command = args[0].toLowerCase();
       String[] commandArgs = Arrays.copyOfRange(args, 1, args.length);
-      new TwitterCLIApp().run(command, commandArgs);
+      new TwitterCliApp().run(command, commandArgs);
     }
   }
 }
