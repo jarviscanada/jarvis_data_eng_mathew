@@ -1,5 +1,6 @@
 package ca.jrvs.apps.twitter.service;
 
+import ca.jrvs.apps.twitter.dao.CrdDao;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
 import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TwitterService implements Service {
 
-  private TwitterDao dao;
+  private CrdDao<Tweet, Long> dao;
 
   //Default Constructor
   public TwitterService() {
@@ -25,7 +26,7 @@ public class TwitterService implements Service {
   }
 
   //Alternative constructor for providing a custom TwitterDao
-  public TwitterService(TwitterDao dao) {
+  public TwitterService(CrdDao<Tweet, Long> dao) {
     this.dao = dao;
   }
 

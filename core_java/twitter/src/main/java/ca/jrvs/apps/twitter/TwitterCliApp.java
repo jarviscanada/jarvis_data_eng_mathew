@@ -1,5 +1,6 @@
 package ca.jrvs.apps.twitter;
 
+import ca.jrvs.apps.twitter.controller.Controller;
 import ca.jrvs.apps.twitter.controller.TwitterController;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.utils.JsonUtil;
@@ -7,10 +8,14 @@ import java.util.Arrays;
 
 public class TwitterCliApp {
 
-  private TwitterController controller;
+  private Controller controller;
 
   public TwitterCliApp() {
     controller = new TwitterController();
+  }
+
+  public TwitterCliApp(Controller twitterController) {
+    controller = twitterController;
   }
 
   /**
