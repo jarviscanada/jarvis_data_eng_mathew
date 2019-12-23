@@ -15,7 +15,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@org.springframework.stereotype.Repository
 public class TwitterDao implements CrdDao<Tweet, Long> {
 
   private static final String BASE_URL = "https://api.twitter.com/1.1/";
@@ -43,6 +46,7 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
    *
    * @param helper a TwitterHttpHelper
    */
+  @Autowired
   public TwitterDao(HttpHelper helper) {
     httpHelper = helper;
   }

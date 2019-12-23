@@ -14,7 +14,9 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TwitterHttpHelper implements HttpHelper {
 
   private final String CONSUMER_KEY;
@@ -24,6 +26,18 @@ public class TwitterHttpHelper implements HttpHelper {
   private OAuthConsumer oac;
   private HttpClient client;
   private Logger httpLogger;
+
+  // Default Constructor
+  public TwitterHttpHelper() {
+    CONSUMER_KEY = System.getenv("CONSUMER_TOKEN");
+    CONSUMER_SECRET = System.getenv("CONSUMER_SECRET");
+    ACCESS_KEY = System.getenv("ACCESS_TOKEN");
+    ACCESS_SECRET = System.getenv("ACCESS_SECRET");
+    httpLogger = LoggerFactory.getLogger(TwitterHttpHelper.class);
+    oac = new CommonsHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
+    oac.setTokenWithSecret(ACCESS_KEY, ACCESS_SECRET);
+    client = HttpClientBuilder.create().build();
+  }
 
   /**
    * Constructor for TwitterHttpHelper. The OAuth keys must be supplied for Signpost

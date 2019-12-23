@@ -11,11 +11,13 @@ import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * TwitterService contains validation and some additional processing of Tweets being made through
  * TwitterCLI.
  */
+@org.springframework.stereotype.Service
 public class TwitterService implements Service {
 
   private CrdDao<Tweet, Long> dao;
@@ -26,6 +28,7 @@ public class TwitterService implements Service {
   }
 
   //Alternative constructor for providing a custom TwitterDao
+  @Autowired
   public TwitterService(CrdDao<Tweet, Long> dao) {
     this.dao = dao;
   }
