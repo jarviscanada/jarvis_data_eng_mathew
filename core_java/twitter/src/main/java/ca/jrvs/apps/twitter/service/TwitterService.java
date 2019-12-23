@@ -56,9 +56,9 @@ public class TwitterService implements Service {
     }
 
     if (validText) {
-      if (hasCoords && validCoords) {
-        return dao.create(tweet);
-      } else if (!hasCoords) {
+      if (hasCoords && !validCoords) {
+        throw new IllegalArgumentException("Coordinates included, but are invalid");
+      } else {
         return dao.create(tweet);
       }
     }
@@ -78,10 +78,7 @@ public class TwitterService implements Service {
 
   private boolean validateCoordinates(float latitude, float longitude) {
     // Geolocation check. Lat is +- 90, Long is +- 180
-    if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180) {
-      throw new IllegalArgumentException("Coordinates are invalid");
-    }
-    return true;
+    return !(Math.abs(latitude) > 90) && !(Math.abs(longitude) > 180);
   }
 
   /**
