@@ -6,7 +6,9 @@ import ca.jrvs.apps.twitter.service.Service;
 import ca.jrvs.apps.twitter.service.TwitterService;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
+@org.springframework.stereotype.Controller
 public class TwitterController implements Controller {
 
   private Service twitterService;
@@ -17,6 +19,7 @@ public class TwitterController implements Controller {
   }
 
   // Alternate constructor to provide your own TwitterService
+  @Autowired
   public TwitterController(Service twitterService) {
     this.twitterService = twitterService;
   }

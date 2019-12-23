@@ -5,7 +5,10 @@ import ca.jrvs.apps.twitter.controller.TwitterController;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.utils.JsonUtil;
 import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TwitterCliApp {
 
   private Controller controller;
@@ -14,6 +17,7 @@ public class TwitterCliApp {
     controller = new TwitterController();
   }
 
+  @Autowired
   public TwitterCliApp(Controller twitterController) {
     controller = twitterController;
   }
