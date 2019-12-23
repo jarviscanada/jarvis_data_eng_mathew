@@ -2,13 +2,14 @@ package ca.jrvs.apps.twitter.controller;
 
 import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
+import ca.jrvs.apps.twitter.service.Service;
 import ca.jrvs.apps.twitter.service.TwitterService;
 import java.util.Arrays;
 import java.util.List;
 
 public class TwitterController implements Controller {
 
-  private TwitterService twitterService;
+  private Service twitterService;
 
   // Default constructor
   public TwitterController() {
@@ -16,7 +17,7 @@ public class TwitterController implements Controller {
   }
 
   // Alternate constructor to provide your own TwitterService
-  public TwitterController(TwitterService twitterService) {
+  public TwitterController(Service twitterService) {
     this.twitterService = twitterService;
   }
 

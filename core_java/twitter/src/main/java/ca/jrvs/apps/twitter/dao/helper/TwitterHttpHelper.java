@@ -1,23 +1,17 @@
 package ca.jrvs.apps.twitter.dao.helper;
 
-import ca.jrvs.apps.twitter.model.Tweet;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.exception.OAuthException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,33 +54,6 @@ public class TwitterHttpHelper implements HttpHelper {
   @Override
   public HttpResponse httpPost(URI uri) {
     HttpPost post = new HttpPost(uri);
-    return getResponse(post);
-  }
-
-  /**
-   * HttpPost overload method for attaching an object to the body of the POST request. The text of
-   * the passed Tweet object will be extracted and placed in the POST body.
-   *
-   * @param uri   Remote resource to access
-   * @param tweet An Tweet to attach to the request in JSON form
-   * @return Returns the HTTP response, or null if the request fails.
-   */
-  public HttpResponse httpPost(URI uri, Tweet tweet) throws RuntimeException {
-    HttpPost post = new HttpPost(uri);
-    String status = tweet.getText();
-    List<BasicNameValuePair> nvps = new ArrayList<>();
-    nvps.add(new BasicNameValuePair("status", status));
-    if (tweet.getLocation() != null) {
-      float longitude = tweet.getLocation().getCoordinates()[0];
-      float latitude = tweet.getLocation().getCoordinates()[1];
-      nvps.add(new BasicNameValuePair("lat", Float.toString(latitude)));
-      nvps.add(new BasicNameValuePair("long", Float.toString(longitude)));
-    }
-    try {
-      post.setEntity(new UrlEncodedFormEntity(nvps));
-    } catch (UnsupportedEncodingException ueex) {
-      throw new RuntimeException(ueex.getMessage());
-    }
     return getResponse(post);
   }
 

@@ -1,11 +1,15 @@
 package ca.jrvs.apps.twitter.dao;
 
+import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
+import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.utils.JsonUtil;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
@@ -20,7 +24,7 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
 
   private static final int HTTP_OK = 200;
 
-  private TwitterHttpHelper httpHelper;
+  private HttpHelper httpHelper;
   private Logger daoLogger = LoggerFactory.getLogger(TwitterDao.class);
 
   /**
@@ -38,7 +42,7 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
    *
    * @param helper a TwitterHttpHelper
    */
-  public TwitterDao(TwitterHttpHelper helper) {
+  public TwitterDao(HttpHelper helper) {
     httpHelper = helper;
   }
 
@@ -51,8 +55,17 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
   @Override
   public Tweet create(Tweet entity) {
     HttpResponse response;
+    String text = entity.getText();
+    GeoLoc location = entity.getLocation();
+    String urlParams = "?status=" + text;
+    if (location != null) {
+      float longitude = entity.getLocation().getCoordinates()[0];
+      float latitude = entity.getLocation().getCoordinates()[1];
+      urlParams += "&long=" + longitude + "&lat=" + latitude;
+    }
     try {
-      response = httpHelper.httpPost(new URI(POST_URL), entity);
+      response = httpHelper.httpPost(new URI(URLEncoder.encode(POST_URL + urlParams,
+          StandardCharsets.UTF_8.name())));
       return JsonUtil.toObject(EntityUtils.toString(response.getEntity()), Tweet.class);
     } catch (URISyntaxException uriex) {
       daoLogger.error("Malformed URI " + POST_URL);
