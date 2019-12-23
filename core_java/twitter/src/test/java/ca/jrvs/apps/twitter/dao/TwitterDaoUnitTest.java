@@ -5,6 +5,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
+import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -37,11 +38,14 @@ public class TwitterDaoUnitTest {
 
   @Before
   public void prepMocks() {
+    GeoLoc location = new GeoLoc();
+    location.setCoordinates(new float[]{12.589F, -111.14F});
     try {
       when(mockHttpResponse.getEntity()).thenReturn(new StringEntity(jsonString));
-      when(mockHttpHelper.httpPost(any(URI.class))).thenReturn(mockHttpResponse);
       when(mockHttpHelper.httpGet(any(URI.class))).thenReturn(mockHttpResponse);
       when(mockHttpHelper.httpPost(any(URI.class))).thenReturn(mockHttpResponse);
+      when(mockTweet.getText()).thenReturn("ThisisSomeText");
+      when(mockTweet.getLocation()).thenReturn(location);
     } catch (UnsupportedEncodingException ueex) {
       throw new RuntimeException(ueex.getMessage());
     }

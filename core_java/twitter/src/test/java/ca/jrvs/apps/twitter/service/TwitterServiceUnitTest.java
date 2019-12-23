@@ -35,40 +35,45 @@ public class TwitterServiceUnitTest {
   @Before
   public void setUp() {
     GeoLoc goodLoc = new GeoLoc();
-    GeoLoc badLoc = new GeoLoc();
-    goodLoc.setCoordinates(new float[]{-42.1235F, 111.111F});
-    badLoc.setCoordinates(new float[]{0.000F, 356.25471F});
+    goodLoc.setCoordinates(new float[]{-111.111F, 42.1235F});
     Mockito.when(goodTweet.getText()).thenReturn("This is a good tweet");
     Mockito.when(goodTweet.getLocation()).thenReturn(goodLoc);
     Mockito.when(goodTweet.getIdStr()).thenReturn("123456789123");
-    Mockito.when(goodTweet.getId()).thenReturn(123456789123L);
-    Mockito.when(badTextTweet.getText()).thenReturn("This tweet is way too long.@@@@@@@@@@@@@@@@@@@"
-        + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-        + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-        + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    Mockito.when(badTextTweet.getLocation()).thenReturn(goodLoc);
-    Mockito.when(badGeoTweet.getText()).thenReturn("This tweet has a bad geo-location");
-    Mockito.when(badGeoTweet.getLocation()).thenReturn(badLoc);
   }
 
   @Test
   public void postTweet() {
     Tweet resultTweet;
     Mockito.when(mockDao.create(goodTweet)).thenReturn(goodTweet);
-    Mockito.when(mockDao.create(badGeoTweet)).thenReturn(badGeoTweet);
-    Mockito.when(mockDao.create(badTextTweet)).thenReturn(badTextTweet);
-
     // Good test, Return should be not null
     resultTweet = testService.postTweet(goodTweet);
     Assert.assertNotNull(resultTweet);
+  }
 
-    // Bad Geo test, Return should be null
+  @Test(expected = IllegalArgumentException.class)
+  public void postTweet_BadGeo(){
+    Tweet resultTweet;
+    GeoLoc badLoc = new GeoLoc();
+    badLoc.setCoordinates(new float[]{0.000F, 356.25471F});
+    Mockito.when(badGeoTweet.getLocation()).thenReturn(badLoc);
+    Mockito.when(badGeoTweet.getText()).thenReturn("This tweet has a bad geo-location");
+
+    // Bad Geo test, Should throw IllegalArgumentException
     resultTweet = testService.postTweet(badGeoTweet);
-    Assert.assertNull(resultTweet);
+  }
 
-    // Bad text test, Return should be null
+  @Test(expected = IllegalArgumentException.class)
+  public void postTweet_BadText(){
+    Tweet resultTweet;
+    GeoLoc goodLoc = new GeoLoc();
+    goodLoc.setCoordinates(new float[]{-111.111F, 42.1235F});
+    Mockito.when(badTextTweet.getText()).thenReturn("This tweet is way too long.@@@@@@@@@@@@@@@@@@@"
+        + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+        + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+        + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    Mockito.when(badTextTweet.getLocation()).thenReturn(goodLoc);
+    // Bad text test, Should throw IllegalArgumentException
     resultTweet = testService.postTweet(badTextTweet);
-    Assert.assertNull(resultTweet);
   }
 
   @Test
@@ -86,7 +91,6 @@ public class TwitterServiceUnitTest {
   // Sad tests, illegal argument testing
   @Test(expected = IllegalArgumentException.class)
   public void showTweet_IllegalId() {
-    Mockito.when(mockDao.findById(testId)).thenReturn(goodTweet);
     Mockito.when(mockDao.findById(AdditionalMatchers.not(Mockito.eq(testId))))
         .thenThrow(IllegalArgumentException.class);
     // Tweet doesn't exist test, no fields to test
