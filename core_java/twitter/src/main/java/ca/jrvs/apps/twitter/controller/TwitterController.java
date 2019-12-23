@@ -34,9 +34,6 @@ public class TwitterController implements Controller {
   @Override
   public Tweet postTweet(String[] args) {
     Tweet tweetToPost = new Tweet();
-    if (args.length < 1) {
-      throw new IllegalArgumentException("At least 1 argument is required");
-    }
     tweetToPost.setText(args[0]);
     if (args.length == 3) {
       String lon = args[1].replace(',', '.');
