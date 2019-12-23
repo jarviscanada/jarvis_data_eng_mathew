@@ -2,13 +2,14 @@ package ca.jrvs.apps.twitter.controller;
 
 import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
+import ca.jrvs.apps.twitter.service.Service;
 import ca.jrvs.apps.twitter.service.TwitterService;
 import java.util.Arrays;
 import java.util.List;
 
 public class TwitterController implements Controller {
 
-  private TwitterService twitterService;
+  private Service twitterService;
 
   // Default constructor
   public TwitterController() {
@@ -16,7 +17,7 @@ public class TwitterController implements Controller {
   }
 
   // Alternate constructor to provide your own TwitterService
-  public TwitterController(TwitterService twitterService) {
+  public TwitterController(Service twitterService) {
     this.twitterService = twitterService;
   }
 
@@ -30,9 +31,6 @@ public class TwitterController implements Controller {
   @Override
   public Tweet postTweet(String[] args) {
     Tweet tweetToPost = new Tweet();
-    if (args.length < 1) {
-      throw new IllegalArgumentException("At least 1 argument is required");
-    }
     tweetToPost.setText(args[0]);
     if (args.length == 3) {
       String lon = args[1].replace(',', '.');
@@ -63,15 +61,11 @@ public class TwitterController implements Controller {
   public Tweet showTweet(String[] args) {
     String tweetId;
     String[] fields = {};
-    if (args.length >= 1) {
-      tweetId = args[0];
-      if (args.length >= 2) {
-        fields = Arrays.copyOfRange(args, 1, args.length);
-      }
-      return twitterService.showTweet(tweetId, fields);
-    } else {
-      throw new IllegalArgumentException("At least one argument (Tweet ID) is required");
+    tweetId = args[0];
+    if (args.length >= 2) {
+      fields = Arrays.copyOfRange(args, 1, args.length);
     }
+    return twitterService.showTweet(tweetId, fields);
   }
 
   /**
@@ -83,9 +77,6 @@ public class TwitterController implements Controller {
    */
   @Override
   public List<Tweet> deleteTweet(String[] args) {
-    if (args.length < 1) {
-      throw new IllegalArgumentException("Expected at least one Tweet ID");
-    }
     return twitterService.deleteTweets(args);
   }
 }
