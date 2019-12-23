@@ -49,7 +49,7 @@ public class TwitterService implements Service {
     float longitude;
     boolean validCoords = false;
     boolean hasCoords = false;
-    boolean validText = false;
+    boolean validText;
 
     validText = validateText(tweetText);
     if (coords != null) {
@@ -60,13 +60,13 @@ public class TwitterService implements Service {
     }
 
     if (validText) {
-      if (hasCoords && validCoords) {
-        return dao.create(tweet);
-      } else if (!hasCoords) {
+      if (hasCoords && !validCoords) {
+        throw new IllegalArgumentException("Coordinates included, but are invalid");
+      } else {
         return dao.create(tweet);
       }
     }
-    return null;
+    throw new IllegalArgumentException("Tweet text exceeds 280 characters");
   }
 
   private boolean validateText(String tweetText) {
@@ -74,18 +74,12 @@ public class TwitterService implements Service {
     // Due to UTF8 encoding quirks, Normalizing the tweet text may change its length, Twitter uses
     // NFC normalization before checking tweet length, so we do that too.
     tweetText = Normalizer.normalize(tweetText, Form.NFC);
-    if (tweetText.length() > 280) {
-      throw new IllegalArgumentException("Tweet text exceeds 280 characters");
-    }
-    return true;
+    return tweetText.length() <= 280 && tweetText.length() > 0;
   }
 
   private boolean validateCoordinates(float latitude, float longitude) {
     // Geolocation check. Lat is +- 90, Long is +- 180
-    if (Math.abs(latitude) > 90 || Math.abs(longitude) > 180) {
-      throw new IllegalArgumentException("Coordinates are invalid");
-    }
-    return true;
+    return !(Math.abs(latitude) > 90) && !(Math.abs(longitude) > 180);
   }
 
   /**
