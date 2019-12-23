@@ -39,7 +39,7 @@ public class TwitterDaoUnitTest {
   public void prepMocks() {
     try {
       when(mockHttpResponse.getEntity()).thenReturn(new StringEntity(jsonString));
-      when(mockHttpHelper.httpPost(any(URI.class), any(Tweet.class))).thenReturn(mockHttpResponse);
+      when(mockHttpHelper.httpPost(any(URI.class))).thenReturn(mockHttpResponse);
       when(mockHttpHelper.httpGet(any(URI.class))).thenReturn(mockHttpResponse);
       when(mockHttpHelper.httpPost(any(URI.class))).thenReturn(mockHttpResponse);
     } catch (UnsupportedEncodingException ueex) {

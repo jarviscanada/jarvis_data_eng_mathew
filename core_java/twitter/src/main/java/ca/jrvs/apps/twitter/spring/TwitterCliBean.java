@@ -10,11 +10,19 @@ import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.service.Service;
 import ca.jrvs.apps.twitter.service.TwitterService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class TwitterCliSpringConfig {
+public class TwitterCliBean {
+
+  public static void main(String[] args) {
+    ApplicationContext appCon = new AnnotationConfigApplicationContext(TwitterCliBean.class);
+    TwitterCliApp twitterCliApp = appCon.getBean(TwitterCliApp.class);
+    twitterCliApp.run(args);
+  }
 
   @Bean
   public TwitterCliApp twitterCliApp(Controller twitterController) {

@@ -6,6 +6,7 @@ import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.utils.JsonUtil;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -55,17 +56,24 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
   @Override
   public Tweet create(Tweet entity) {
     HttpResponse response;
+    String urlParams = "";
     String text = entity.getText();
     GeoLoc location = entity.getLocation();
-    String urlParams = "?status=" + text;
-    if (location != null) {
-      float longitude = entity.getLocation().getCoordinates()[0];
-      float latitude = entity.getLocation().getCoordinates()[1];
-      urlParams += "&long=" + longitude + "&lat=" + latitude;
-    }
     try {
-      response = httpHelper.httpPost(new URI(URLEncoder.encode(POST_URL + urlParams,
-          StandardCharsets.UTF_8.name())));
+      urlParams = "?status=" + URLEncoder.encode(text, StandardCharsets.UTF_8.name());
+      if (location != null) {
+        float longitude = entity.getLocation().getCoordinates()[0];
+        float latitude = entity.getLocation().getCoordinates()[1];
+        urlParams += "&long="
+          + URLEncoder.encode(Float.toString(longitude), StandardCharsets.UTF_8.name())
+          + "&lat=" + URLEncoder.encode(Float.toString(latitude), StandardCharsets.UTF_8.name());
+      }
+    } catch (UnsupportedEncodingException ueex) {
+      daoLogger.error("Encoding not supported: " + StandardCharsets.UTF_8.name());
+    }
+
+    try {
+      response = httpHelper.httpPost(new URI(POST_URL + urlParams));
       return JsonUtil.toObject(EntityUtils.toString(response.getEntity()), Tweet.class);
     } catch (URISyntaxException uriex) {
       daoLogger.error("Malformed URI " + POST_URL);
