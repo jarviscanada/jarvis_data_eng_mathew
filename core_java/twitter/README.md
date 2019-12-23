@@ -106,8 +106,8 @@ Mention
 |screen-name|String|
 
 ## Potential Improvements
-Add Retweeting, favoriting.
-Add considerations for link wrapping when counting characters.
-Add a record of posted Tweets for easier lookup after creation.
-Add posting Tweets with media.
-Add timeline viewing.
+- Add Retweeting, favoriting.
+- Add considerations for link wrapping when counting characters.
+- Add a record of posted Tweets for easier lookup after creation.
+- Add posting Tweets with media.
+- Add timeline viewing.
