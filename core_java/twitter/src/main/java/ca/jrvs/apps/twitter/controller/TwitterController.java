@@ -64,15 +64,11 @@ public class TwitterController implements Controller {
   public Tweet showTweet(String[] args) {
     String tweetId;
     String[] fields = {};
-    if (args.length >= 1) {
-      tweetId = args[0];
-      if (args.length >= 2) {
-        fields = Arrays.copyOfRange(args, 1, args.length);
-      }
-      return twitterService.showTweet(tweetId, fields);
-    } else {
-      throw new IllegalArgumentException("At least one argument (Tweet ID) is required");
+    tweetId = args[0];
+    if (args.length >= 2) {
+      fields = Arrays.copyOfRange(args, 1, args.length);
     }
+    return twitterService.showTweet(tweetId, fields);
   }
 
   /**
@@ -84,9 +80,6 @@ public class TwitterController implements Controller {
    */
   @Override
   public List<Tweet> deleteTweet(String[] args) {
-    if (args.length < 1) {
-      throw new IllegalArgumentException("Expected at least one Tweet ID");
-    }
     return twitterService.deleteTweets(args);
   }
 }
