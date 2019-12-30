@@ -1,5 +1,6 @@
 package ca.jrvs.apps.twitter.service;
 
+import ca.jrvs.apps.twitter.dao.CrdDao;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
 import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
@@ -10,14 +11,16 @@ import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * TwitterService contains validation and some additional processing of Tweets being made through
  * TwitterCLI.
  */
+@org.springframework.stereotype.Service
 public class TwitterService implements Service {
 
-  private TwitterDao dao;
+  private CrdDao<Tweet, Long> dao;
 
   //Default Constructor
   public TwitterService() {
@@ -25,7 +28,8 @@ public class TwitterService implements Service {
   }
 
   //Alternative constructor for providing a custom TwitterDao
-  public TwitterService(TwitterDao dao) {
+  @Autowired
+  public TwitterService(CrdDao<Tweet, Long> dao) {
     this.dao = dao;
   }
 
@@ -45,7 +49,7 @@ public class TwitterService implements Service {
     float longitude;
     boolean validCoords = false;
     boolean hasCoords = false;
-    boolean validText = false;
+    boolean validText;
 
     validText = validateText(tweetText);
     if (coords != null) {
@@ -62,7 +66,7 @@ public class TwitterService implements Service {
         return dao.create(tweet);
       }
     }
-    return null;
+    throw new IllegalArgumentException("Tweet text exceeds 280 characters");
   }
 
   private boolean validateText(String tweetText) {
@@ -70,10 +74,7 @@ public class TwitterService implements Service {
     // Due to UTF8 encoding quirks, Normalizing the tweet text may change its length, Twitter uses
     // NFC normalization before checking tweet length, so we do that too.
     tweetText = Normalizer.normalize(tweetText, Form.NFC);
-    if (tweetText.length() > 280) {
-      throw new IllegalArgumentException("Tweet text exceeds 280 characters");
-    }
-    return true;
+    return tweetText.length() <= 280 && tweetText.length() > 0;
   }
 
   private boolean validateCoordinates(float latitude, float longitude) {

@@ -1,16 +1,24 @@
 package ca.jrvs.apps.twitter.dao;
 
+import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
+import ca.jrvs.apps.twitter.model.GeoLoc;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.utils.JsonUtil;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@org.springframework.stereotype.Repository
 public class TwitterDao implements CrdDao<Tweet, Long> {
 
   private static final String BASE_URL = "https://api.twitter.com/1.1/";
@@ -20,7 +28,7 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
 
   private static final int HTTP_OK = 200;
 
-  private TwitterHttpHelper httpHelper;
+  private HttpHelper httpHelper;
   private Logger daoLogger = LoggerFactory.getLogger(TwitterDao.class);
 
   /**
@@ -38,7 +46,8 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
    *
    * @param helper a TwitterHttpHelper
    */
-  public TwitterDao(TwitterHttpHelper helper) {
+  @Autowired
+  public TwitterDao(HttpHelper helper) {
     httpHelper = helper;
   }
 
@@ -51,8 +60,24 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
   @Override
   public Tweet create(Tweet entity) {
     HttpResponse response;
+    String urlParams = "";
+    String text = entity.getText();
+    GeoLoc location = entity.getLocation();
     try {
-      response = httpHelper.httpPost(new URI(POST_URL), entity);
+      urlParams = "?status=" + URLEncoder.encode(text, StandardCharsets.UTF_8.name());
+      if (location != null) {
+        float longitude = entity.getLocation().getCoordinates()[0];
+        float latitude = entity.getLocation().getCoordinates()[1];
+        urlParams += "&long="
+          + URLEncoder.encode(Float.toString(longitude), StandardCharsets.UTF_8.name())
+          + "&lat=" + URLEncoder.encode(Float.toString(latitude), StandardCharsets.UTF_8.name());
+      }
+    } catch (UnsupportedEncodingException ueex) {
+      daoLogger.error("Encoding not supported: " + StandardCharsets.UTF_8.name());
+    }
+
+    try {
+      response = httpHelper.httpPost(new URI(POST_URL + urlParams));
       return JsonUtil.toObject(EntityUtils.toString(response.getEntity()), Tweet.class);
     } catch (URISyntaxException uriex) {
       daoLogger.error("Malformed URI " + POST_URL);

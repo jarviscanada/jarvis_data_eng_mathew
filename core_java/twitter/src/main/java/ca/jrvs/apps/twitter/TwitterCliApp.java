@@ -1,37 +1,59 @@
 package ca.jrvs.apps.twitter;
 
+import ca.jrvs.apps.twitter.controller.Controller;
 import ca.jrvs.apps.twitter.controller.TwitterController;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.utils.JsonUtil;
 import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TwitterCliApp {
 
-  private TwitterController controller;
+  private Controller controller;
 
   public TwitterCliApp() {
     controller = new TwitterController();
+  }
+
+  @Autowired
+  public TwitterCliApp(Controller twitterController) {
+    controller = twitterController;
   }
 
   /**
    * Main driver method of the TwitterCLIApp. Calls the controller based on the command received and
    * pretty-prints the results as a JSON document
    *
-   * @param command The command the app should perform, post | show | delete
-   * @param args    The arguments to be used with the command.
+   * @param args    CLI Args
    */
-  public void run(String command, String[] args) {
+  public void run(String[] args) {
+
+    String command;
+    String[] cmdArgs;
+
+    if (args.length < 2) {
+      throw new IllegalArgumentException("Not enough arguments.\n"
+          + "Usage: TwitterCLIApp post | show | delete [arguments]");
+    } else {
+      command = args[0].toLowerCase();
+      cmdArgs = Arrays.copyOfRange(args, 1, args.length);
+    }
+
     switch (command) {
       case "post":
-        postTweet(args);
+        postTweet(cmdArgs);
         break;
       case "show":
-        showTweet(args);
+        showTweet(cmdArgs);
         break;
       case "delete":
-        deleteTweet(args);
+        deleteTweet(cmdArgs);
         break;
       default:
+        throw new IllegalArgumentException("Command not recognized: " + command + "\nUse one of:"
+            + "post | show | delete");
     }
   }
 
@@ -51,14 +73,4 @@ public class TwitterCliApp {
     System.out.println(JsonUtil.toPrettyJson(tweet));
   }
 
-  public static void main(String[] args) {
-    if (args.length < 2) {
-      throw new IllegalArgumentException("Not enough arguments.\n"
-          + "Usage: TwitterCLIApp post|show|delete [arguments]");
-    } else {
-      String command = args[0].toLowerCase();
-      String[] commandArgs = Arrays.copyOfRange(args, 1, args.length);
-      new TwitterCliApp().run(command, commandArgs);
-    }
-  }
 }
