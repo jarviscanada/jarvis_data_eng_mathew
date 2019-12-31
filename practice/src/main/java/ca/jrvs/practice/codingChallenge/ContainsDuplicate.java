@@ -49,7 +49,7 @@ public class ContainsDuplicate {
    * @param nums Array of numbers to check for duplicates
    * @return true if a duplicate is found, false otherwise.
    */
-  public boolean containsDuplicateOneLine(int[] nums) {
+  public boolean containsDuplicateStream(int[] nums) {
     return !(IntStream.of(nums).distinct().count() == nums.length);
   }
 }

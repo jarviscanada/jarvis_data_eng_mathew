@@ -44,11 +44,11 @@ public class ContainsDuplicateTest {
   }
 
   @Test
-  public void containsDuplicateOneLine() {
-    assertTrue(test.containsDuplicateOneLine(dupe1));
-    assertTrue(test.containsDuplicateOneLine(dupe2));
-    assertFalse(test.containsDuplicateOneLine(noDupe1));
-    assertFalse(test.containsDuplicateOneLine(noDupe2));
-    assertFalse(test.containsDuplicateOneLine(oneVal));
+  public void containsDuplicateStream() {
+    assertTrue(test.containsDuplicateStream(dupe1));
+    assertTrue(test.containsDuplicateStream(dupe2));
+    assertFalse(test.containsDuplicateStream(noDupe1));
+    assertFalse(test.containsDuplicateStream(noDupe2));
+    assertFalse(test.containsDuplicateStream(oneVal));
   }
 }
