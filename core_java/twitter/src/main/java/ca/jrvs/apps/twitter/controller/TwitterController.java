@@ -13,12 +13,10 @@ public class TwitterController implements Controller {
 
   private Service twitterService;
 
-  // Default constructor
   public TwitterController() {
     twitterService = new TwitterService();
   }
 
-  // Alternate constructor to provide your own TwitterService
   @Autowired
   public TwitterController(Service twitterService) {
     this.twitterService = twitterService;

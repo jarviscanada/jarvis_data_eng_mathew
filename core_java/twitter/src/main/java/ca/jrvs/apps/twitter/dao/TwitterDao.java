@@ -16,7 +16,6 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 @org.springframework.stereotype.Repository
 public class TwitterDao implements CrdDao<Tweet, Long> {
@@ -29,11 +28,8 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
   private static final int HTTP_OK = 200;
 
   private HttpHelper httpHelper;
-  private Logger daoLogger = LoggerFactory.getLogger(TwitterDao.class);
+  private Logger logger = LoggerFactory.getLogger(TwitterDao.class);
 
-  /**
-   * Default Constructor, gets the OAuth values for TwitterHttpHelper itself.
-   */
   public TwitterDao() {
     httpHelper = new TwitterHttpHelper(System.getenv("CONSUMER_TOKEN"),
         System.getenv("CONSUMER_SECRET"),
@@ -41,11 +37,6 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
         System.getenv("ACCESS_SECRET"));
   }
 
-  /**
-   * Alternate constructor if you want to pass in your own TwitterHttpHelper.
-   *
-   * @param helper a TwitterHttpHelper
-   */
   @Autowired
   public TwitterDao(HttpHelper helper) {
     httpHelper = helper;
@@ -73,17 +64,18 @@ public class TwitterDao implements CrdDao<Tweet, Long> {
           + "&lat=" + URLEncoder.encode(Float.toString(latitude), StandardCharsets.UTF_8.name());
       }
     } catch (UnsupportedEncodingException ueex) {
-      daoLogger.error("Encoding not supported: " + StandardCharsets.UTF_8.name());
+      logger.error("Encoding not supported: " + StandardCharsets.UTF_8.name());
+      throw new RuntimeException(ueex.getMessage());
     }
 
     try {
       response = httpHelper.httpPost(new URI(POST_URL + urlParams));
       return JsonUtil.toObject(EntityUtils.toString(response.getEntity()), Tweet.class);
     } catch (URISyntaxException uriex) {
-      daoLogger.error("Malformed URI " + POST_URL);
+      logger.error("Malformed URI " + POST_URL);
       throw new IllegalArgumentException(uriex.getMessage());
     } catch (IOException ex) {
-      daoLogger.error("Failed to parse response\n" + ex.getMessage());
+      logger.error("Failed to parse response\n" + ex.getMessage());
       throw new RuntimeException(ex.getMessage());
     }
   }

@@ -25,15 +25,14 @@ public class TwitterHttpHelper implements HttpHelper {
   private final String ACCESS_SECRET;
   private OAuthConsumer oac;
   private HttpClient client;
-  private Logger httpLogger;
+  private Logger logger;
 
-  // Default Constructor
   public TwitterHttpHelper() {
     CONSUMER_KEY = System.getenv("CONSUMER_TOKEN");
     CONSUMER_SECRET = System.getenv("CONSUMER_SECRET");
     ACCESS_KEY = System.getenv("ACCESS_TOKEN");
     ACCESS_SECRET = System.getenv("ACCESS_SECRET");
-    httpLogger = LoggerFactory.getLogger(TwitterHttpHelper.class);
+    logger = LoggerFactory.getLogger(TwitterHttpHelper.class);
     oac = new CommonsHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
     oac.setTokenWithSecret(ACCESS_KEY, ACCESS_SECRET);
     client = HttpClientBuilder.create().build();
@@ -53,7 +52,7 @@ public class TwitterHttpHelper implements HttpHelper {
     CONSUMER_SECRET = consumerSecret;
     ACCESS_KEY = accessKey;
     ACCESS_SECRET = accessSecret;
-    httpLogger = LoggerFactory.getLogger(TwitterHttpHelper.class);
+    logger = LoggerFactory.getLogger(TwitterHttpHelper.class);
     oac = new CommonsHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
     oac.setTokenWithSecret(ACCESS_KEY, ACCESS_SECRET);
     client = HttpClientBuilder.create().build();
@@ -83,26 +82,26 @@ public class TwitterHttpHelper implements HttpHelper {
     return getResponse(get);
   }
 
-  private HttpResponse getResponse(HttpUriRequest request) throws RuntimeException {
+  private HttpResponse getResponse(HttpUriRequest request) {
     HttpResponse response;
     oauthSign(request);
     try {
       response = client.execute(request);
     } catch (ClientProtocolException cpex) {
-      httpLogger.error("HTTP returned an error\n" + cpex.getMessage());
+      logger.error("HTTP returned an error\n" + cpex.getMessage());
       throw new RuntimeException();
     } catch (IOException ex) {
-      httpLogger.error("Failed to read HTTP Response\n" + ex.getMessage());
+      logger.error("Failed to read HTTP Response\n" + ex.getMessage());
       throw new RuntimeException();
     }
     return response;
   }
 
-  private void oauthSign(HttpUriRequest request) throws RuntimeException {
+  private void oauthSign(HttpUriRequest request) {
     try {
       oac.sign(request);
     } catch (OAuthException oaex) {
-      httpLogger.error("OAuth signing failed\n" + oaex.getMessage());
+      logger.error("OAuth signing failed\n" + oaex.getMessage());
       throw new RuntimeException();
     }
   }

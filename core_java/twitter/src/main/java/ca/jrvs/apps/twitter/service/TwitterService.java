@@ -10,6 +10,7 @@ import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,13 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TwitterService implements Service {
 
   private CrdDao<Tweet, Long> dao;
+  private Logger logger = LoggerFactory.getLogger(TwitterService.class);
 
-  //Default Constructor
   public TwitterService() {
     dao = new TwitterDao();
   }
 
-  //Alternative constructor for providing a custom TwitterDao
   @Autowired
   public TwitterService(CrdDao<Tweet, Long> dao) {
     this.dao = dao;
@@ -153,10 +153,8 @@ public class TwitterService implements Service {
       }
       try {
         deletedTweets.add(dao.deleteById(idNum));
-      } catch (IllegalArgumentException ignored) {
-        // TwitterDao.deleteByID() throws IllegalArgumentException if we can't delete a tweet with
-        // a given ID, we cant to continue attempting to delete tweets if this happens.
-        // May add a logging line here later.
+      } catch (IllegalArgumentException iaex) {
+        logger.error(iaex.getMessage());
       }
     }
     return deletedTweets;
