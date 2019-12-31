@@ -4,7 +4,7 @@ The Twitter CLI App provides a basic interface with which a user can interact wi
 The application provides 3 functions, post a tweet with or without Geolocation, view a Tweet 
 (with only certain fields if desired), and delete one or more tweets.
 
-This project introduced the full MVC architecture, Apache web libraries, Spring and SpringBoot, 
+This project introduced the full MVC architecture, Apache HTTP Components Package, Spring and SpringBoot, 
 Mockito, and JUnit.
 
 ## Design
