@@ -22,7 +22,7 @@ public class ArrayAPIs {
     System.out.println(Arrays.toString(inline2d));
     System.out.println(Arrays.toString(inline2d[0]) + Arrays.toString(inline2d[1]));
 
-    Character[] copyFrom = {'a','b','c','d','e'};
+    Character[] copyFrom = {'a', 'b', 'c', 'd', 'e'};
     Character[] copyTo = Arrays.copyOf(copyFrom, 8);
     printArray(copyTo);
 
@@ -36,7 +36,7 @@ public class ArrayAPIs {
     colors = Arrays.asList(new String[]{"Black", "White", "Grey", "Brown", "Teal"});
   }
 
-  public static <T> void printArray(T[] arr){
+  public static <T> void printArray(T[] arr) {
     for (T t : arr) {
       System.out.print(t + " ");
     }
