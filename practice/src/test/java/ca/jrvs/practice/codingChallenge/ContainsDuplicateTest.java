@@ -13,7 +13,7 @@ public class ContainsDuplicateTest {
   static int[] noDupe1;
   static int[] noDupe2;
   static int[] oneVal;
-  static ContainsDuplicate test;
+  static ContainsDuplicate duplicateTest;
 
   @BeforeClass
   public static void makeArrays() {
@@ -22,33 +22,33 @@ public class ContainsDuplicateTest {
     noDupe1 = new int[]{9, 8, 7, 6, 5};
     noDupe2 = new int[]{2, 4, 6, 8, 10};
     oneVal = new int[]{5};
-    test = new ContainsDuplicate();
+    duplicateTest = new ContainsDuplicate();
   }
 
   @Test
   public void containsDuplicateScan() {
-    assertTrue(test.containsDuplicateScan(dupe1));
-    assertTrue(test.containsDuplicateScan(dupe2));
-    assertFalse(test.containsDuplicateScan(noDupe1));
-    assertFalse(test.containsDuplicateScan(noDupe2));
-    assertFalse(test.containsDuplicateScan(oneVal));
+    assertTrue(duplicateTest.containsDuplicateScan(dupe1));
+    assertTrue(duplicateTest.containsDuplicateScan(dupe2));
+    assertFalse(duplicateTest.containsDuplicateScan(noDupe1));
+    assertFalse(duplicateTest.containsDuplicateScan(noDupe2));
+    assertFalse(duplicateTest.containsDuplicateScan(oneVal));
   }
 
   @Test
   public void containsDuplicateSet() {
-    assertTrue(test.containsDuplicateSet(dupe1));
-    assertTrue(test.containsDuplicateSet(dupe2));
-    assertFalse(test.containsDuplicateSet(noDupe1));
-    assertFalse(test.containsDuplicateSet(noDupe2));
-    assertFalse(test.containsDuplicateSet(oneVal));
+    assertTrue(duplicateTest.containsDuplicateSet(dupe1));
+    assertTrue(duplicateTest.containsDuplicateSet(dupe2));
+    assertFalse(duplicateTest.containsDuplicateSet(noDupe1));
+    assertFalse(duplicateTest.containsDuplicateSet(noDupe2));
+    assertFalse(duplicateTest.containsDuplicateSet(oneVal));
   }
 
   @Test
   public void containsDuplicateStream() {
-    assertTrue(test.containsDuplicateStream(dupe1));
-    assertTrue(test.containsDuplicateStream(dupe2));
-    assertFalse(test.containsDuplicateStream(noDupe1));
-    assertFalse(test.containsDuplicateStream(noDupe2));
-    assertFalse(test.containsDuplicateStream(oneVal));
+    assertTrue(duplicateTest.containsDuplicateStream(dupe1));
+    assertTrue(duplicateTest.containsDuplicateStream(dupe2));
+    assertFalse(duplicateTest.containsDuplicateStream(noDupe1));
+    assertFalse(duplicateTest.containsDuplicateStream(noDupe2));
+    assertFalse(duplicateTest.containsDuplicateStream(oneVal));
   }
 }
