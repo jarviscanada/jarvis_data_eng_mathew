@@ -20,9 +20,9 @@ public class MergeSortedArraysTest {
   }
 
   @Test
-  public void mergeSortedArraysCopying() {
+  public void mergeSortedArraysMove() {
     mergeSortedArraysTest
-        .mergeSortedArraysCopying(leetcode1, leetcodeLen1, leetcode2, leetcodeLen2);
+        .mergeSortedArraysMove(leetcode1, leetcodeLen1, leetcode2, leetcodeLen2);
     assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6}, leetcode1);
   }
 }

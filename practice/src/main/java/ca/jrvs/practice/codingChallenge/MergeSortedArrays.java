@@ -27,8 +27,7 @@ public class MergeSortedArrays {
   /**
    * Merge nums2 into nums1 over a single iteration while maintaining sort in nums1 by moving values
    * backwards in nums1 to make room for the value to merge in at the correct spot. Time Complexity
-   * is O(mn) where m and n are the size of nums1 and nums2, since nums1 has some contents copied n
-   * times.
+   * is O(n) since nums1 is iterated once.
    *
    * @param nums1 Larger array of ints to merge nums2 into. Must be large enough to accommodate all
    *              values in nums2 and must be sorted.
@@ -37,7 +36,7 @@ public class MergeSortedArrays {
    *              must be sorted.
    * @param len2  The effective length of nums2
    */
-  public void mergeSortedArraysCopying(int[] nums1, int len1, int[] nums2, int len2) {
+  public void mergeSortedArraysMove(int[] nums1, int len1, int[] nums2, int len2) {
     int index1 = 0;
     int index2 = 0;
     int checkVal;
