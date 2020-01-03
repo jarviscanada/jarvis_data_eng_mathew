@@ -182,16 +182,6 @@ public class LambdaStreamExcImp implements LambdaStreamExc {
    */
   @Override
   public Stream<Integer> flatNestedInt(Stream<List<Integer>> ints) {
-    /* Version of this function that doesn't use flat mapping. Map returns a Stream<Stream<Integer>>
-     * so I reduce the system to a Stream<Integer> by concatenating the inner Streams and extracting
-     * the resulting Stream<Integer> from Reduce's Optional return.
-     *
-     * Optional<Stream<Integer>> opt = ints.map(List<Integer>::stream).reduce(Stream::concat);
-     * if (opt.isPresent()){
-     *   return opt.get().map( x -> (int)Math.pow(x, 2));
-     * }
-     * return null;
-     */
     return ints.flatMap(List::stream).map(x -> (int) Math.pow(x, 2));
   }
 
