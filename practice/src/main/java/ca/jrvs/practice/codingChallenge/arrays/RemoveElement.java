@@ -1,8 +1,10 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
 import java.util.Arrays;
 
-// LeetCode specifies removal must be in-place and elements past new length are ignored
+/**
+ * Ticket: https://www.notion.so/Remove-Element-e7fab49d872d4defaa6efd1e4f5d095f
+ */
 public class RemoveElement {
 
   /**

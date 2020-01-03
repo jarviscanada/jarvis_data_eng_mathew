@@ -1,4 +1,4 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
 import static org.junit.Assert.assertArrayEquals;
 

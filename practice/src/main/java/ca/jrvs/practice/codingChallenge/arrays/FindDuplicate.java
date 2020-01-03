@@ -1,10 +1,12 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-// LeetCode specifics: Don't copy array, return duped element, only one dupe, beat n^2
+/**
+ * Ticket: https://www.notion.so/Find-the-Duplicate-Number-e2a7af9dac79464ab0e18c55204a8558
+ */
 public class FindDuplicate {
 
   /**
@@ -17,8 +19,8 @@ public class FindDuplicate {
    */
   public int findDuplicateSort(int[] nums) {
     Arrays.sort(nums);
-    for (int i = 0; i < nums.length-1; i++) {
-      if (nums[i] == nums[i+1]) {
+    for (int i = 0; i < nums.length - 1; i++) {
+      if (nums[i] == nums[i + 1]) {
         return nums[i];
       }
     }
@@ -27,8 +29,9 @@ public class FindDuplicate {
 
   /**
    * Finds the first duplicate value in an array using Set's uniqueness property. Set returns false
-   * if an add would violate uniqueness, which means we found a dupe. Time complexity is O(n), if
-   * we assume a good hash spread and minimal Set growth.
+   * if an add would violate uniqueness, which means we found a dupe. Time complexity is O(n), if we
+   * assume a good hash spread and minimal Set growth.
+   *
    * @param nums Array of ints to search for a duplicate in
    * @return The duplicated element, or -1 if none found (all array elements are >= 1)
    */

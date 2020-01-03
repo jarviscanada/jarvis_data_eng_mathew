@@ -1,7 +1,8 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
-// Jarvis Coding Challenge: Given some string, print char followed by int value of char
-// ASCII only, no whitespace or numbers in input. No collections allowed.
+/**
+ * Ticket: https://www.notion.so/Print-letter-with-number-8ba097bae8a0400c98853ab0baeebfd0
+ */
 public class PrintLetterNumber {
 
   /**

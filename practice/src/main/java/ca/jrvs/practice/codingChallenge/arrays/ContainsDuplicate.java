@@ -1,9 +1,12 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+/**
+ * Ticket: https://www.notion.so/Contains-Duplicate-1ad4023ef0674616812f4bdf8ed278f1
+ */
 public class ContainsDuplicate {
 
   /**

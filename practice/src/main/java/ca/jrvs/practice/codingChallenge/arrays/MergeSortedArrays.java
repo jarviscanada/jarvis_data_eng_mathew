@@ -1,8 +1,10 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
 import java.util.Arrays;
 
-// Leetcode specifics: two sorted int arrays, merge arr2 into arr1
+/**
+ * Ticket: https://www.notion.so/Merge-Sorted-Array-94f28bd1960847caaee98ce5bdb69380
+ */
 public class MergeSortedArrays {
 
   /**

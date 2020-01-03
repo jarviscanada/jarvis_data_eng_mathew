@@ -1,6 +1,6 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
@@ -17,7 +17,8 @@ public class GetDuplicatedCharsTest {
   public void getDuplicateCharsSet() {
     assertArrayEquals(new char[]{'a'}, getDuplicatedChars.getDuplicateCharsSet(test1));
     assertArrayEquals(new char[]{}, getDuplicatedChars.getDuplicateCharsSet(test2));
-    assertArrayEquals(new char[]{'o', 'u', 'e', 'r', 'a'}, getDuplicatedChars.getDuplicateCharsSet(test3));
+    assertArrayEquals(new char[]{'o', 'u', 'e', 'r', 'a'},
+        getDuplicatedChars.getDuplicateCharsSet(test3));
     assertArrayEquals(new char[]{'a'}, getDuplicatedChars.getDuplicateCharsSet(test4));
 
   }

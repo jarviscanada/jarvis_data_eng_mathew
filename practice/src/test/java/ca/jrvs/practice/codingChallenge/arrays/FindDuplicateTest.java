@@ -1,17 +1,17 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 public class FindDuplicateTest {
 
-  int[] leetTest = {1,3,4,2,2};
-  int[] test1 = {1,2,3,3,3,5};
-  int[] test2 = {1,5,9};
-  int[] test3 = {1,1,2,2,3,3};
-  int[] test4 = {1,2,3,4,1};
-  
+  int[] leetTest = {1, 3, 4, 2, 2};
+  int[] test1 = {1, 2, 3, 3, 3, 5};
+  int[] test2 = {1, 5, 9};
+  int[] test3 = {1, 1, 2, 2, 3, 3};
+  int[] test4 = {1, 2, 3, 4, 1};
+
   FindDuplicate findDuplicateTest = new FindDuplicate();
 
   @Test

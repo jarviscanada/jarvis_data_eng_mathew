@@ -1,10 +1,13 @@
-package ca.jrvs.practice.codingChallenge;
+package ca.jrvs.practice.codingChallenge.arrays;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * Ticket: https://www.notion.so/Find-Largest-Smallest-1937dfe18343405a98a2f8ceebae40b7
+ */
 public class FindMinMax {
 
   /**
@@ -61,7 +64,7 @@ public class FindMinMax {
     int max = Integer.MIN_VALUE;
     if (nums.length > 0) {
       Integer[] boxedInts = new Integer[nums.length];
-      for (int i = 0;i < nums.length; i++) {
+      for (int i = 0; i < nums.length; i++) {
         boxedInts[i] = nums[i];
       }
       List<Integer> numList = Arrays.asList(boxedInts);
