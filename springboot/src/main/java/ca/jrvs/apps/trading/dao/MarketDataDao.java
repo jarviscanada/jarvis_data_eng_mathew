@@ -72,6 +72,12 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
     return Optional.empty();
   }
 
+  /**
+   * Obtains a quote from IEX for the specified symbol
+   *
+   * @param s The symbol to request a quote of from IEX
+   * @return An optional which may contain the requested Quote
+   */
   @Override
   public Optional<IexQuote> findById(String s) {
     String url = baseURL + "stock/" + s + "/quote/?token=" + token;
@@ -79,6 +85,12 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
     return parseResponse(response, IexQuote.class);
   }
 
+  /**
+   * Obtains quotes for multiple symbols from IEX.
+   *
+   * @param iterable The list of symbols to request from IEX
+   * @return A list of IEX Quotes for the requested symbols
+   */
   @Override
   public Iterable<IexQuote> findAllById(Iterable<String> iterable) {
     String url = IEX_BATCH_URL;
@@ -88,7 +100,9 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
     }
     url += joiner.toString() + "&token=" + token;
     HttpResponse response = httpGet(url);
-    return Arrays.asList(parseResponse(response, IexQuote[].class).orElse(new IexQuote[0]));
+    return Arrays.asList(parseResponse(response, IexQuote[].class).orElseThrow(
+        () -> new IllegalArgumentException("One or more Symbols were not found on IEX")
+    ));
   }
 
   @Override

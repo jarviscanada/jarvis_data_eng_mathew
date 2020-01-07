@@ -8,8 +8,6 @@ import ca.jrvs.apps.trading.model.IexQuote;
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +18,7 @@ public class MarketDataDaoIntTest {
   MarketDataDao testDao;
 
   @Before
-  public void testInit(){
+  public void testInit() {
     marketDataConfig = new MarketDataConfig();
     marketDataConfig.setHost("https://cloud.iexapis.com/stable/");
     marketDataConfig.setToken(System.getenv("IEX_TOKEN"));
@@ -38,7 +36,7 @@ public class MarketDataDaoIntTest {
   public void findAllById() {
     List<String> symbols = Arrays.asList("aapl", "msft", "t", "tsla");
     Iterable<IexQuote> quotes = testDao.findAllById(symbols);
-    for (IexQuote iex: quotes) {
+    for (IexQuote iex : quotes) {
       assertTrue(symbols.contains(iex.getSymbol().toLowerCase()));
     }
   }

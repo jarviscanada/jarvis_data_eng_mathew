@@ -8,6 +8,13 @@ import java.io.IOException;
 
 public class JsonUtils {
 
+  /**
+   * Serializes an object to a JSON String.
+   *
+   * @param obj The Object to serialize
+   * @param <T> The class of the object being serialized
+   * @return a JSON string representation of obj
+   */
   public static <T> String toJsonString(T obj) {
     ObjectMapper mapper = new ObjectMapper();
     try {
@@ -18,6 +25,13 @@ public class JsonUtils {
     }
   }
 
+  /**
+   * Serializes an object to a pretty JSON String.
+   *
+   * @param obj Object to serialize
+   * @param <T> Class of the object being serialized
+   * @return A JSON string representation of obj
+   */
   public static <T> String toPrettyJsonString(T obj) {
     ObjectMapper mapper = new ObjectMapper();
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -29,6 +43,14 @@ public class JsonUtils {
     }
   }
 
+  /**
+   * Parses a JSON string, producing an object from its data.
+   *
+   * @param json  The JSON string to parse
+   * @param clazz The class to parse the JSON string as
+   * @param <T>   The class to parse the JSON string as
+   * @return A new object of type T based on the JSON string
+   */
   public static <T> T parseJsonString(String json, Class<T> clazz) {
     ObjectMapper mapper = new ObjectMapper();
     mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -39,5 +61,4 @@ public class JsonUtils {
           + clazz.getCanonicalName());
     }
   }
-
 }
