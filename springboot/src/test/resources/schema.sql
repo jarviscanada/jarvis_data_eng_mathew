@@ -1,3 +1,9 @@
+DROP VIEW public.position;
+DROP TABLE public.security_order;
+DROP TABLE public.account;
+DROP TABLE public.trader;
+DROP TABLE public."quote";
+
 CREATE TABLE public."quote" (
 	ticker varchar NOT NULL,
 	last_price float8 NOT NULL,

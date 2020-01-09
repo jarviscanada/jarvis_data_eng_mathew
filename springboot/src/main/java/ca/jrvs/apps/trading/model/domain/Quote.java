@@ -1,6 +1,5 @@
 package ca.jrvs.apps.trading.model.domain;
 
-import java.sql.Types;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
@@ -14,7 +13,7 @@ public class Quote {
   private static final String DB_LASTPRICE = "last_price";
 
   private int id;
-  private String symbol;
+  private String ticker;
   private double askPrice;
   private int askSize;
   private double bidPrice;
@@ -23,12 +22,12 @@ public class Quote {
 
   public SqlParameterSource getSqlValues() {
     MapSqlParameterSource valueMap = new MapSqlParameterSource();
-    valueMap.addValue(DB_SYMBOL, symbol, Types.VARCHAR);
-    valueMap.addValue(DB_LASTPRICE, lastPrice, Types.DECIMAL);
-    valueMap.addValue(DB_BIDPRICE, bidPrice, Types.DECIMAL);
-    valueMap.addValue(DB_BIDSIZE, bidSize, Types.INTEGER);
-    valueMap.addValue(DB_ASKPRICE, askPrice, Types.DECIMAL);
-    valueMap.addValue(DB_ASKSIZE, askSize, Types.INTEGER);
+    valueMap.addValue(DB_SYMBOL, ticker);
+    valueMap.addValue(DB_LASTPRICE, lastPrice);
+    valueMap.addValue(DB_BIDPRICE, bidPrice);
+    valueMap.addValue(DB_BIDSIZE, bidSize);
+    valueMap.addValue(DB_ASKPRICE, askPrice);
+    valueMap.addValue(DB_ASKSIZE, askSize);
     return valueMap;
   }
 
@@ -40,12 +39,12 @@ public class Quote {
     this.id = id;
   }
 
-  public String getSymbol() {
-    return symbol;
+  public String getTicker() {
+    return ticker;
   }
 
-  public void setSymbol(String symbol) {
-    this.symbol = symbol;
+  public void setTicker(String ticker) {
+    this.ticker = ticker;
   }
 
   public double getAskPrice() {
@@ -86,5 +85,11 @@ public class Quote {
 
   public void setLastPrice(double lastPrice) {
     this.lastPrice = lastPrice;
+  }
+
+  @Override
+  public String toString() {
+    return "Quote{" + "symbol='" + ticker + '\'' + ", askPrice=" + askPrice + ", askSize=" + askSize
+        + ", bidPrice=" + bidPrice + ", bidSize=" + bidSize + ", lastPrice=" + lastPrice + '}';
   }
 }

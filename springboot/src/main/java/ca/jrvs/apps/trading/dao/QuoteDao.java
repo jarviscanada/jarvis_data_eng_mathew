@@ -1,6 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Quote;
+import java.util.List;
 import java.util.Optional;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -25,7 +27,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   private static final String SQL_QUOTE_COUNT = "SELECT COUNT(*) FROM " + DB_TABLE;
   private static final String SQL_QUOTE_UPDATE = "UPDATE " + DB_TABLE
       + " SET last_price = :last_price, bid_price = :bid_price, bid_size = :bid_size, "
-      + "ask_price = :ask_price, ask_size = ask_size WHERE ticker = :ticker";
+      + "ask_price = :ask_price, ask_size = :ask_size WHERE ticker = :ticker";
   private static final String SQL_QUOTE_DELETE =
       "DELETE FROM " + DB_TABLE + " WHERE ticker = :ticker";
   private static final String SQL_QUOTE_DELETEALL = "DELETE FROM " + DB_TABLE;
@@ -55,7 +57,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   @Override
   public <S extends Quote> S save(S s) {
     int rowsModded;
-    if (!existsById(s.getSymbol())) {
+    if (!existsById(s.getTicker())) {
       rowsModded = simpleInsert.execute(s.getSqlValues());
     } else {
       rowsModded = namedTemplate.update(SQL_QUOTE_UPDATE, s.getSqlValues());
@@ -75,7 +77,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   public <S extends Quote> Iterable<S> saveAll(Iterable<S> iterable) {
     int rowsModded;
     for (S quote : iterable) {
-      if (!existsById(quote.getSymbol())) {
+      if (!existsById(quote.getTicker())) {
         rowsModded = simpleInsert.execute(quote.getSqlValues());
       } else {
         rowsModded = namedTemplate.update(SQL_QUOTE_UPDATE, quote.getSqlValues());
@@ -99,8 +101,14 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public Optional<Quote> findById(String symbol) {
-    return Optional.ofNullable(namedTemplate.queryForObject(
-        SQL_QUOTE_SELECT, new MapSqlParameterSource("ticker", symbol), Quote.class));
+    List<Quote> quotes = namedTemplate.query(SQL_QUOTE_SELECT,
+        new MapSqlParameterSource("ticker", symbol),
+        new BeanPropertyRowMapper<>(Quote.class));
+    if (quotes.size() != 1) {
+      throw new IncorrectResultSizeDataAccessException("Incorrect result count.", 1, quotes.size());
+    } else {
+      return Optional.of(quotes.get(0));
+    }
   }
 
   /**
@@ -111,7 +119,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public boolean existsById(String symbol) {
-    return jdbcTemplate.queryForRowSet(SQL_QUOTE_SELECT).next();
+    return namedTemplate.queryForRowSet(SQL_QUOTE_SELECT,
+        new MapSqlParameterSource("ticker", symbol)).next();
   }
 
   /**
@@ -121,7 +130,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public Iterable<Quote> findAll() {
-    return jdbcTemplate.queryForList(SQL_QUOTE_SELECTALL, Quote.class);
+    return jdbcTemplate.query(SQL_QUOTE_SELECTALL, new BeanPropertyRowMapper<>(Quote.class));
   }
 
   /**
