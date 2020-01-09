@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.controller;
 
-import ca.jrvs.apps.trading.model.IexQuote;
+import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.service.QuoteService;
 import ca.jrvs.apps.trading.utils.ResponseExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

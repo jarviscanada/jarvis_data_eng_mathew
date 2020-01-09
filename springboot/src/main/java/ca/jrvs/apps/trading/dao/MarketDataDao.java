@@ -1,7 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
-import ca.jrvs.apps.trading.model.IexQuote;
-import ca.jrvs.apps.trading.model.config.MarketDataConfig;
+import ca.jrvs.apps.trading.model.domain.IexQuote;
+import ca.jrvs.apps.trading.config.MarketDataConfig;
 import ca.jrvs.apps.trading.utils.JsonUtils;
 import java.io.IOException;
 import java.util.Arrays;

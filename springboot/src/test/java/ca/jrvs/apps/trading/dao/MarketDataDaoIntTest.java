@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import ca.jrvs.apps.trading.model.IexQuote;
-import ca.jrvs.apps.trading.model.config.MarketDataConfig;
+import ca.jrvs.apps.trading.model.domain.IexQuote;
+import ca.jrvs.apps.trading.config.MarketDataConfig;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;

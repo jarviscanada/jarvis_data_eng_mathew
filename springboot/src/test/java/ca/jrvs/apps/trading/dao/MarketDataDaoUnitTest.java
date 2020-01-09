@@ -7,8 +7,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
-import ca.jrvs.apps.trading.model.IexQuote;
-import ca.jrvs.apps.trading.model.config.MarketDataConfig;
+import ca.jrvs.apps.trading.model.domain.IexQuote;
+import ca.jrvs.apps.trading.config.MarketDataConfig;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;

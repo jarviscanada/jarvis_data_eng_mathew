@@ -1,6 +1,7 @@
-package ca.jrvs.apps.trading;
+package ca.jrvs.apps.trading.config;
 
-import ca.jrvs.apps.trading.model.config.MarketDataConfig;
+import javax.sql.DataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.springframework.context.annotation.Bean;
@@ -20,5 +21,14 @@ public class AppConfig {
   @Bean
   public HttpClientConnectionManager httpClientConnectionManager() {
     return new PoolingHttpClientConnectionManager();
+  }
+
+  @Bean
+  public DataSource dataSource() {
+    BasicDataSource dataSource = new BasicDataSource();
+    dataSource.setUrl(System.getenv("PG_URL"));
+    dataSource.setUsername(System.getenv("PG_USERNAME"));
+    dataSource.setPassword(System.getenv("PG_PASSWORD"));
+    return dataSource;
   }
 }
