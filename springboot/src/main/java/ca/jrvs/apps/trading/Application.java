@@ -25,6 +25,7 @@ public class Application implements CommandLineRunner {
 
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(Application.class);
+    app.setAdditionalProfiles("development");
     app.run(args);
   }
 
