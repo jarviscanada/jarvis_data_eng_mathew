@@ -15,9 +15,9 @@ public class Quote {
   private int id;
   private String ticker;
   private double askPrice;
-  private int askSize;
+  private long askSize;
   private double bidPrice;
-  private int bidSize;
+  private long bidSize;
   private double lastPrice;
 
   public SqlParameterSource getSqlValues() {
@@ -55,11 +55,11 @@ public class Quote {
     this.askPrice = askPrice;
   }
 
-  public int getAskSize() {
+  public long getAskSize() {
     return askSize;
   }
 
-  public void setAskSize(int askSize) {
+  public void setAskSize(long askSize) {
     this.askSize = askSize;
   }
 
@@ -71,11 +71,11 @@ public class Quote {
     this.bidPrice = bidPrice;
   }
 
-  public int getBidSize() {
+  public long getBidSize() {
     return bidSize;
   }
 
-  public void setBidSize(int bidSize) {
+  public void setBidSize(long bidSize) {
     this.bidSize = bidSize;
   }
 
