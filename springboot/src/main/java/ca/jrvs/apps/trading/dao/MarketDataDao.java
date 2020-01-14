@@ -1,7 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
-import ca.jrvs.apps.trading.model.IexQuote;
-import ca.jrvs.apps.trading.model.config.MarketDataConfig;
+import ca.jrvs.apps.trading.config.MarketDataConfig;
+import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.utils.JsonUtils;
 import java.io.IOException;
 import java.util.Arrays;
@@ -25,12 +25,10 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
 
   private static final String IEX_BATCH_QUOTE = "stock/market/quote/?symbols=";
   private final String IEX_BATCH_URL;
-
+  HttpClientConnectionManager connectionManager;
   private String token;
   private String baseURL;
-
   private Logger logger = LoggerFactory.getLogger(MarketDataDao.class);
-  HttpClientConnectionManager connectionManager;
 
   @Autowired
   public MarketDataDao(HttpClientConnectionManager connectionManager,

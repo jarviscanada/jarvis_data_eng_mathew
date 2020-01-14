@@ -7,9 +7,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
-import ca.jrvs.apps.trading.model.IexQuote;
-import ca.jrvs.apps.trading.model.config.MarketDataConfig;
+import ca.jrvs.apps.trading.config.MarketDataConfig;
+import ca.jrvs.apps.trading.model.domain.IexQuote;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.http.StatusLine;
@@ -113,5 +114,50 @@ public class MarketDataDaoUnitTest {
     for (IexQuote quote : quotes) {
       assertTrue(symbols.contains(quote.getSymbol().toLowerCase()));
     }
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void save() {
+    spyDao.save(new IexQuote());
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void saveAll() {
+    spyDao.saveAll(new ArrayList<>());
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void existsById() {
+    spyDao.existsById("");
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void findAll() {
+    spyDao.findAll();
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void count() {
+    spyDao.count();
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void deleteById() {
+    spyDao.deleteById("");
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void delete() {
+    spyDao.delete(new IexQuote());
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void deleteAll() {
+    spyDao.deleteAll();
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void testDeleteAll() {
+    spyDao.deleteAll(new ArrayList<>());
   }
 }
