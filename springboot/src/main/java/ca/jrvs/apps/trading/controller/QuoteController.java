@@ -79,12 +79,12 @@ public class QuoteController {
 
   /**
    * Updates the data for a symbol in the Database using data received from the user Sample usage:
-   * POST /quote/update Body:{'ticker': 'AAPL', 'lastPrice': 125.34 ...}
+   * PUT /quote/update Body:{'ticker': 'AAPL', 'lastPrice': 125.34 ...}
    *
    * @param quote The quote to persist in the DB
    * @return the Quote sent by the user
    */
-  @PostMapping("/update")
+  @PutMapping("/update")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public Quote createQuote(@RequestBody Quote quote) {
