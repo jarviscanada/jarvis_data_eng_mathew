@@ -84,13 +84,7 @@ public class QuoteService {
   private List<Quote> iexToQuote(Iterable<IexQuote> iexQuotes) {
     List<Quote> quotes = new ArrayList<>();
     for (IexQuote iex : iexQuotes) {
-      Quote quote = new Quote();
-      quote.setTicker(iex.getSymbol());
-      quote.setLastPrice(iex.getLatestPrice());
-      quote.setBidPrice(iex.getIexBidPrice());
-      quote.setBidSize(iex.getIexBidSize());
-      quote.setAskPrice(iex.getIexAskPrice());
-      quote.setAskSize(iex.getIexAskSize());
+      Quote quote = iexToQuote(iex);
       quotes.add(quote);
     }
     return quotes;
@@ -107,5 +101,4 @@ public class QuoteService {
 
     return quote;
   }
-
 }

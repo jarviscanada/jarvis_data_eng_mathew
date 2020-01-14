@@ -75,14 +75,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public <S extends Quote> Iterable<S> saveAll(Iterable<S> iterable) {
-    int rowsModded;
     for (S quote : iterable) {
-      if (!existsById(quote.getTicker())) {
-        rowsModded = simpleInsert.execute(quote.getSqlValues());
-      } else {
-        rowsModded = namedTemplate.update(SQL_QUOTE_UPDATE, quote.getSqlValues());
-      }
-      checkRowsModified(rowsModded);
+      save(quote);
     }
     return iterable;
   }
