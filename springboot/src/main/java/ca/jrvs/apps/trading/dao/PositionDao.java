@@ -5,18 +5,18 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PositionDao extends JdbcCrudDao<Position> {
 
   JdbcTemplate template;
-  SimpleJdbcInsert simpleInsert;
   final String tableName = "position";
   final String idColumnName = "account_id";
 
   @Autowired
   public PositionDao(DataSource ds) {
     template = new JdbcTemplate(ds);
-    simpleInsert = new SimpleJdbcInsert(template).withTableName(tableName);
   }
 
   @Override
@@ -26,7 +26,7 @@ public class PositionDao extends JdbcCrudDao<Position> {
 
   @Override
   SimpleJdbcInsert getSimpleJdbcInsert() {
-    return simpleInsert;
+    throw new UnsupportedOperationException("Position data is read-only");
   }
 
   @Override
@@ -46,6 +46,36 @@ public class PositionDao extends JdbcCrudDao<Position> {
 
   @Override
   public int updateEntity(Position entity) {
-    return 0;
+    throw new UnsupportedOperationException("Position data is read-only");
+  }
+
+  @Override
+  public <S extends Position> S save(S entity) {
+    throw new UnsupportedOperationException("Position data is read-only");
+  }
+
+  @Override
+  public <S extends Position> Iterable<S> saveAll(Iterable<S> entities) {
+    throw new UnsupportedOperationException("Position data is read-only");
+  }
+
+  @Override
+  public void deleteById(Integer id) {
+    throw new UnsupportedOperationException("Position data is read-only");
+  }
+
+  @Override
+  public void delete(Position entity) {
+    throw new UnsupportedOperationException("Position data is read-only");
+  }
+
+  @Override
+  public void deleteAll(Iterable<? extends Position> entities) {
+    throw new UnsupportedOperationException("Position data is read-only");
+  }
+
+  @Override
+  public void deleteAll() {
+    throw new UnsupportedOperationException("Position data is read-only");
   }
 }

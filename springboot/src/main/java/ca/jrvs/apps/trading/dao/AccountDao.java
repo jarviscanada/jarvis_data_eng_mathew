@@ -5,7 +5,9 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class AccountDao extends JdbcCrudDao<Account> {
 
   JdbcTemplate template;
@@ -16,7 +18,9 @@ public class AccountDao extends JdbcCrudDao<Account> {
   @Autowired
   public AccountDao(DataSource ds) {
     template = new JdbcTemplate(ds);
-    simpleInsert = new SimpleJdbcInsert(template).withTableName(tableName);
+    simpleInsert = new SimpleJdbcInsert(template)
+        .withTableName(tableName)
+        .usingGeneratedKeyColumns(idColumnName);
   }
 
   @Override
@@ -46,6 +50,7 @@ public class AccountDao extends JdbcCrudDao<Account> {
 
   @Override
   public int updateEntity(Account entity) {
-    return 0;
+    String updateQuery = "UPDATE " + tableName + " SET amount=? WHERE " + idColumnName + "=?";
+    return template.update(updateQuery, entity.getAmount(), entity.getId());
   }
 }

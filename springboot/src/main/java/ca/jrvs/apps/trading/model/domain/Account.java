@@ -17,4 +17,20 @@ public class Account implements Entity<Integer> {
   public void setId(Integer id) {
     this.id = id;
   }
+
+  public int getTraderId() {
+    return traderId;
+  }
+
+  public void setTraderId(int traderId) {
+    this.traderId = traderId;
+  }
+
+  public double getAmount() {
+    return amount;
+  }
+
+  public void setAmount(double amount) {
+    this.amount = amount;
+  }
 }

@@ -62,9 +62,9 @@ public class QuoteServiceTest {
     Quote appleQuote = new Quote();
     Quote attQuote = new Quote();
     Quote googleQuote = new Quote();
-    appleQuote.setTicker("AAPL");
-    attQuote.setTicker("T");
-    googleQuote.setTicker("GOOG");
+    appleQuote.setId("AAPL");
+    attQuote.setId("T");
+    googleQuote.setId("GOOG");
     quoteDao.saveAll(Arrays.asList(appleQuote, googleQuote, attQuote));
     testQuoteService.updateMarketData();
   }

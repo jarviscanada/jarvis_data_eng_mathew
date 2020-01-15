@@ -117,18 +117,14 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   /**
    * Returns all instances of the type with the given IDs.
    *
-   * @param ids
-   * @return
+   * @param ids The IDs to search
+   * @return A list of Entities
    */
   @Override
   public List<T> findAllById(Iterable<Integer> ids) {
     List<T> entities = new ArrayList<>();
     for (int id : ids) {
-      entities.add(findById(id).orElseThrow(
-          () -> {
-            throw new IllegalArgumentException("ID could not be found: " + id);
-          }
-      ));
+      entities.add(findById(id).orElseThrow(IllegalArgumentException::new));
     }
     return entities;
   }
@@ -160,7 +156,7 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   /**
    * Deletes a given entity.
    *
-   * @param entity
+   * @param entity The entity to delete from the internal DB
    * @throws IllegalArgumentException in case the given entity is {@literal null}.
    */
   @Override
@@ -171,7 +167,7 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   /**
    * Deletes the given entities.
    *
-   * @param entities
+   * @param entities Entities to delete from the internal DB
    * @throws IllegalArgumentException in case the given {@link Iterable} is {@literal null}.
    */
   @Override

@@ -52,7 +52,7 @@ public class QuoteService {
     Iterable<Quote> quotes = quoteDao.findAll();
     List<String> symbols = new ArrayList<>();
     for (Quote q : quotes) {
-      symbols.add(q.getTicker());
+      symbols.add(q.getId());
     }
     return symbols;
   }
@@ -61,7 +61,7 @@ public class QuoteService {
     List<Quote> quotes = new ArrayList<>();
     for (IexQuote iex : iexQuotes) {
       Quote quote = new Quote();
-      quote.setTicker(iex.getSymbol());
+      quote.setId(iex.getSymbol());
       quote.setLastPrice(iex.getLatestPrice());
       quote.setBidPrice(iex.getIexBidPrice());
       quote.setBidSize(iex.getIexBidSize());

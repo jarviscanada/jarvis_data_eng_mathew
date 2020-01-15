@@ -32,7 +32,6 @@ public class QuoteDao implements CrudRepository<Quote, String> {
       "DELETE FROM " + DB_TABLE + " WHERE ticker = :ticker";
   private static final String SQL_QUOTE_DELETEALL = "DELETE FROM " + DB_TABLE;
 
-  private DataSource dataSource;
   private NamedParameterJdbcTemplate namedTemplate;
   private JdbcTemplate jdbcTemplate;
   private SimpleJdbcInsert simpleInsert;
@@ -41,7 +40,6 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Autowired
   public QuoteDao(DataSource dataSource) {
-    this.dataSource = dataSource;
     jdbcTemplate = new JdbcTemplate(dataSource);
     namedTemplate = new NamedParameterJdbcTemplate(dataSource);
     simpleInsert = new SimpleJdbcInsert(dataSource).withTableName(DB_TABLE);
@@ -75,14 +73,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public <S extends Quote> Iterable<S> saveAll(Iterable<S> iterable) {
-    int rowsModded;
     for (S quote : iterable) {
-      if (!existsById(quote.getId())) {
-        rowsModded = simpleInsert.execute(quote.getSqlValues());
-      } else {
-        rowsModded = namedTemplate.update(SQL_QUOTE_UPDATE, quote.getSqlValues());
-      }
-      checkRowsModified(rowsModded);
+      save(quote);
     }
     return iterable;
   }

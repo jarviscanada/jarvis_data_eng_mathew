@@ -5,7 +5,9 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder> {
 
   JdbcTemplate template;
@@ -16,7 +18,9 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder> {
   @Autowired
   public SecurityOrderDao(DataSource ds) {
     template = new JdbcTemplate(ds);
-    simpleInsert = new SimpleJdbcInsert(template).withTableName(tableName);
+    simpleInsert = new SimpleJdbcInsert(template)
+        .withTableName(tableName)
+        .usingGeneratedKeyColumns(idColumnName);
   }
 
   @Override
@@ -46,6 +50,8 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder> {
 
   @Override
   public int updateEntity(SecurityOrder entity) {
-    return 0;
+    String updateQuery = "UPDATE " + tableName + " SET status=?, notes=?, WHERE " + idColumnName
+        + "=?";
+    return template.update(updateQuery, entity.getStatus(), entity.getNotes(), entity.getId());
   }
 }
