@@ -41,6 +41,14 @@ public class Quote implements Entity<String> {
     this.ticker = id;
   }
 
+  public String getTicker() {
+    return getId();
+  }
+
+  public void setTicker(String ticker) {
+    setId(ticker);
+  }
+
   public double getAskPrice() {
     return askPrice;
   }

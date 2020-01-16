@@ -50,7 +50,7 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder> {
 
   @Override
   public int updateEntity(SecurityOrder entity) {
-    String updateQuery = "UPDATE " + tableName + " SET status=?, notes=?, WHERE " + idColumnName
+    String updateQuery = "UPDATE " + tableName + " SET status=?, notes=? WHERE " + idColumnName
         + "=?";
     return template.update(updateQuery, entity.getStatus(), entity.getNotes(), entity.getId());
   }
