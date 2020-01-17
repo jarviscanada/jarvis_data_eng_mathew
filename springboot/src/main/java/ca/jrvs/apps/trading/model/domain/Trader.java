@@ -1,16 +1,27 @@
 package ca.jrvs.apps.trading.model.domain;
 
 import ca.jrvs.apps.trading.model.Entity;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Trader implements Entity<Integer> {
 
   private int id;
   private String firstName;
   private String lastName;
+  //@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Toronto")
   private Date dob;
   private String country;
   private String email;
+
+  // This function is used to prevent Jackson from doing time zone conversion when de-serializing
+  // incoming Trader JSON docs. This may still cause issues if the host is in a different time zone
+  // than the server.
+  @JsonSetter("dob")
+  public void setDobWithLocalDate(LocalDate localDate) {
+    dob = Date.valueOf(localDate);
+  }
 
   @Override
   public Integer getId() {

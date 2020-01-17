@@ -1,9 +1,7 @@
 package ca.jrvs.apps.trading;
 
-import ca.jrvs.apps.trading.service.QuoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,8 +18,10 @@ public class Application implements CommandLineRunner {
   //@Value("${app.init.dailyList}")
   //private String[] initDailyList;
 
-  @Autowired
+  /*@Autowired
   private QuoteService quoteService;
+  @Autowired
+  private TraderAccountService traderAccountService;*/
 
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(Application.class);
