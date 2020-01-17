@@ -83,6 +83,15 @@ public class AccountDaoIntTest {
   }
 
   @Test
+  public void updateEntity_NotExist() {
+    Account account = new Account();
+    account.setId(100);
+    account.setTraderId(-158);
+    account.setAmount(15214.93);
+    assertEquals(0, accountDao.updateEntity(account));
+  }
+
+  @Test
   public void save_new() {
     Account account = new Account();
     account.setId(-1);
@@ -197,16 +206,8 @@ public class AccountDaoIntTest {
     accountDao.findAll().forEach(System.out::println);
   }
 
-//  @Test
-//  public void delete() {
-//  }
-//
-//  @Test
-//  public void deleteAll() {
-//  }
-
   @Test
-  public void testDeleteAll() {
+  public void deleteAll() {
     accountDao.deleteAll();
   }
 }

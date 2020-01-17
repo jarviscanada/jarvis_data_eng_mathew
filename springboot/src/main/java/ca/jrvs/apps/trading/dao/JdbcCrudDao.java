@@ -98,8 +98,10 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
    */
   @Override
   public boolean existsById(Integer id) {
+    logger.info("Looking up entity with ID: " + id);
     String existsQuery = "SELECT * FROM " + getTableName() + " WHERE " + getIdColumnName() + "=?";
-    return getJdbcTemplate().queryForRowSet(existsQuery, id).next();
+    List<T> results = getJdbcTemplate().queryForList(existsQuery, getEntityClass(), id);
+    return results.size() > 0;
   }
 
   /**

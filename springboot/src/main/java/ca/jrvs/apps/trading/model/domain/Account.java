@@ -18,11 +18,11 @@ public class Account implements Entity<Integer> {
     this.id = id;
   }
 
-  public int getTraderId() {
+  public Integer getTraderId() {
     return traderId;
   }
 
-  public void setTraderId(int traderId) {
+  public void setTraderId(Integer traderId) {
     this.traderId = traderId;
   }
 
@@ -32,5 +32,14 @@ public class Account implements Entity<Integer> {
 
   public void setAmount(double amount) {
     this.amount = amount;
+  }
+
+  @Override
+  public String toString() {
+    return "Account{"
+        + "id=" + id
+        + ", traderId=" + traderId
+        + ", amount=" + amount
+        + '}';
   }
 }

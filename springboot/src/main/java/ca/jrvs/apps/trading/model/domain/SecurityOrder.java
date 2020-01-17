@@ -69,4 +69,17 @@ public class SecurityOrder implements Entity<Integer> {
   public void setNotes(String notes) {
     this.notes = notes;
   }
+
+  @Override
+  public String toString() {
+    return "SecurityOrder{"
+        + "id=" + id
+        + ", accountId=" + accountId
+        + ", status='" + status + '\''
+        + ", ticker='" + ticker + '\''
+        + ", size=" + size
+        + ", price=" + price
+        + ", notes='" + notes + '\''
+        + '}';
+  }
 }

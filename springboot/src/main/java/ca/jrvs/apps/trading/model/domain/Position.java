@@ -33,4 +33,13 @@ public class Position implements Entity<Integer> {
   public void setPosition(long position) {
     this.position = position;
   }
+
+  @Override
+  public String toString() {
+    return "Position{"
+        + "id=" + id
+        + ", ticker='" + ticker + '\''
+        + ", position=" + position
+        + '}';
+  }
 }

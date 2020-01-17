@@ -1,8 +1,8 @@
-DROP VIEW public.position;
-DROP TABLE public.security_order;
-DROP TABLE public.account;
-DROP TABLE public.trader;
-DROP TABLE public."quote";
+DROP VIEW IF EXISTS public.position;
+DROP TABLE IF EXISTS public.security_order CASCADE;
+DROP TABLE IF EXISTS public.account CASCADE;
+DROP TABLE IF EXISTS public.trader CASCADE;
+DROP TABLE IF EXISTS public."quote" CASCADE;
 
 CREATE TABLE public."quote" (
 	ticker varchar NOT NULL,
