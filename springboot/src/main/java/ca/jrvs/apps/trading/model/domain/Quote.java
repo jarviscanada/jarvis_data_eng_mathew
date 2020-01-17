@@ -1,6 +1,7 @@
 package ca.jrvs.apps.trading.model.domain;
 
 import ca.jrvs.apps.trading.model.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
@@ -20,6 +21,7 @@ public class Quote implements Entity<String> {
   private long bidSize;
   private double lastPrice;
 
+  @JsonIgnore
   public SqlParameterSource getSqlValues() {
     MapSqlParameterSource valueMap = new MapSqlParameterSource();
     valueMap.addValue(DB_SYMBOL, ticker);

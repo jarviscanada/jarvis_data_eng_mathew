@@ -48,6 +48,30 @@ public class QuoteService {
     quoteDao.saveAll(newQuotes);
   }
 
+  /**
+   * Saves a quote in the internal Database by looking up a Symbol's data on IEX
+   *
+   * @param symbol the symbol to get data for
+   * @return the saved quote
+   */
+  public Quote saveQuote(String symbol) {
+    return quoteDao.save(iexToQuote(getIexQuoteBySymbol(symbol)));
+  }
+
+  /**
+   * Save a pre-built quote in the Database
+   *
+   * @param quote the quote to save
+   * @return the saved quote
+   */
+  public Quote saveQuote(Quote quote) {
+    return quoteDao.save(quote);
+  }
+
+  public Iterable<Quote> getAllQuotes() {
+    return quoteDao.findAll();
+  }
+
   private List<String> getSymbolsFromDB() {
     Iterable<Quote> quotes = quoteDao.findAll();
     List<String> symbols = new ArrayList<>();
@@ -60,16 +84,21 @@ public class QuoteService {
   private List<Quote> iexToQuote(Iterable<IexQuote> iexQuotes) {
     List<Quote> quotes = new ArrayList<>();
     for (IexQuote iex : iexQuotes) {
-      Quote quote = new Quote();
-      quote.setId(iex.getSymbol());
-      quote.setLastPrice(iex.getLatestPrice());
-      quote.setBidPrice(iex.getIexBidPrice());
-      quote.setBidSize(iex.getIexBidSize());
-      quote.setAskPrice(iex.getIexAskPrice());
-      quote.setAskSize(iex.getIexAskSize());
+      Quote quote = iexToQuote(iex);
       quotes.add(quote);
     }
     return quotes;
   }
 
+  private Quote iexToQuote(IexQuote iex) {
+    Quote quote = new Quote();
+    quote.setTicker(iex.getSymbol());
+    quote.setLastPrice(iex.getLatestPrice());
+    quote.setBidPrice(iex.getIexBidPrice());
+    quote.setBidSize(iex.getIexBidSize());
+    quote.setAskPrice(iex.getIexAskPrice());
+    quote.setAskSize(iex.getIexAskSize());
+
+    return quote;
+  }
 }
