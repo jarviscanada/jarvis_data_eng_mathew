@@ -1,6 +1,9 @@
 package ca.jrvs.practice.dataStructure.list;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import org.junit.Before;
@@ -74,5 +77,13 @@ public class LinkedJListTest {
   public void clear() {
     linkedJList.clear();
     assertTrue(linkedJList.isEmpty());
+  }
+
+  @Test
+  public void removeDuplicates() {
+    linkedJList.add(2);
+    linkedJList.add(3);
+    linkedJList.removeDuplicateValues();
+    assertEquals(3, linkedJList.size());
   }
 }

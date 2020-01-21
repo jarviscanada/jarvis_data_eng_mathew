@@ -1,6 +1,7 @@
 package ca.jrvs.practice.dataStructure.list;
 
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LinkedJList<T> implements JList<T> {
 
@@ -129,7 +130,7 @@ public class LinkedJList<T> implements JList<T> {
    */
   @Override
   public T get(int index) {
-    if (index > size) {
+    if (index > size || index < 0) {
       throw new IndexOutOfBoundsException();
     }
     Node<T> node = head;
@@ -156,6 +157,7 @@ public class LinkedJList<T> implements JList<T> {
     for (int i = 0; i < index; i++) {
       node = node.next;
     }
+    size--;
     if (node != null) {
       Node<T> next = node.next;
       Node<T> prev = node.prev;
@@ -185,5 +187,18 @@ public class LinkedJList<T> implements JList<T> {
     head = null;
     tail = null;
     size = 0;
+  }
+
+  /**
+   * Removes duplicate values from this LinkedList, using a Set to track values encountered so far.
+   */
+  public void removeDuplicateValues() {
+    Set<T> values = new HashSet<>();
+    for (int i = 0; i < size; i++) {
+      T t = get(i);
+      if (!values.add(t)) {
+        remove(i--);
+      }
+    }
   }
 }
