@@ -7,12 +7,14 @@ import ca.jrvs.apps.trading.utils.ResponseExceptionUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping("/order")
@@ -39,6 +41,7 @@ public class OrderController {
    * @return The order as saved in the DB
    */
   @PostMapping("/buy")
+  @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   @ApiOperation(value = "Create a new Buy order",
       notes = "The account and Ticker must both exist, price must be at least one cent, and amount"
@@ -69,6 +72,7 @@ public class OrderController {
    * @return The order as saved in the DB
    */
   @PostMapping("/sell")
+  @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   @ApiOperation(value = "Create a new Sell order",
       notes = "Symbol and account ID must exist, price must be at least 1 cent, and amount must be"
