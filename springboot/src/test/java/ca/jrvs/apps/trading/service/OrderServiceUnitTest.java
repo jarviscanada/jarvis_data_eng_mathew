@@ -17,6 +17,7 @@ import ca.jrvs.apps.trading.model.domain.SecurityOrder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -130,7 +131,7 @@ public class OrderServiceUnitTest {
 
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test(expected = EntityNotFoundException.class)
   public void executeOrder_BadTicker() {
     sampleMarketOrder.setSymbol("B A D");
     testOrderService.executeOrder(sampleMarketOrder);
@@ -150,7 +151,7 @@ public class OrderServiceUnitTest {
 
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test(expected = EntityNotFoundException.class)
   public void executeOrder_BadAccount() {
     sampleMarketOrder.setAccountId(9999);
     testOrderService.executeOrder(sampleMarketOrder);

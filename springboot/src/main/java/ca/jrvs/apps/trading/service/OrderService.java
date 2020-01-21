@@ -41,7 +41,8 @@ public class OrderService {
    * If the order is a Sell order, The user is credited the appropriate amount if they have enough
    * of a position to sell.
    * <p>
-   * If an order cannot be filled it is saved with the status "PENDING"
+   * If an order cannot be filled it is saved with the status "PENDING" For the sake of simplicity,
+   * It is always assumed that there is a willing buyer/seller
    *
    * @param order The order received by the user
    * @return The processed order
@@ -87,21 +88,25 @@ public class OrderService {
   // If order is not valid, throw IllegalArgumentException.
   private SecurityOrder makeSecurityOrder(MarketOrder marketOrder) {
     SecurityOrder order = new SecurityOrder();
-    if (marketOrder.getSize() > 0 && quoteDao.existsById(marketOrder.getSymbol()) &&
-        marketOrder.getPrice() >= 0.01 && accountDao.existsById(marketOrder.getAccountId())) {
-      order.setTicker(marketOrder.getSymbol());
-      order.setPrice(marketOrder.getPrice());
-      if (marketOrder.isSellOrder()) {
-        order.setSize(marketOrder.getSize() * -1);
+    if (marketOrder.getSize() > 0 && marketOrder.getPrice() >= 0.01) {
+      if (quoteDao.existsById(marketOrder.getSymbol())
+          && accountDao.existsById(marketOrder.getAccountId())) {
+        order.setTicker(marketOrder.getSymbol());
+        order.setPrice(marketOrder.getPrice());
+        if (marketOrder.isSellOrder()) {
+          order.setSize(marketOrder.getSize() * -1);
+        } else {
+          order.setSize(marketOrder.getSize());
+        }
+        order.setAccountId(marketOrder.getAccountId());
+        order.setStatus("PENDING");
+        order.setNotes("");
+        return order;
       } else {
-        order.setSize(marketOrder.getSize());
+        throw new EntityNotFoundException("Account or Symbol could not be found");
       }
-      order.setAccountId(marketOrder.getAccountId());
-      order.setStatus("PENDING");
-      order.setNotes("");
-      return order;
     } else {
-      throw new IllegalArgumentException("Invalid order");
+      throw new IllegalArgumentException("Invalid price or order amount");
     }
   }
 }
