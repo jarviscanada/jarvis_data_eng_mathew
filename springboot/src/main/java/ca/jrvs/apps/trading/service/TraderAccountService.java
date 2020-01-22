@@ -6,6 +6,7 @@ import ca.jrvs.apps.trading.dao.SecurityOrderDao;
 import ca.jrvs.apps.trading.dao.TraderDao;
 import ca.jrvs.apps.trading.model.TraderAccountView;
 import ca.jrvs.apps.trading.model.domain.Account;
+import ca.jrvs.apps.trading.model.domain.Position;
 import ca.jrvs.apps.trading.model.domain.SecurityOrder;
 import ca.jrvs.apps.trading.model.domain.Trader;
 import java.util.ArrayList;
@@ -76,12 +77,12 @@ public class TraderAccountService {
     Account accountToDelete = accountDao.findById(id).orElseThrow(
         () -> new EntityNotFoundException("No account with that ID exists!")
     );
-    List<SecurityOrder> accountOrders = getAccountOrders(id);
-    if (accountToDelete.getAmount() != 0 || hasPendingOrders(accountOrders)) {
+    List<Position> accountPositions = getAccountPositions(id);
+    if (accountToDelete.getAmount() != 0 || hasOpenPositions(accountPositions)) {
       throw new IllegalStateException("Account may not be deleted. It may still have money in it"
-          + " or it may have an outstanding order.");
+          + " or it may have unsold shares.");
     } else {
-      for (SecurityOrder order : accountOrders) {
+      for (SecurityOrder order : securityOrderDao.findAllById(id)) {
         securityOrderDao.deleteById(order.getId());
       }
       accountDao.deleteById(accountToDelete.getId());
@@ -89,19 +90,19 @@ public class TraderAccountService {
     }
   }
 
-  private List<SecurityOrder> getAccountOrders(int id) {
-    List<SecurityOrder> orders = new ArrayList<>();
-    for (SecurityOrder order : securityOrderDao.findAll()) {
-      if (id == order.getAccountId()) {
-        orders.add(order);
+  private List<Position> getAccountPositions(int id) {
+    List<Position> positions = new ArrayList<>();
+    for (Position position : positionDao.findAll()) {
+      if (id == position.getId()) {
+        positions.add(position);
       }
     }
-    return orders;
+    return positions;
   }
 
-  private boolean hasPendingOrders(List<SecurityOrder> orderList) {
-    for (SecurityOrder order : orderList) {
-      if (order.getStatus().toLowerCase().equals("pending")) {
+  private boolean hasOpenPositions(List<Position> positionList) {
+    for (Position position : positionList) {
+      if (position.getPosition() != 0) {
         return true;
       }
     }
