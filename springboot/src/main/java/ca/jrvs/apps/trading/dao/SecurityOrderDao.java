@@ -1,8 +1,10 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.SecurityOrder;
+import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -53,5 +55,16 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder> {
     String updateQuery = "UPDATE " + tableName + " SET status=?, notes=? WHERE " + idColumnName
         + "=?";
     return template.update(updateQuery, entity.getStatus(), entity.getNotes(), entity.getId());
+  }
+
+  /**
+   * Overloaded findAllById. Get all SecurityOrders associated with a specific account ID.
+   *
+   * @param id the Account ID to get orders from
+   * @return A list of orders made by the given Account ID
+   */
+  public List<SecurityOrder> findAllById(Integer id) {
+    String selectQuery = "SELECT * FROM " + tableName + " WHERE account_id=?";
+    return template.query(selectQuery, BeanPropertyRowMapper.newInstance(SecurityOrder.class), id);
   }
 }
