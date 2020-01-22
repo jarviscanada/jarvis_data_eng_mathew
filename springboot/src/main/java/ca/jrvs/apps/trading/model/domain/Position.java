@@ -18,6 +18,14 @@ public class Position implements Entity<Integer> {
     this.id = id;
   }
 
+  public Integer getAccountId() {
+    return id;
+  }
+
+  public void setAccountId(Integer id) {
+    this.id = id;
+  }
+
   public String getTicker() {
     return ticker;
   }

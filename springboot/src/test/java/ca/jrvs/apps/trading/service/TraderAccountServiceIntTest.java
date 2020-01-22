@@ -96,7 +96,7 @@ public class TraderAccountServiceIntTest {
     traderAccountTestService.deleteTraderById(1);
   }
 
-  @Test
+  @Test(expected = IllegalStateException.class)
   public void deleteTraderById_HasFilledOrders() {
     createNewTraderAccount();
     prepareOrder("FILLED");
@@ -106,11 +106,14 @@ public class TraderAccountServiceIntTest {
     assertEquals(0, securityOrderDao.count());
   }
 
-  @Test(expected = IllegalStateException.class)
+  @Test
   public void deleteTraderById_PendingOrders() {
     createNewTraderAccount();
     prepareOrder("PENDING");
     traderAccountTestService.deleteTraderById(1);
+    assertEquals(0, traderDao.count());
+    assertEquals(0, accountDao.count());
+    assertEquals(0, securityOrderDao.count());
   }
 
   private void prepareOrder(String status) {
@@ -128,6 +131,7 @@ public class TraderAccountServiceIntTest {
     order.setStatus(status);
     order.setTicker("MSFT");
     order.setPrice(111.11);
+    order.setSize(30);
     order.setNotes("NOTABLY NOTED");
     securityOrderDao.save(order);
   }

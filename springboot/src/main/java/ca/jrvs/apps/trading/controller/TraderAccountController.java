@@ -104,8 +104,8 @@ public class TraderAccountController {
   @ApiOperation(value = "Delete a trader and their corresponding account.",
       notes =
           "This assumes that the trader and their account have the same ID. The delete may only go "
-              + "through if the trader has exactly 0 money in their account and they have no pending orders"
-              + "tied to their account.")
+              + "through if the trader has exactly 0 money in their account and they have no unsold"
+              + " shares tied to their account.")
   @DeleteMapping("/delete/{traderId}")
   @ResponseStatus(HttpStatus.OK)
   public void deleteTraderAccount(@PathVariable int traderId) {
