@@ -47,8 +47,8 @@ public class LinkedJListTest {
   public void isEmpty() {
     assertFalse(linkedJList.isEmpty());
     assertTrue(new LinkedJList<Integer>().isEmpty());
-    linkedJList.remove(2);
-    linkedJList.remove(1);
+    linkedJList.remove(0);
+    linkedJList.remove(0);
     linkedJList.remove(0);
     assertTrue(linkedJList.isEmpty());
   }
