@@ -1,4 +1,4 @@
-package ca.jrvs.practice.codingChallenge.list;
+package ca.jrvs.practice.codingChallenge.stackQueue;
 
 import java.util.Stack;
 
