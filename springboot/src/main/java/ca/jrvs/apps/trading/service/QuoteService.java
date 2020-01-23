@@ -76,7 +76,7 @@ public class QuoteService {
     Iterable<Quote> quotes = quoteDao.findAll();
     List<String> symbols = new ArrayList<>();
     for (Quote q : quotes) {
-      symbols.add(q.getTicker());
+      symbols.add(q.getId());
     }
     return symbols;
   }

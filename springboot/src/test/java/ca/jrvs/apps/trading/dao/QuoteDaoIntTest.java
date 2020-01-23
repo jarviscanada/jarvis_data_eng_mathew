@@ -33,7 +33,7 @@ public class QuoteDaoIntTest {
   @Before
   public void setUp() {
     sampleQuote = new Quote();
-    sampleQuote.setTicker("BMO");
+    sampleQuote.setId("BMO");
     sampleQuote.setLastPrice(110.58);
     sampleQuote.setBidPrice(105.50);
     sampleQuote.setBidSize(10);
@@ -65,9 +65,9 @@ public class QuoteDaoIntTest {
   public void saveAll() {
     Quote sample1 = new Quote();
     Quote sample2 = new Quote();
-    sample1.setTicker("T1");
+    sample1.setId("T1");
     sample1.setLastPrice(12.34);
-    sample2.setTicker("T2");
+    sample2.setId("T2");
     sample2.setLastPrice(43.21);
     List<Quote> quotes = Arrays.asList(sample1, sample2);
     testQuoteDao.saveAll(quotes);
@@ -78,7 +78,7 @@ public class QuoteDaoIntTest {
   public void findById() {
     Quote foundQuote = testQuoteDao.findById("BMO").orElseThrow(
         () -> new IllegalArgumentException("Symbol not found"));
-    assertEquals("BMO", foundQuote.getTicker());
+    assertEquals("BMO", foundQuote.getId());
     assertEquals(110.58, foundQuote.getLastPrice(), 0.001);
   }
 
