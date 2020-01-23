@@ -5,15 +5,17 @@ import java.util.Set;
 
 public class LinkedJList<T> implements JList<T> {
 
-  private int size = 0;
-  private Node<T> head;
-  private Node<T> tail;
+  protected int size = 0;
+  protected Node<T> head;
+  protected Node<T> tail;
 
-  static class Node<T> {
-    T value;
-    Node<T> next;
-    Node<T> prev;
-    public Node(T t, Node<T> prev, Node<T> next){
+  protected static class Node<T> {
+
+    public T value;
+    public Node<T> next;
+    public Node<T> prev;
+
+    public Node(T t, Node<T> prev, Node<T> next) {
       this.value = t;
       this.next = next;
       this.prev = prev;
@@ -30,12 +32,11 @@ public class LinkedJList<T> implements JList<T> {
    */
   @Override
   public boolean add(T t) {
-    final Node<T> oldTail = tail;
-    final Node<T> newTail = new Node<>(t, oldTail, null);
-    if (head == null) {
-      head = newTail;
-      tail = newTail;
+    if (head == null || tail == null) {
+      head = new Node<>(t, null, null);
+      tail = head;
     } else {
+      final Node<T> newTail = new Node<>(t, tail, null);
       tail.next = newTail;
       tail = newTail;
     }
@@ -96,7 +97,7 @@ public class LinkedJList<T> implements JList<T> {
     int index = 0;
     Node<T> node = head;
     while (node != null) {
-      if (node.value == t) {
+      if (node.value.equals(t)) {
         return index;
       }
       index++;
@@ -130,7 +131,7 @@ public class LinkedJList<T> implements JList<T> {
    */
   @Override
   public T get(int index) {
-    if (index > size || index < 0) {
+    if (index >= size || index < 0) {
       throw new IndexOutOfBoundsException();
     }
     Node<T> node = head;
@@ -150,7 +151,7 @@ public class LinkedJList<T> implements JList<T> {
    */
   @Override
   public T remove(int index) {
-    if (index > size || index < 0) {
+    if (index >= size || index < 0) {
       throw new IndexOutOfBoundsException();
     }
     Node<T> node = head;
