@@ -1,7 +1,6 @@
 package ca.jrvs.practice.dataStructure.stackQueue;
 
 import ca.jrvs.practice.dataStructure.list.LinkedJList;
-import java.util.NoSuchElementException;
 
 public class LinkedJListJDeque<T> extends LinkedJList<T> implements JDeque<T> {
 
@@ -22,23 +21,15 @@ public class LinkedJListJDeque<T> extends LinkedJList<T> implements JDeque<T> {
 
   @Override
   public T pop() {
-    if (tail == null) {
-      throw new NoSuchElementException();
-    }
-    Node<T> end = tail;
-    tail = tail.prev;
-    end.next = null;
-    if (tail == null) {
-      head = null;
-    } else {
-      tail.next = null;
-    }
-    size--;
-    return end.value;
+    return remove(size() - 1);
   }
 
   @Override
   public T peek() {
-    return head == null ? null : head.value;
+    try {
+      return get(0);
+    } catch (IndexOutOfBoundsException ex) {
+      return null;
+    }
   }
 }

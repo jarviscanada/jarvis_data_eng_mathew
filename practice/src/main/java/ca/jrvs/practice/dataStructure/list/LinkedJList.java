@@ -5,15 +5,15 @@ import java.util.Set;
 
 public class LinkedJList<T> implements JList<T> {
 
-  protected int size = 0;
-  protected Node<T> head;
-  protected Node<T> tail;
+  private int size = 0;
+  private Node<T> head;
+  private Node<T> tail;
 
-  protected static class Node<T> {
+  private static class Node<T> {
 
-    public T value;
-    public Node<T> next;
-    public Node<T> prev;
+    private T value;
+    private Node<T> next;
+    private Node<T> prev;
 
     public Node(T t, Node<T> prev, Node<T> next) {
       this.value = t;
@@ -138,7 +138,7 @@ public class LinkedJList<T> implements JList<T> {
     for (int i = 0; i < index; i++) {
         node = node.next;
     }
-    return node.value;
+    return node == null ? null : node.value;
   }
 
   /**
@@ -189,13 +189,6 @@ public class LinkedJList<T> implements JList<T> {
     tail = null;
     size = 0;
   }
-
-//  private Node<T> nodeAt(int index) {
-//    Node<T> toReturn = head;
-//    for (int i = 0; i <= index; i++) {
-//
-//    }
-//  }
 
   /**
    * Removes duplicate values from this LinkedList, using a Set to track values encountered so far.

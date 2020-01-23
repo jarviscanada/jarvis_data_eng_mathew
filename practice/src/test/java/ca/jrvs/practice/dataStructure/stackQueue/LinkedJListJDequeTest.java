@@ -3,7 +3,6 @@ package ca.jrvs.practice.dataStructure.stackQueue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.util.NoSuchElementException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -92,7 +91,7 @@ public class LinkedJListJDequeTest {
     assertEquals(1, testDeque.peek().intValue());
   }
 
-  @Test(expected = NoSuchElementException.class)
+  @Test(expected = IndexOutOfBoundsException.class)
   public void pop_Empty() {
     testDeque.pop();
   }
