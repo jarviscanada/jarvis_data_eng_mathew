@@ -15,14 +15,6 @@ public class Application implements CommandLineRunner {
 
   private final Logger logger = LoggerFactory.getLogger("Springboot Application");
 
-  //@Value("${app.init.dailyList}")
-  //private String[] initDailyList;
-
-  /*@Autowired
-  private QuoteService quoteService;
-  @Autowired
-  private TraderAccountService traderAccountService;*/
-
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(Application.class);
     app.setAdditionalProfiles("development");
