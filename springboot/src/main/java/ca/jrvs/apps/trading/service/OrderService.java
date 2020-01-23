@@ -58,8 +58,6 @@ public class OrderService {
     }
   }
 
-  // Execute a sell order. If Account has enough position to sell, then Sell.
-  // Negative size order is used to reduce Position table value.
   private SecurityOrder executeSell(SecurityOrder order, Account account) {
     List<Position> positions = positionDao.findAllById(Collections.singletonList(account.getId()));
     for (Position p : positions) {
@@ -73,7 +71,6 @@ public class OrderService {
     return orderDao.save(order);
   }
 
-  // Execute a Buy order. If Account can afford the order, then Buy.
   private SecurityOrder executeBuy(SecurityOrder order, Account account) {
     if (account.getAmount() >= order.getPrice() * order.getSize()) {
       order.setStatus("FILLED");
@@ -84,8 +81,6 @@ public class OrderService {
     return orderDao.save(order);
   }
 
-  // Convert the MarketOrder into a SecurityOrder. If sell order, make Size negative.
-  // If order is not valid, throw IllegalArgumentException.
   private SecurityOrder makeSecurityOrder(MarketOrder marketOrder) {
     SecurityOrder order = new SecurityOrder();
     if (marketOrder.getSize() > 0 && marketOrder.getPrice() >= 0.01) {
@@ -93,6 +88,7 @@ public class OrderService {
           && accountDao.existsById(marketOrder.getAccountId())) {
         order.setTicker(marketOrder.getSymbol());
         order.setPrice(marketOrder.getPrice());
+        // Negative size is used to reduce Position when order is filled
         if (marketOrder.isSellOrder()) {
           order.setSize(marketOrder.getSize() * -1);
         } else {
