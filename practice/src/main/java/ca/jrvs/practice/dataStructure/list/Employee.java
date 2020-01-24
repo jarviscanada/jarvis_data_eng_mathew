@@ -1,5 +1,11 @@
 package ca.jrvs.practice.dataStructure.list;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 public class Employee {
 
   private String name;
@@ -54,5 +60,40 @@ public class Employee {
         + ", age=" + age
         + ", salary=" + salary
         + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Employee employee = (Employee) o;
+    return id == employee.id &&
+        age == employee.age &&
+        salary == employee.salary &&
+        name.equals(employee.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, age, salary, name);
+  }
+
+  public static void main(String[] args) {
+    Map<Employee, List<String>> pastEmployers = new HashMap<>();
+
+    Employee emp1 = new Employee("Bob", 123454321, 35, 360000);
+    pastEmployers.put(emp1, Arrays.asList("Company1", "Company2", "Company3"));
+
+    Employee emp2 = new Employee("Steve", 123123123, 22, 45200);
+    pastEmployers.put(emp2, Arrays.asList("Company2", "Company3", "Company5", "Company7"));
+
+    System.out.println("Bob hashcode: " + emp1.hashCode());
+    System.out.println("Bob past employers: " + pastEmployers.get(emp1));
+    System.out.println("Steve hashcode: " + emp2.hashCode());
+    System.out.println("Steve past employers" + pastEmployers.get(emp2));
   }
 }
