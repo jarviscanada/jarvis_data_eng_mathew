@@ -30,13 +30,12 @@ public class OrderController {
 
   /**
    * Creates a Buy order for the given Account Id, provided that account has the funds to execute
-   * the order. If it does not, the order is saved as pending. Params are sent in a query string.
+   * the order. If it does not, the order is cancelled. Params are sent in a query string.
    * <p>
-   * Sample Usage: POST /order/buy?symbol="TSLA"&amount=50&price=110.37&accountId=4
+   * Sample Usage: POST /order/buy?symbol="TSLA"&amount=50&accountId=4
    *
    * @param symbol    The Ticker symbol to buy from
    * @param amount    The amount of shares to buy
-   * @param price     The price point at which you are buying shares
    * @param accountId The ID of the account buying shares
    * @return The order as saved in the DB
    */
@@ -44,12 +43,11 @@ public class OrderController {
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   @ApiOperation(value = "Create a new Buy order",
-      notes = "The account and Ticker must both exist, price must be at least one cent, and amount"
-          + "must be at least one. If not enough money, order is made Pending, else Filled")
+      notes = "The account and Ticker must both exist, and amount must be at least one. "
+          + "If not enough money, order is cancelled, otherwise it is Filled")
   public SecurityOrder makeBuyOrder(@RequestParam("symbol") String symbol,
-      @RequestParam("amount") int amount, @RequestParam("price") double price,
-      @RequestParam("accountid") int accountId) {
-    MarketOrder marketOrder = getOrder(symbol, amount, price, accountId);
+      @RequestParam("amount") int amount, @RequestParam("accountid") int accountId) {
+    MarketOrder marketOrder = getOrder(symbol, amount, accountId);
     marketOrder.setSellOrder(false);
     try {
       return orderService.executeOrder(marketOrder);
@@ -60,14 +58,12 @@ public class OrderController {
 
   /**
    * Creates a Sell order for the given Account Id, provided that account has the position to
-   * execute the order. If it does not, the order is saved as pending. Params are sent in a query
-   * string.
+   * execute the order. If it does not, the order is cancelled. Params are sent in a query string.
    * <p>
-   * Sample Usage: POST /order/sell?symbol="TSLA"&amount=50&price=110.37&accountId=4
+   * Sample Usage: POST /order/sell?symbol="TSLA"&amount=50&accountId=4
    *
    * @param symbol    The Ticker symbol to buy from
    * @param amount    The amount of shares to buy
-   * @param price     The price point at which you are buying shares
    * @param accountId The ID of the account buying shares
    * @return The order as saved in the DB
    */
@@ -75,12 +71,11 @@ public class OrderController {
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   @ApiOperation(value = "Create a new Sell order",
-      notes = "Symbol and account ID must exist, price must be at least 1 cent, and amount must be"
-          + "greater than zero. Order saved as Pending if not enough Position, otherwise Filled")
+      notes = "Symbol and account ID must exist, and amount must be greater than zero. "
+          + "Order cancelled if not enough Position, otherwise Filled")
   public SecurityOrder makeSellOrder(@RequestParam("symbol") String symbol,
-      @RequestParam("amount") int amount, @RequestParam("price") double price,
-      @RequestParam("accountid") int accountId) {
-    MarketOrder marketOrder = getOrder(symbol, amount, price, accountId);
+      @RequestParam("amount") int amount, @RequestParam("accountid") int accountId) {
+    MarketOrder marketOrder = getOrder(symbol, amount, accountId);
     marketOrder.setSellOrder(true);
     try {
       return orderService.executeOrder(marketOrder);
@@ -89,11 +84,10 @@ public class OrderController {
     }
   }
 
-  private MarketOrder getOrder(String symbol, int amount, double price, int accountId) {
+  private MarketOrder getOrder(String symbol, int amount, int accountId) {
     MarketOrder marketOrder = new MarketOrder();
     marketOrder.setAccountId(accountId);
     marketOrder.setSize(amount);
-    marketOrder.setPrice(price);
     marketOrder.setSymbol(symbol);
     return marketOrder;
   }

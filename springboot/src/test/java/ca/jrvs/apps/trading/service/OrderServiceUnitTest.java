@@ -50,11 +50,18 @@ public class OrderServiceUnitTest {
 
   @Before
   public void setup() {
+    sampleQuote = new Quote();
+    sampleQuote.setTicker("AAPL");
+    sampleQuote.setLastPrice(15.15);
+    sampleQuote.setBidPrice(14.55);
+    sampleQuote.setAskPrice(16.88);
+    sampleQuote.setBidSize(30);
+    sampleQuote.setAskSize(33);
+
     sampleMarketOrder = new MarketOrder();
     sampleMarketOrder.setAccountId(1);
     sampleMarketOrder.setSymbol("AAPL");
     sampleMarketOrder.setSize(100);
-    sampleMarketOrder.setPrice(1.00);
     sampleMarketOrder.setSellOrder(false);
 
     sampleSecurityOrder = new SecurityOrder();
@@ -84,6 +91,7 @@ public class OrderServiceUnitTest {
     when(mockAccountDao.existsById(1)).thenReturn(true);
     when(mockQuoteDao.existsById(any())).thenReturn(false);
     when(mockQuoteDao.existsById("AAPL")).thenReturn(true);
+    when(mockQuoteDao.findById(any())).thenReturn(Optional.of(sampleQuote));
     when(mockPositionDao.findAllById(any())).thenReturn(samplePositions);
     when(mockAccountDao.findById(any())).thenReturn(Optional.empty());
     when(mockAccountDao.findById(1)).thenReturn(Optional.of(sampleAccount));
@@ -106,7 +114,7 @@ public class OrderServiceUnitTest {
     sampleSecurityOrder = testOrderService.executeOrder(sampleMarketOrder);
     assertEquals("FILLED", sampleSecurityOrder.getStatus().toUpperCase());
     assertTrue(sampleSecurityOrder.getNotes().length() > 0);
-    assertTrue(amountBefore > sampleAccount.getAmount());
+    assertTrue(amountBefore < sampleAccount.getAmount());
   }
 
   @Test
@@ -114,8 +122,8 @@ public class OrderServiceUnitTest {
     sampleAccount.setAmount(0.00);
     SecurityOrder returnedOrder;
     returnedOrder = testOrderService.executeOrder(sampleMarketOrder);
-    assertEquals("PENDING", returnedOrder.getStatus().toUpperCase());
-    assertEquals(0, returnedOrder.getNotes().length());
+    assertEquals("CANCELLED", returnedOrder.getStatus().toUpperCase());
+    assertTrue(0 < returnedOrder.getNotes().length());
     assertEquals(0.00, sampleAccount.getAmount(), 0);
   }
 
@@ -125,8 +133,8 @@ public class OrderServiceUnitTest {
     sampleMarketOrder.setSellOrder(true);
     SecurityOrder returnedOrder;
     returnedOrder = testOrderService.executeOrder(sampleMarketOrder);
-    assertEquals("PENDING", returnedOrder.getStatus().toUpperCase());
-    assertEquals(0, returnedOrder.getNotes().length());
+    assertEquals("CANCELLED", returnedOrder.getStatus().toUpperCase());
+    assertTrue(0 < returnedOrder.getNotes().length());
     assertEquals(amountBefore, sampleAccount.getAmount(), 0.0);
 
   }
@@ -135,13 +143,6 @@ public class OrderServiceUnitTest {
   public void executeOrder_BadTicker() {
     sampleMarketOrder.setSymbol("B A D");
     testOrderService.executeOrder(sampleMarketOrder);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void executeOrder_BadPrice() {
-    sampleMarketOrder.setPrice(-10.00);
-    testOrderService.executeOrder(sampleMarketOrder);
-
   }
 
   @Test(expected = IllegalArgumentException.class)

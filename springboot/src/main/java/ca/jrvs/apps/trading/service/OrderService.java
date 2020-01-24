@@ -64,11 +64,14 @@ public class OrderService {
       if (order.getTicker().equals(p.getTicker()) && p.getPosition() >= Math.abs(order.getSize())) {
         order.setStatus("FILLED");
         order.setNotes("Filled on: " + LocalDateTime.now().toString());
-        account.setAmount(account.getAmount() + (order.getPrice() * order.getSize()));
+        account.setAmount(account.getAmount() + (order.getPrice() * Math.abs(order.getSize())));
         accountDao.updateEntity(account);
+        return orderDao.save(order);
       }
     }
-    return orderDao.save(order);
+    order.setStatus("CANCELLED");
+    order.setNotes("No position to sell with");
+    return order;
   }
 
   private SecurityOrder executeBuy(SecurityOrder order, Account account) {
@@ -77,22 +80,29 @@ public class OrderService {
       order.setNotes("Filled on: " + LocalDateTime.now().toString());
       account.setAmount(account.getAmount() - (order.getPrice() * order.getSize()));
       accountDao.updateEntity(account);
+      return orderDao.save(order);
+    } else {
+      order.setStatus("CANCELLED");
+      order.setNotes("You don't have enough money to complete this order");
+      return order;
     }
-    return orderDao.save(order);
   }
 
   private SecurityOrder makeSecurityOrder(MarketOrder marketOrder) {
     SecurityOrder order = new SecurityOrder();
-    if (marketOrder.getSize() > 0 && marketOrder.getPrice() >= 0.01) {
+    if (marketOrder.getSize() > 0) {
       if (quoteDao.existsById(marketOrder.getSymbol())
           && accountDao.existsById(marketOrder.getAccountId())) {
         order.setTicker(marketOrder.getSymbol());
-        order.setPrice(marketOrder.getPrice());
         // Negative size is used to reduce Position when order is filled
         if (marketOrder.isSellOrder()) {
           order.setSize(marketOrder.getSize() * -1);
+          order.setPrice(quoteDao.findById(marketOrder.getSymbol())
+              .orElseThrow(EntityNotFoundException::new).getBidPrice());
         } else {
           order.setSize(marketOrder.getSize());
+          order.setPrice(quoteDao.findById(marketOrder.getSymbol())
+              .orElseThrow(EntityNotFoundException::new).getAskPrice());
         }
         order.setAccountId(marketOrder.getAccountId());
         order.setStatus("PENDING");
@@ -102,7 +112,7 @@ public class OrderService {
         throw new EntityNotFoundException("Account or Symbol could not be found");
       }
     } else {
-      throw new IllegalArgumentException("Invalid price or order amount");
+      throw new IllegalArgumentException("Invalid order amount");
     }
   }
 }
