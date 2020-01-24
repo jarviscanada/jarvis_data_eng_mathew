@@ -3,7 +3,6 @@ package ca.jrvs.apps.trading.model.domain;
 public class MarketOrder {
 
   private String symbol;
-  private double price;
   private long size;
   private int accountId;
   private boolean isSellOrder;
@@ -30,14 +29,6 @@ public class MarketOrder {
 
   public void setSymbol(String symbol) {
     this.symbol = symbol;
-  }
-
-  public double getPrice() {
-    return price;
-  }
-
-  public void setPrice(double price) {
-    this.price = price;
   }
 
   public long getSize() {
