@@ -32,13 +32,16 @@ public class StackUsingQueue<T> {
    * @return The last element in the queues.
    */
   public T popTwoQueue() {
+    int size;
     if (queue2.isEmpty()) {
-      for (int i = 1; i < queue1.size(); i++) {
+      size = queue1.size();
+      for (int i = 1; i < size; i++) {
         queue2.add(queue1.remove());
       }
       return queue1.remove();
     } else {
-      for (int i = 1; i < queue2.size(); i++) {
+      size = queue2.size();
+      for (int i = 1; i < size; i++) {
         queue1.add(queue2.remove());
       }
       return queue2.remove();
@@ -71,7 +74,13 @@ public class StackUsingQueue<T> {
   }
 
   // Extra functions for Leetcode
-  public T peek() {
+  public T peekTwoQueue() {
+    T elem = popTwoQueue();
+    pushTwoQueue(elem);
+    return elem;
+  }
+
+  public T peekSingleQeue() {
     T elem = popSingleQueue();
     pushSingleQueue(elem);
     return elem;
