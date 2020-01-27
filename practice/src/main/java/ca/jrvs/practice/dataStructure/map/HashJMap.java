@@ -1,6 +1,7 @@
 package ca.jrvs.practice.dataStructure.map;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -34,11 +35,11 @@ public class HashJMap<K, V> implements JMap<K, V> {
   public V get(Object key) {
     if (containsKey(key)) {
       Node<K, V> current = table[getIndex(key, table.length)];
-      if (current.key.equals(key)) {
+      if (key == current.key || current.key.equals(key)) {
         return current.value;
       }
       while (current.next != null) {
-        if (current.key.equals(key)) {
+        if (key == current.key || current.key.equals(key)) {
           return current.value;
         }
         current = current.next;
@@ -84,11 +85,11 @@ public class HashJMap<K, V> implements JMap<K, V> {
   public boolean containsKey(Object key) {
     Node<K, V> current = table[getIndex(key, table.length)];
     if (current != null) {
-      if (current.key.equals(key)) {
+      if (key == current.key || current.key.equals(key)) {
         return true;
       }
       while (current.next != null) {
-        if (current.key.equals(key)) {
+        if (key == current.key || current.key.equals(key)) {
           return true;
         }
         current = current.next;
@@ -107,7 +108,38 @@ public class HashJMap<K, V> implements JMap<K, V> {
     return size;
   }
 
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o instanceof HashJMap<?, ?>) {
+      HashJMap<?, ?> oMap = (HashJMap<?, ?>) o;
+      if (oMap.size() != size) {
+        return false;
+      }
+      Iterator<Entry<K, V>> entryIterator = entrySet.iterator();
+      try {
+        while (entryIterator.hasNext()) {
+          Entry<K, V> entry = entryIterator.next();
+          K key = entry.getKey();
+          V value = entry.getValue();
+          if (!oMap.containsKey(key) || oMap.get(key) != value) {
+            return false;
+          }
+        }
+      } catch (ClassCastException | NullPointerException ex) {
+        return false;
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   private int getIndex(Object key, int tableLength) {
+    if (key == null) {
+      return 0;
+    }
     return Math.abs(key.hashCode()) % (tableLength - 1);
   }
 
