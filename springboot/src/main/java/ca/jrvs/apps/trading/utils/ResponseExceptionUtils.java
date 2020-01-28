@@ -7,7 +7,8 @@ import org.springframework.web.server.ResponseStatusException;
 public class ResponseExceptionUtils {
 
   /**
-   * Maps exceptions to response codes. IllegalArgumentException -> 400 BAD_REQUEST Others -> 500
+   * Maps exceptions to response codes. IllegalArgumentException -> 400 BAD_REQUEST
+   * IllegalStateException -> 403 FORBIDDEN EntityNotFoundException -> 404 NOT_FOUND Others -> 500
    * INTERNAL_SERVER_ERROR
    *
    * @param ex The exception to map to an HTTP response code

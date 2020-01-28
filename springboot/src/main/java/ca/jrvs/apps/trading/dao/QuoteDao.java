@@ -111,8 +111,9 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public boolean existsById(String symbol) {
-    return namedTemplate.queryForRowSet(SQL_QUOTE_SELECT,
-        new MapSqlParameterSource("ticker", symbol)).next();
+    return namedTemplate.query(SQL_QUOTE_SELECT,
+        new MapSqlParameterSource("ticker", symbol),
+        BeanPropertyRowMapper.newInstance(Quote.class)).size() > 0;
   }
 
   /**
