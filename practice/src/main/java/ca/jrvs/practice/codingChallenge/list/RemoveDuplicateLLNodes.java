@@ -4,6 +4,9 @@ import ca.jrvs.practice.dataStructure.list.LinkedJList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Ticket: https://www.notion.so/Duplicate-LinkedList-Node-a0b4e094d665449fb5ace33c0595f6eb
+ */
 public class RemoveDuplicateLLNodes {
 
   /**

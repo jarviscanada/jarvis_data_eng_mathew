@@ -2,6 +2,9 @@ package ca.jrvs.practice.codingChallenge.list;
 
 import ca.jrvs.practice.codingChallenge.list.LinkedListCycle.ListNode;
 
+/**
+ * Ticket: https://www.notion.so/Nth-Node-From-End-of-List-101a96a4c9a746c18c1832a2491d71b9
+ */
 public class RemoveNthFromEnd {
 
   /**
