@@ -89,6 +89,12 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
     return Optional.empty();
   }
 
+  public List<T> findAllForId(Integer id) {
+    String findQuery = "SELECT * FROM " + getTableName() + " WHERE " + getIdColumnName() + "=?";
+    return getJdbcTemplate().query(findQuery,
+        BeanPropertyRowMapper.newInstance(getEntityClass()), id);
+  }
+
   /**
    * Returns whether an entity with the given id exists.
    *

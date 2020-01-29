@@ -74,7 +74,7 @@ public class DashboardServiceIntTest {
     sampleSecurityOrder = new SecurityOrder();
     sampleSecurityOrder.setTicker("TSLA");
     sampleSecurityOrder.setAccountId(1);
-    sampleSecurityOrder.setStatus("PENDING");
+    sampleSecurityOrder.setStatus("FILLED");
     sampleSecurityOrder.setSize(25);
     sampleSecurityOrder.setPrice(12.25);
     sampleSecurityOrder.setNotes("NOTES");
@@ -96,7 +96,7 @@ public class DashboardServiceIntTest {
   @Test
   public void getTraderPortfolioView() {
     TraderPortfolioView tpv = testDashboardService.getTraderPortfolioView(1);
-    assertEquals(1, tpv.getOrders().size());
+    assertEquals(1, tpv.getPositions().size());
     assertEquals(25000, tpv.getFunds(), 0.0);
   }
 

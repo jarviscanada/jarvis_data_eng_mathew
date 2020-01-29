@@ -5,7 +5,7 @@ import java.util.List;
 public class TraderPortfolioView {
 
   private int traderId;
-  private List<SecurityOrder> orders;
+  private List<Position> positions;
   private double funds;
 
   public int getTraderId() {
@@ -16,12 +16,12 @@ public class TraderPortfolioView {
     this.traderId = traderId;
   }
 
-  public List<SecurityOrder> getOrders() {
-    return orders;
+  public List<Position> getPositions() {
+    return positions;
   }
 
-  public void setOrders(List<SecurityOrder> orders) {
-    this.orders = orders;
+  public void setPositions(List<Position> positions) {
+    this.positions = positions;
   }
 
   public double getFunds() {

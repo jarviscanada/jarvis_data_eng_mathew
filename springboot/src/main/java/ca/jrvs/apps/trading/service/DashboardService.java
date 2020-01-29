@@ -1,6 +1,7 @@
 package ca.jrvs.apps.trading.service;
 
 import ca.jrvs.apps.trading.dao.AccountDao;
+import ca.jrvs.apps.trading.dao.PositionDao;
 import ca.jrvs.apps.trading.dao.SecurityOrderDao;
 import ca.jrvs.apps.trading.dao.TraderDao;
 import ca.jrvs.apps.trading.model.TraderAccountView;
@@ -17,13 +18,15 @@ public class DashboardService {
   private AccountDao accountDao;
   private TraderDao traderDao;
   private SecurityOrderDao securityOrderDao;
+  private PositionDao positionDao;
 
   @Autowired
   public DashboardService(AccountDao accountDao, SecurityOrderDao securityOrderDao,
-      TraderDao traderDao) {
+      TraderDao traderDao, PositionDao positionDao) {
     this.accountDao = accountDao;
     this.securityOrderDao = securityOrderDao;
     this.traderDao = traderDao;
+    this.positionDao = positionDao;
   }
 
   /**
@@ -47,7 +50,7 @@ public class DashboardService {
   public TraderPortfolioView getTraderPortfolioView(int traderId) {
     TraderPortfolioView portfolioView = new TraderPortfolioView();
     portfolioView.setTraderId(traderId);
-    portfolioView.setOrders(securityOrderDao.findAllById(traderId));
+    portfolioView.setPositions(positionDao.findAllForId(traderId));
     portfolioView.setFunds(accountDao.findById(traderId).orElseThrow(EntityNotFoundException::new)
         .getAmount());
     return portfolioView;
