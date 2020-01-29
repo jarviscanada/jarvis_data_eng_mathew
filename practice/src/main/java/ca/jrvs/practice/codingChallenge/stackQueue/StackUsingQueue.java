@@ -3,6 +3,9 @@ package ca.jrvs.practice.codingChallenge.stackQueue;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Ticket: https://www.notion.so/Implement-Stack-using-Queue-e1be07cb2bb94c3cbbcc02bf282644da
+ */
 public class StackUsingQueue<T> {
 
   private Queue<T> queue1 = new LinkedList<>();

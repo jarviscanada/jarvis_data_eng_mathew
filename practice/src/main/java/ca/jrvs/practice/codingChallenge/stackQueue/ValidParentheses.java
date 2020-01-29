@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+/**
+ * Ticket: https://www.notion.so/Valid-Parentheses-64305492add4456293725b5d8f17ed19
+ */
 public class ValidParentheses {
 
   /**
