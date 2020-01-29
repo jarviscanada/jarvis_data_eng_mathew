@@ -2,6 +2,9 @@ package ca.jrvs.practice.codingChallenge.stackQueue;
 
 import java.util.Stack;
 
+/**
+ * Ticket: https://www.notion.so/Implement-Queue-using-Stacks-e6ac21f981cb41e49c2b4e38655e3fe3
+ */
 public class QueueUsingStack<T> {
 
   Stack<T> front = new Stack<>();
