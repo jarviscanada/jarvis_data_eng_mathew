@@ -1,5 +1,8 @@
 package ca.jrvs.practice.codingChallenge.list;
 
+/**
+ * Ticket: https://www.notion.so/LinkedList-Cycle-a7bf37af73fc4fb1a8ba38efe2c0b689
+ */
 public class LinkedListCycle {
 
   /**

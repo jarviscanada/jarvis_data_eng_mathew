@@ -2,6 +2,9 @@ package ca.jrvs.practice.codingChallenge.list;
 
 import ca.jrvs.practice.codingChallenge.list.LinkedListCycle.ListNode;
 
+/**
+ * Ticket: https://www.notion.so/Reverse-Linked-List-e1403fa2e8a94a1ab0b95945d39871ad
+ */
 public class ReverseLinkedList {
 
   /**
