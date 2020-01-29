@@ -2,7 +2,9 @@ package ca.jrvs.practice.codingChallenge.set;
 
 import java.util.HashSet;
 
-// given a sequence of numbers, find missing number in sequence
+/**
+ * Ticket: https://www.notion.so/Missing-Number-6355da5ed2984944add1c8a37ba8b4be
+ */
 public class MissingNumber {
 
   /**
