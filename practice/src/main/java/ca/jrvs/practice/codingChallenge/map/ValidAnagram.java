@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Ticket: https://www.notion.so/Valid-Anagram-8cda52dde5f147ad910f5505872d69e5
+ */
 public class ValidAnagram {
 
   /**

@@ -3,6 +3,9 @@ package ca.jrvs.practice.codingChallenge.map;
 import ca.jrvs.practice.dataStructure.map.HashJMap;
 import java.util.Map;
 
+/**
+ * Ticket: https://www.notion.so/How-to-compare-two-maps-3e23341fee624154842a7cca0fc1ea1a
+ */
 public class CompareMaps {
 
   /**
@@ -20,9 +23,9 @@ public class CompareMaps {
 
   /**
    * Check if 2 maps are equal using HashJMap's implementation. This custom implementation should be
-   * nearly identical to the Collections implementation. Time complexity is O(n) since we iterate
-   * through every entry in one map. Space complexity is O(1) since we only allocate a few
-   * pointers.
+   * nearly identical to the Collections implementation. NOTE THE IMPLEMENTATION IS IN HashJMap!
+   * Time complexity is O(n) since we iterate through every entry in one map. Space complexity is
+   * O(1) since we only allocate a few pointers.
    *
    * @param map1 The first map to compare
    * @param map2 The second map to compare
