@@ -1,14 +1,15 @@
-package ca.jrvs.practice.dataStructure.tree;
+package ca.jrvs.practice.dataStructure.set;
 
-import java.util.HashMap;
+import java.util.Comparator;
+import java.util.TreeMap;
 
-public class JHashSet<T> implements JSet<T> {
+public class JTreeSet<T> implements JSet<T> {
 
-  private HashMap<T, Object> elements;
+  private TreeMap<T, Object> elements;
   private static final Object DUMMY = new Object();
 
-  public JHashSet() {
-    elements = new HashMap<>();
+  public JTreeSet(Comparator<T> comparator) {
+    elements = new TreeMap<>(comparator);
   }
 
   @Override
@@ -20,7 +21,7 @@ public class JHashSet<T> implements JSet<T> {
   @SuppressWarnings("unchecked")
   public boolean contains(Object o) {
     if (o == null) {
-      return false;
+      throw new NullPointerException();
     }
     T val = (T) o;
     return elements.containsKey(val);
@@ -28,7 +29,7 @@ public class JHashSet<T> implements JSet<T> {
 
   @Override
   public boolean add(T t) {
-    if (contains(t) || t == null) {
+    if (contains(t)) {
       return false;
     } else {
       return elements.put(t, DUMMY) == null;
@@ -39,15 +40,12 @@ public class JHashSet<T> implements JSet<T> {
   @SuppressWarnings("unchecked")
   public boolean remove(Object o) {
     if (o == null) {
-      return false;
+      throw new NullPointerException();
+    } else if (contains(o)) {
+      T val = (T) o;
+      return elements.remove(val) != null;
     }
-    T val = (T) o;
-    if (elements.containsKey(val)) {
-      elements.remove(val);
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 
   @Override

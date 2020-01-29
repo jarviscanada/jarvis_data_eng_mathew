@@ -1,4 +1,4 @@
-package ca.jrvs.practice.dataStructure.tree;
+package ca.jrvs.practice.dataStructure.set;
 
 public interface JSet<T> {
 

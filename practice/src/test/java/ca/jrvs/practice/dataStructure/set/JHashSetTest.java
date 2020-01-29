@@ -1,4 +1,4 @@
-package ca.jrvs.practice.dataStructure.tree;
+package ca.jrvs.practice.dataStructure.set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
