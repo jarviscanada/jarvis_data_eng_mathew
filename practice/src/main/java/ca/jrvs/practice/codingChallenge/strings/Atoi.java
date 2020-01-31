@@ -1,5 +1,8 @@
 package ca.jrvs.practice.codingChallenge.strings;
 
+/**
+ * Ticket: https://www.notion.so/String-to-Integer-atoi-fa734df09e7d4bf48989423820fab560
+ */
 public class Atoi {
 
   /**

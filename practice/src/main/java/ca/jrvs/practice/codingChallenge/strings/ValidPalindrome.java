@@ -1,5 +1,8 @@
 package ca.jrvs.practice.codingChallenge.strings;
 
+/**
+ * Ticket: https://www.notion.so/Valid-Palindrome-c653ee27ee55468daa55b2c5bf9da89e
+ */
 public class ValidPalindrome {
 
   /**
