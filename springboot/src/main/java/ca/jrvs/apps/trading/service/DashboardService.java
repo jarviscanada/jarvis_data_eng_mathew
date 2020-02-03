@@ -2,12 +2,14 @@ package ca.jrvs.apps.trading.service;
 
 import ca.jrvs.apps.trading.dao.AccountDao;
 import ca.jrvs.apps.trading.dao.PositionDao;
-import ca.jrvs.apps.trading.dao.SecurityOrderDao;
+import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.dao.TraderDao;
 import ca.jrvs.apps.trading.model.TraderAccountView;
+import ca.jrvs.apps.trading.model.TraderPortfolioView;
 import ca.jrvs.apps.trading.model.domain.Account;
+import ca.jrvs.apps.trading.model.domain.Position;
 import ca.jrvs.apps.trading.model.domain.Trader;
-import ca.jrvs.apps.trading.model.domain.TraderPortfolioView;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +19,16 @@ public class DashboardService {
 
   private AccountDao accountDao;
   private TraderDao traderDao;
-  private SecurityOrderDao securityOrderDao;
   private PositionDao positionDao;
+  private QuoteDao quoteDao;
 
   @Autowired
-  public DashboardService(AccountDao accountDao, SecurityOrderDao securityOrderDao,
-      TraderDao traderDao, PositionDao positionDao) {
+  public DashboardService(AccountDao accountDao, TraderDao traderDao, PositionDao positionDao,
+      QuoteDao quoteDao) {
     this.accountDao = accountDao;
-    this.securityOrderDao = securityOrderDao;
     this.traderDao = traderDao;
     this.positionDao = positionDao;
+    this.quoteDao = quoteDao;
   }
 
   /**
@@ -50,7 +52,11 @@ public class DashboardService {
   public TraderPortfolioView getTraderPortfolioView(int traderId) {
     TraderPortfolioView portfolioView = new TraderPortfolioView();
     portfolioView.setTraderId(traderId);
-    portfolioView.setPositions(positionDao.findAllForId(traderId));
+    List<Position> positions = positionDao.findAllForId(traderId);
+    for (Position p : positions) {
+      portfolioView.addDetailedPosition(p, quoteDao.findById(p.getTicker())
+          .orElseThrow(EntityNotFoundException::new));
+    }
     portfolioView.setFunds(accountDao.findById(traderId).orElseThrow(EntityNotFoundException::new)
         .getAmount());
     return portfolioView;

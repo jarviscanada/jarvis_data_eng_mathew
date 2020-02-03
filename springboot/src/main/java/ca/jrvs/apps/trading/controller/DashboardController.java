@@ -1,7 +1,7 @@
 package ca.jrvs.apps.trading.controller;
 
 import ca.jrvs.apps.trading.model.TraderAccountView;
-import ca.jrvs.apps.trading.model.domain.TraderPortfolioView;
+import ca.jrvs.apps.trading.model.TraderPortfolioView;
 import ca.jrvs.apps.trading.service.DashboardService;
 import ca.jrvs.apps.trading.utils.ResponseExceptionUtils;
 import io.swagger.annotations.ApiOperation;
