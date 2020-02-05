@@ -32,7 +32,6 @@ public class QuoteDao implements CrudRepository<Quote, String> {
       "DELETE FROM " + DB_TABLE + " WHERE ticker = :ticker";
   private static final String SQL_QUOTE_DELETEALL = "DELETE FROM " + DB_TABLE;
 
-  private DataSource dataSource;
   private NamedParameterJdbcTemplate namedTemplate;
   private JdbcTemplate jdbcTemplate;
   private SimpleJdbcInsert simpleInsert;
@@ -41,7 +40,6 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Autowired
   public QuoteDao(DataSource dataSource) {
-    this.dataSource = dataSource;
     jdbcTemplate = new JdbcTemplate(dataSource);
     namedTemplate = new NamedParameterJdbcTemplate(dataSource);
     simpleInsert = new SimpleJdbcInsert(dataSource).withTableName(DB_TABLE);
@@ -57,7 +55,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
   @Override
   public <S extends Quote> S save(S s) {
     int rowsModded;
-    if (!existsById(s.getTicker())) {
+    if (!existsById(s.getId())) {
       rowsModded = simpleInsert.execute(s.getSqlValues());
     } else {
       rowsModded = namedTemplate.update(SQL_QUOTE_UPDATE, s.getSqlValues());
@@ -113,8 +111,9 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public boolean existsById(String symbol) {
-    return namedTemplate.queryForRowSet(SQL_QUOTE_SELECT,
-        new MapSqlParameterSource("ticker", symbol)).next();
+    return namedTemplate.query(SQL_QUOTE_SELECT,
+        new MapSqlParameterSource("ticker", symbol),
+        BeanPropertyRowMapper.newInstance(Quote.class)).size() > 0;
   }
 
   /**
@@ -157,19 +156,16 @@ public class QuoteDao implements CrudRepository<Quote, String> {
     jdbcTemplate.execute(SQL_QUOTE_DELETEALL);
   }
 
-  @Deprecated
   @Override
   public void delete(Quote quote) {
     throw new UnsupportedOperationException("Method not implemented");
   }
 
-  @Deprecated
   @Override
   public void deleteAll(Iterable<? extends Quote> iterable) {
     throw new UnsupportedOperationException("Method not implemented");
   }
 
-  @Deprecated
   @Override
   public Iterable<Quote> findAllById(Iterable<String> iterable) {
     throw new UnsupportedOperationException("Method not implemented");

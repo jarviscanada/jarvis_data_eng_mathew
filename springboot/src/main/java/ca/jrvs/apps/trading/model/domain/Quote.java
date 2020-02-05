@@ -1,10 +1,11 @@
 package ca.jrvs.apps.trading.model.domain;
 
+import ca.jrvs.apps.trading.model.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-public class Quote {
+public class Quote implements Entity<String> {
 
   private static final String DB_SYMBOL = "ticker";
   private static final String DB_ASKPRICE = "ask_price";
@@ -13,7 +14,6 @@ public class Quote {
   private static final String DB_BIDSIZE = "bid_size";
   private static final String DB_LASTPRICE = "last_price";
 
-  private int id;
   private String ticker;
   private double askPrice;
   private long askSize;
@@ -33,20 +33,22 @@ public class Quote {
     return valueMap;
   }
 
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getTicker() {
+  @Override
+  public String getId() {
     return ticker;
   }
 
+  @Override
+  public void setId(String id) {
+    this.ticker = id;
+  }
+
+  public String getTicker() {
+    return getId();
+  }
+
   public void setTicker(String ticker) {
-    this.ticker = ticker;
+    setId(ticker);
   }
 
   public double getAskPrice() {
