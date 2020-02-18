@@ -137,6 +137,12 @@ public class SecurityOrderDaoIntTest {
   }
 
   @Test
+  public void findAllById_Single() {
+    securityOrderTestDao.saveAll(Arrays.asList(testOrder, testOrder2));
+    assertEquals(2, securityOrderTestDao.findAllById(1).size());
+  }
+
+  @Test
   public void count() {
     securityOrderTestDao.saveAll(Arrays.asList(testOrder, testOrder2));
     assertEquals(2, securityOrderTestDao.count());

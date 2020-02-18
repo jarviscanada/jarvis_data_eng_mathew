@@ -1,8 +1,10 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Position;
+import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -42,6 +44,12 @@ public class PositionDao extends JdbcCrudDao<Position> {
   @Override
   Class<Position> getEntityClass() {
     return Position.class;
+  }
+
+  public List<Position> findAllForId(Integer id) {
+    String findQuery = "SELECT * FROM " + getTableName() + " WHERE " + getIdColumnName() + "=?";
+    return getJdbcTemplate().query(findQuery,
+        BeanPropertyRowMapper.newInstance(Position.class), id);
   }
 
   @Override
