@@ -1,0 +1,2626 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "%md\n# Reading Data from Google Storage \nThe following creates the table `wdi_gs` using data from GCP BigQuery's public dataset `patents-public-data/worldbank_wdi/wdi_2016`\n\n## Process\n1. Drop the table if it exists, since we want to start from scratch. Dropping is safe since the table is external.\n2. Create a new external table whose columns match the wdi data.\n   a. Set the delimiter as ',' since the data is stored as comma-separated values.\n   b. Set the location to the GS bucket folder which contains the data.\n\n## Table Properties\n### Schema\n|col_name|col_type|\n|--------|--------|\n|year|integer|\n|countryname|string|\n|countrycode|string|\n|indicatorname|string|\n|indicatorcode|string|\n|indicatorvalue|float|\n\n### Table info\n- Table type: EXTERNAL_TABLE\n- Location: `gs://jarvis-data-eng-mathew/datasets/wdi_2016/`\n- skip.header.line.count: 1\n- SerDe: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe\n- Total Size: 410.08 MB (Note: files are compressed with GZIP)\n- Number of records: 21759408",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:41:27+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Reading Data from Google Storage</h1>\n<p>The following creates the table <code>wdi_gs</code> using data from GCP BigQuery&rsquo;s public dataset <code>patents-public-data/worldbank_wdi/wdi_2016</code></p>\n<h2>Process</h2>\n<ol>\n  <li>Drop the table if it exists, since we want to start from scratch. Dropping is safe since the table is external.</li>\n  <li>Create a new external table whose columns match the wdi data.<br/> a. Set the delimiter as &lsquo;,&rsquo; since the data is stored as comma-separated values.<br/> b. Set the location to the GS bucket folder which contains the data.</li>\n</ol>\n<h2>Table Properties</h2>\n<h3>Schema</h3>\n<table>\n  <thead>\n    <tr>\n      <th>col_name</th>\n      <th>col_type</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>year</td>\n      <td>integer</td>\n    </tr>\n    <tr>\n      <td>countryname</td>\n      <td>string</td>\n    </tr>\n    <tr>\n      <td>countrycode</td>\n      <td>string</td>\n    </tr>\n    <tr>\n      <td>indicatorname</td>\n      <td>string</td>\n    </tr>\n    <tr>\n      <td>indicatorcode</td>\n      <td>string</td>\n    </tr>\n    <tr>\n      <td>indicatorvalue</td>\n      <td>float</td>\n    </tr>\n  </tbody>\n</table>\n<h3>Table info</h3>\n<ul>\n  <li>Table type: EXTERNAL_TABLE</li>\n  <li>Location: <code>gs://jarvis-data-eng-mathew/datasets/wdi_2016/</code></li>\n  <li>skip.header.line.count: 1</li>\n  <li>SerDe: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</li>\n  <li>Total Size: 410.08 MB (Note: files are compressed with GZIP)</li>\n  <li>Number of records: 21759408</li>\n</ul>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581702947144_-1804247400",
+      "id": "20200214-175547_1406675746",
+      "dateCreated": "2020-02-14T17:55:47+0000",
+      "dateStarted": "2020-02-21T15:41:27+0000",
+      "dateFinished": "2020-02-21T15:41:27+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:41060"
+    },
+    {
+      "text": "drop table if exists wdi_gs",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-18T15:43:32+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "_c0": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581703279874_884675936",
+      "id": "20200214-180119_1296431161",
+      "dateCreated": "2020-02-14T18:01:19+0000",
+      "dateStarted": "2020-02-14T20:14:34+0000",
+      "dateFinished": "2020-02-14T20:14:36+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41061"
+    },
+    {
+      "text": "-- Create a table which reads data stored on Google Storage\ncreate external table if not exists wdi_gs\n(year integer, countryName string, countryCode string, indicatorName string, indicatorCode string, indicatorValue float)\nrow format delimited fields terminated by ',' lines terminated by '\\n'\nlocation 'gs://jarvis-data-eng-mathew/datasets/wdi_2016/'\ntblproperties(\"skip.header.line.count\"=\"1\")",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:23:03+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 93.15,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "lineNumbers": true,
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581701364137_-1257275334",
+      "id": "20200214-172924_1531824472",
+      "dateCreated": "2020-02-14T17:29:24+0000",
+      "dateStarted": "2020-02-14T20:15:15+0000",
+      "dateFinished": "2020-02-14T20:15:16+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41062"
+    },
+    {
+      "text": "describe formatted wdi_gs",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:23:39+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "col_name": "string",
+                      "data_type": "string",
+                      "comment": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "col_name\tdata_type\tcomment\n# col_name            \tdata_type           \tcomment             \n\tnull\tnull\nyear\tint\t\ncountryname\tstring\t\ncountrycode\tstring\t\nindicatorname\tstring\t\nindicatorcode\tstring\t\nindicatorvalue\tfloat\t\n\tnull\tnull\n# Detailed Table Information\tnull\tnull\nDatabase:           \tdefault             \tnull\nOwner:              \tgpadmin             \tnull\nCreateTime:         \tFri Feb 14 20:15:16 UTC 2020\tnull\nLastAccessTime:     \tUNKNOWN             \tnull\nRetention:          \t0                   \tnull\nLocation:           \tgs://jarvis-data-eng-mathew/datasets/wdi_2016\tnull\nTable Type:         \tEXTERNAL_TABLE      \tnull\nTable Parameters:\tnull\tnull\n\tEXTERNAL            \tTRUE                \n\tnumFiles            \t5                   \n\tskip.header.line.count\t1                   \n\ttotalSize           \t429998962           \n\ttransient_lastDdlTime\t1581711316          \n\tnull\tnull\n# Storage Information\tnull\tnull\nSerDe Library:      \torg.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe\tnull\nInputFormat:        \torg.apache.hadoop.mapred.TextInputFormat\tnull\nOutputFormat:       \torg.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat\tnull\nCompressed:         \tNo                  \tnull\nNum Buckets:        \t-1                  \tnull\nBucket Columns:     \t[]                  \tnull\nSort Columns:       \t[]                  \tnull\nStorage Desc Params:\tnull\tnull\n\tfield.delim         \t,                   \n\tline.delim          \t\\n                  \n\tserialization.format\t,                   \n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582298601969_-630344288",
+      "id": "20200221-152321_1767021014",
+      "dateCreated": "2020-02-21T15:23:21+0000",
+      "dateStarted": "2020-02-21T15:23:34+0000",
+      "dateFinished": "2020-02-21T15:23:36+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41063"
+    },
+    {
+      "text": "%md\n# Bringing GS Data into HDFS\nThe following creates a new table, `wdi_csv_text`, which is identical to `wdi_gs`, except for the fact that it is stored on HDFS.\n\n## Process\n1. The table is dropped if it exists, this is safe since the table is external.\n2. Create a new external table, `wdi_csv_text`, with the same columns as `wdi_gs`.\n  a. The row format is still set to have fields delimited by commas and lines terminated by newlines.\n  b. The location is set to a directory on HDFS. In this case a personal user directory.\n3. Copy data associated with the original table, `wdi_gs` into the current one using an `INSERT OVERWRITE`.\n\n## File System Caching Observations\nOn repeatedly executing a simple query such as `SELECT COUNT(1) FROM wdi_csv_text`, I noticed that subsequent runs after the first were significantly faster.\nAfter clearing the local FS cache on each of the machines in the cluster, the next run of this query took noticably longer than the repeated queries.\nThrough this experiment we can infer that the HDFS DataNodes are caching the files read for this query in their local FS caches (since HDFS Centralized Caching was not configured).\n\n### Comparing HDFS and Bash\nFor the sake of comparison, I used the shell script below along with Zepplin's builtin timing to compare the runtime of Hive's `count()` on the dataset with Bash.\nThe Bash script completed in 31 seconds, while the Hive query completes in 1 second or less. This is not necessarily fair to the Bash script since it needs to perform the file copy.\nTiming the line count in bash separately it takes roughly 1.1 seconds.\n\nHive's count should complete in roughly 0.5 seconds, but there is some additional overhead incurred through collecting data from HDFS and executing the MapReduce job.\n\n## Delimited Format Parsing Issues\nThe Lazy Simple SerDe that is used when we provide `format delimited` is breaking our input parsing when we encounter fields which have a comma, but are intended to be part of the field, rather than a separator. This is shown in the `select distinct(indicatorcode)` query below, where many of our indicator codes are instead portions of the indicator name. Indicator names appear to be surrounded by quotation marks, so a SerDe which can handle this case will be needed.\n\nAn example of a line which Lazy Simple SerDe will fail to parse is `1986,Chad,TCD,\"Short-term debt (% of exports of goods, services and primary income)\",DT.DOD.DSTC.XP.ZS,21.140065584147`",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:45:20+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Bringing GS Data into HDFS</h1>\n<p>The following creates a new table, <code>wdi_csv_text</code>, which is identical to <code>wdi_gs</code>, except for the fact that it is stored on HDFS.</p>\n<h2>Process</h2>\n<ol>\n  <li>The table is dropped if it exists, this is safe since the table is external.</li>\n  <li>Create a new external table, <code>wdi_csv_text</code>, with the same columns as <code>wdi_gs</code>.<br/> a. The row format is still set to have fields delimited by commas and lines terminated by newlines.<br/> b. The location is set to a directory on HDFS. In this case a personal user directory.</li>\n  <li>Copy data associated with the original table, <code>wdi_gs</code> into the current one using an <code>INSERT OVERWRITE</code>.</li>\n</ol>\n<h2>File System Caching Observations</h2>\n<p>On repeatedly executing a simple query such as <code>SELECT COUNT(1) FROM wdi_csv_text</code>, I noticed that subsequent runs after the first were significantly faster.<br/>After clearing the local FS cache on each of the machines in the cluster, the next run of this query took noticably longer than the repeated queries.<br/>Through this experiment we can infer that the HDFS DataNodes are caching the files read for this query in their local FS caches (since HDFS Centralized Caching was not configured).</p>\n<h3>Comparing HDFS and Bash</h3>\n<p>For the sake of comparison, I used the shell script below along with Zepplin&rsquo;s builtin timing to compare the runtime of Hive&rsquo;s <code>count()</code> on the dataset with Bash.<br/>The Bash script completed in 31 seconds, while the Hive query completes in 1 second or less. This is not necessarily fair to the Bash script since it needs to perform the file copy.<br/>Timing the line count in bash separately it takes roughly 1.1 seconds.</p>\n<p>Hive&rsquo;s count should complete in roughly 0.5 seconds, but there is some additional overhead incurred through collecting data from HDFS and executing the MapReduce job.</p>\n<h2>Delimited Format Parsing Issues</h2>\n<p>The Lazy Simple SerDe that is used when we provide <code>format delimited</code> is breaking our input parsing when we encounter fields which have a comma, but are intended to be part of the field, rather than a separator. This is shown in the <code>select distinct(indicatorcode)</code> query below, where many of our indicator codes are instead portions of the indicator name. Indicator names appear to be surrounded by quotation marks, so a SerDe which can handle this case will be needed.</p>\n<p>An example of a line which Lazy Simple SerDe will fail to parse is <code>1986,Chad,TCD,&quot;Short-term debt (% of exports of goods, services and primary income)&quot;,DT.DOD.DSTC.XP.ZS,21.140065584147</code></p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581712664190_-1230301582",
+      "id": "20200214-203744_1782174380",
+      "dateCreated": "2020-02-14T20:37:44+0000",
+      "dateStarted": "2020-02-21T15:45:20+0000",
+      "dateFinished": "2020-02-21T15:45:20+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41064"
+    },
+    {
+      "text": "drop table if exists wdi_csv_text",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:21:50+0000",
+      "config": {
+        "colWidth": 4,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 93.15,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581710747143_1485220418",
+      "id": "20200214-200547_688449540",
+      "dateCreated": "2020-02-14T20:05:47+0000",
+      "dateStarted": "2020-02-18T14:58:30+0000",
+      "dateFinished": "2020-02-18T14:58:36+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41065"
+    },
+    {
+      "text": "-- Create a table identical to wdi_gs except it's located on HDFS\ncreate external table if not exists wdi_csv_text\n(year integer, countryName string, countryCode string, indicatorName string, indicatorCode string, indicatorValue float)\nrow format delimited fields terminated by ',' lines terminated by '\\n'\nlocation 'hdfs:///user/vassairm/hive/wdi/wdi_csv_text'",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:22:28+0000",
+      "config": {
+        "colWidth": 8,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581702453476_-385919959",
+      "id": "20200214-174733_310624753",
+      "dateCreated": "2020-02-14T17:47:33+0000",
+      "dateStarted": "2020-02-18T14:58:39+0000",
+      "dateFinished": "2020-02-18T14:58:40+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41066"
+    },
+    {
+      "text": "-- Copy data from Google Storage into HDFS-based table\nfrom wdi_gs\ninsert overwrite table wdi_csv_text\nselect *",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:21:50+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "col_name": "string",
+                      "data_type": "string",
+                      "comment": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581710808087_1797173781",
+      "id": "20200214-200648_642914871",
+      "dateCreated": "2020-02-14T20:06:48+0000",
+      "dateStarted": "2020-02-18T14:58:43+0000",
+      "dateFinished": "2020-02-18T15:00:30+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41067"
+    },
+    {
+      "text": "-- Count rows in the table. count(1) is the fastest way to do this\nselect count(1) as records from wdi_csv_text",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:21:18+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 112,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "records": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "records\n21759408\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581710884017_-176079542",
+      "id": "20200214-200804_1740779670",
+      "dateCreated": "2020-02-14T20:08:04+0000",
+      "dateStarted": "2020-02-18T15:00:51+0000",
+      "dateFinished": "2020-02-18T15:00:53+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41068"
+    },
+    {
+      "text": "%sh\ncd ~\n# Copy the table off of HDFS into local home dir\nhdfs dfs -copyToLocal /user/vassairm/hive/wdi/wdi_csv_text ~/\n# Clear FS cache\necho 2 | sudo tee /proc/sys/vm/drop_caches\n# Count rows in the source files by newlines\ntime wc -l wdi_csv_text/*\n# Clean up\nrm -r wdi_csv_text\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T14:56:01+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 194,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/sh"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nWe trust you have received the usual lecture from the local System\nAdministrator. It usually boils down to these three things:\n\n    #1) Respect the privacy of others.\n    #2) Think before you type.\n    #3) With great power comes great responsibility.\n\nsudo: no tty present and no askpass program specified\n   4789098 wdi_csv_text/000000_0\n   4786448 wdi_csv_text/000001_0\n   4788212 wdi_csv_text/000002_0\n   4785299 wdi_csv_text/000003_0\n   2610351 wdi_csv_text/000004_0\n  21759408 total\n\nreal\t0m1.158s\nuser\t0m0.500s\nsys\t0m0.480s\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581711916065_-2016764604",
+      "id": "20200214-202516_1139095216",
+      "dateCreated": "2020-02-14T20:25:16+0000",
+      "dateStarted": "2020-02-14T22:04:43+0000",
+      "dateFinished": "2020-02-14T22:05:05+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41069"
+    },
+    {
+      "text": "-- Check if our data is being parsed properly. It isn't\nselect distinct(indicatorcode) from wdi_csv_text\norder by indicatorcode\nlimit 20",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:20:40+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "indicatorcode": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "indicatorcode\n % of exports of goods\n %)\"\n (% of urban population)\"\n 15+\n Atlas method (current US$)\"\n Australia (current US$)\"\n Austria (current US$)\"\n Belgium (current US$)\"\n BoP)\"\n Canada (current US$)\"\n Czech Republic (current US$)\"\n DPT (% of children ages 12-23 months)\"\n Denmark (current US$)\"\n Deutsche mark (%)\"\n Euro (%)\"\n European Union institutions (current US$)\"\n Finland (current US$)\"\n France (current US$)\"\n French franc (%)\"\n GDP (LCU per international $)\"\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582038086045_744014716",
+      "id": "20200218-150126_1023261649",
+      "dateCreated": "2020-02-18T15:01:26+0000",
+      "dateStarted": "2020-02-18T19:17:16+0000",
+      "dateFinished": "2020-02-18T19:17:42+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41070"
+    },
+    {
+      "text": "drop table if exists wdi_gs_debug",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-18T15:32:02+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582038954177_-8490888",
+      "id": "20200218-151554_2066621390",
+      "dateCreated": "2020-02-18T15:15:54+0000",
+      "dateStarted": "2020-02-18T15:31:52+0000",
+      "dateFinished": "2020-02-18T15:31:52+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41071"
+    },
+    {
+      "text": "-- Create a new table that stores each line as-is in one column\ncreate external table if not exists wdi_gs_debug\n(line string)\nlocation 'gs://jarvis-data-eng-mathew/datasets/wdi_2016'",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:20:06+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1581717481877_846746209",
+      "id": "20200214-215801_1878074045",
+      "dateCreated": "2020-02-14T21:58:01+0000",
+      "dateStarted": "2020-02-18T15:31:56+0000",
+      "dateFinished": "2020-02-18T15:31:58+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41072"
+    },
+    {
+      "text": "-- Query for lines which contain one of our problematic indicator codes, we can see that these lines have non-delimiting commas\nselect * from wdi_gs_debug\nwhere line like '%\\% of exports of goods%'\nlimit 20",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:19:29+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {
+                    "columns": [
+                      {
+                        "name": "wdi_gs_debug.line",
+                        "visible": true,
+                        "width": 1327,
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      }
+                    ],
+                    "scrollFocus": {},
+                    "selection": [],
+                    "grouping": {
+                      "grouping": [],
+                      "aggregations": [],
+                      "rowExpandedStates": {}
+                    },
+                    "treeView": {},
+                    "pagination": {
+                      "paginationCurrentPage": 1,
+                      "paginationPageSize": 250
+                    }
+                  },
+                  "tableColumnTypeState": {
+                    "names": {
+                      "wdi_gs_debug.line": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "wdi_gs_debug.line\n1982,Chad,TCD,\"External debt stocks (% of exports of goods, services and primary income)\",DT.DOD.DECT.EX.ZS,355.751635941926\n1986,Chad,TCD,\"Short-term debt (% of exports of goods, services and primary income)\",DT.DOD.DSTC.XP.ZS,21.140065584147\n1987,Chad,TCD,\"External debt stocks (% of exports of goods, services and primary income)\",DT.DOD.DECT.EX.ZS,190.441806026058\n1990,Chad,TCD,\"External debt stocks (% of exports of goods, services and primary income)\",DT.DOD.DECT.EX.ZS,187.507147609968\n2003,Chad,TCD,\"Debt service (PPG and IMF only, % of exports of goods, services and primary income)\",DT.TDS.DPPF.XP.ZS,7.77791070325524\n1995,Fiji,FJI,\"Interest payments on external debt (% of exports of goods, services and primary income)\",DT.INT.DECT.EX.ZS,0.984608905534746\n1999,Fiji,FJI,\"Short-term debt (% of exports of goods, services and primary income)\",DT.DOD.DSTC.XP.ZS,0.0175658300937572\n2001,Fiji,FJI,\"External debt stocks (% of exports of goods, services and primary income)\",DT.DOD.DECT.EX.ZS,17.1016223841981\n2001,Fiji,FJI,\"Interest payments on external debt (% of exports of goods, services and primary income)\",DT.INT.DECT.EX.ZS,0.697772224999212\n2003,Fiji,FJI,\"Total debt service (% of exports of goods, services and primary income)\",DT.TDS.DECT.EX.ZS,1.19713362955488\n2012,Fiji,FJI,\"Short-term debt (% of exports of goods, services and primary income)\",DT.DOD.DSTC.XP.ZS,0.722163580984206\n1991,Mali,MLI,\"Public and publicly guaranteed debt service (% of exports of goods, services and primary income)\",DT.TDS.DPPG.XP.ZS,6.52137673650795\n2001,Mali,MLI,\"Interest payments on external debt (% of exports of goods, services and primary income)\",DT.INT.DECT.EX.ZS,2.07679496867403\n2005,Mali,MLI,\"Total debt service (% of exports of goods, services and primary income)\",DT.TDS.DECT.EX.ZS,6.93123648248985\n2013,Mali,MLI,\"Debt service (PPG and IMF only, % of exports of goods, services and primary income)\",DT.TDS.DPPF.XP.ZS,4.94871610572454\n1981,Peru,PER,\"Interest payments on external debt (% of exports of goods, services and primary income)\",DT.INT.DECT.EX.ZS,23.7899360644092\n1981,Peru,PER,\"Public and publicly guaranteed debt service (% of exports of goods, services and primary income)\",DT.TDS.DPPG.XP.ZS,45.2670850106559\n2001,Peru,PER,\"Short-term debt (% of exports of goods, services and primary income)\",DT.DOD.DSTC.XP.ZS,34.1433774022325\n2004,Peru,PER,\"External debt stocks (% of exports of goods, services and primary income)\",DT.DOD.DECT.EX.ZS,209.677321127901\n2005,Peru,PER,\"Public and publicly guaranteed debt service (% of exports of goods, services and primary income)\",DT.TDS.DPPG.XP.ZS,22.1739923701363\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582039628307_-1830974220",
+      "id": "20200218-152708_2090335011",
+      "dateCreated": "2020-02-18T15:27:08+0000",
+      "dateStarted": "2020-02-18T15:39:43+0000",
+      "dateFinished": "2020-02-18T15:39:43+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41073"
+    },
+    {
+      "text": "%md\n# Parsing Data With OpenCSVSerDe\nAs was established earlier, the Lazy Simple SerDe (used with `row format delimited`) was not sufficient for parsing our data set, since there were lines which contained commas that were not intended to delimit fields. Since these commas appear to all be surrounded by quotes, we will need a SerDe that will process a CSV as Lazy Simple SerDe did, but will treat delimiters inside quoted text as literals. In this case we can use `OpenCSVSerde`.\n\n## Building the Table\nSince the original table we used, `wdi_gs`, used Lazy Simple SerDe, we cannot pull our data out of that table into a new one using OpenCSVSerde and expect it to work. Thus we need to create a new temp table that reads from Google Storage, then push that data into a new table on HDFS.\n\n1. Create a new external source table, `wdi_opencsv_gs` using OpenCSVSerde\n2. Create a new external HDFS table, `wdi_opencsv_text`, also using OpenCSVSerde\n3. Copy data from the Google Storage-hosted Hive table to the HDFS-hosted table\n4. Verify the data was parsed properly\n\n## Comparing `OpenCSVSerde` and `LazySimpleSerde`\nThe most notable point of difference between the two SerDes is that OpenCSVSerde was able to correctly parse the data files we fed into it, while LazySimpleSerde was not.\nAll else remaining equal, the LazySimpleSerde completes its test query in around 27 seconds, while the OpenCSVSerde completed the same test query in around 1 minute, 20 seconds, which is approximately a 296% increase in runtime. This increase in runtime is due to OpenCSVSerde handling edge cases related to CSV input, such as treating text surrounded by quotes literally.",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:46:38+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Parsing Data With OpenCSVSerDe</h1>\n<p>As was established earlier, the Lazy Simple SerDe (used with <code>row format delimited</code>) was not sufficient for parsing our data set, since there were lines which contained commas that were not intended to delimit fields. Since these commas appear to all be surrounded by quotes, we will need a SerDe that will process a CSV as Lazy Simple SerDe did, but will treat delimiters inside quoted text as literals. In this case we can use <code>OpenCSVSerde</code>.</p>\n<h2>Building the Table</h2>\n<p>Since the original table we used, <code>wdi_gs</code>, used Lazy Simple SerDe, we cannot pull our data out of that table into a new one using OpenCSVSerde and expect it to work. Thus we need to create a new temp table that reads from Google Storage, then push that data into a new table on HDFS.</p>\n<ol>\n  <li>Create a new external source table, <code>wdi_opencsv_gs</code> using OpenCSVSerde</li>\n  <li>Create a new external HDFS table, <code>wdi_opencsv_text</code>, also using OpenCSVSerde</li>\n  <li>Copy data from the Google Storage-hosted Hive table to the HDFS-hosted table</li>\n  <li>Verify the data was parsed properly</li>\n</ol>\n<h2>Comparing <code>OpenCSVSerde</code> and <code>LazySimpleSerde</code></h2>\n<p>The most notable point of difference between the two SerDes is that OpenCSVSerde was able to correctly parse the data files we fed into it, while LazySimpleSerde was not.<br/>All else remaining equal, the LazySimpleSerde completes its test query in around 27 seconds, while the OpenCSVSerde completed the same test query in around 1 minute, 20 seconds, which is approximately a 296% increase in runtime. This increase in runtime is due to OpenCSVSerde handling edge cases related to CSV input, such as treating text surrounded by quotes literally.</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582040128204_1094533208",
+      "id": "20200218-153528_1290596899",
+      "dateCreated": "2020-02-18T15:35:28+0000",
+      "dateStarted": "2020-02-21T15:46:38+0000",
+      "dateFinished": "2020-02-21T15:46:38+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41074"
+    },
+    {
+      "text": "drop table if exists wdi_opencsv_gs",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-18T19:02:24+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582051872491_1499387113",
+      "id": "20200218-185112_2131500818",
+      "dateCreated": "2020-02-18T18:51:12+0000",
+      "dateStarted": "2020-02-18T19:02:24+0000",
+      "dateFinished": "2020-02-18T19:02:30+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41075"
+    },
+    {
+      "text": "-- Create a new table using OpenCSVSerde to hold the info on\n-- Google Storage\ncreate external table if not exists wdi_opencsv_gs\n(year integer, countryName string, countryCode string, indicatorName string, indicatorCode string, indicatorValue float)\nrow format serde \"org.apache.hadoop.hive.serde2.OpenCSVSerde\"\nlocation \"gs://jarvis-data-eng-mathew/datasets/wdi_2016/\"\ntblproperties(\"skip.header.line.count\"=\"1\")\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:16:37+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582051883252_-1746811739",
+      "id": "20200218-185123_137501228",
+      "dateCreated": "2020-02-18T18:51:23+0000",
+      "dateStarted": "2020-02-18T19:02:35+0000",
+      "dateFinished": "2020-02-18T19:02:38+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41076"
+    },
+    {
+      "text": "drop table if exists wdi_opencsv_text",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-18T19:02:27+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582052217112_586436550",
+      "id": "20200218-185657_2088815090",
+      "dateCreated": "2020-02-18T18:56:57+0000",
+      "dateStarted": "2020-02-18T19:02:27+0000",
+      "dateFinished": "2020-02-18T19:02:30+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41077"
+    },
+    {
+      "text": "-- Create a new table identical to the one above, but on HDFS\ncreate external table if not exists wdi_opencsv_text\n(year integer, countryName string, countryCode string, indicatorName string, indicatorCode string, indicatorValue float)\nrow format serde \"org.apache.hadoop.hive.serde2.OpenCSVSerde\"\nlocation \"hdfs:///user/vassairm/hive/wdi/wdi_opencsv_text\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:17:30+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582052244814_253265132",
+      "id": "20200218-185724_787979948",
+      "dateCreated": "2020-02-18T18:57:24+0000",
+      "dateStarted": "2020-02-18T19:02:42+0000",
+      "dateFinished": "2020-02-18T19:02:43+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41078"
+    },
+    {
+      "text": "-- Copy data from Google Storage into HDFS-based table\nfrom wdi_opencsv_gs\ninsert overwrite table wdi_opencsv_text\nselect *",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:17:52+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582052363122_-1409438345",
+      "id": "20200218-185923_1377319916",
+      "dateCreated": "2020-02-18T18:59:23+0000",
+      "dateStarted": "2020-02-18T19:02:47+0000",
+      "dateFinished": "2020-02-18T19:05:04+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41079"
+    },
+    {
+      "text": "-- Check if parsing was fixed by using OpenCSVSerde\nselect distinct(indicatorcode) from wdi_opencsv_text\norder by indicatorcode\nlimit 20",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:18:26+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "indicatorcode": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "indicatorcode\nAG.AGR.TRAC.NO\nAG.CON.FERT.PT.ZS\nAG.CON.FERT.ZS\nAG.LND.AGRI.K2\nAG.LND.AGRI.ZS\nAG.LND.ARBL.HA\nAG.LND.ARBL.HA.PC\nAG.LND.ARBL.ZS\nAG.LND.CREL.HA\nAG.LND.CROP.ZS\nAG.LND.EL5M.RU.K2\nAG.LND.EL5M.RU.ZS\nAG.LND.EL5M.UR.K2\nAG.LND.EL5M.UR.ZS\nAG.LND.EL5M.ZS\nAG.LND.FRST.K2\nAG.LND.FRST.ZS\nAG.LND.IRIG.AG.ZS\nAG.LND.PRCP.MM\nAG.LND.TOTL.K2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582052459376_1313588941",
+      "id": "20200218-190059_2138565791",
+      "dateCreated": "2020-02-18T19:00:59+0000",
+      "dateStarted": "2020-02-18T19:18:02+0000",
+      "dateFinished": "2020-02-18T19:19:24+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41080"
+    },
+    {
+      "text": "%md\n# Caveats of `OpenCSVSerde`\nAs shown by the describe statements below, OpenCSVSerde treats all fields as Strings, even if the schema you provide in the creation statement includes non-String types.\nIn order to see the data using the correct types, a new View which explicitly casts the columns to the correct data types should be created and queried.\nHive's own documentation states that OpenCSVSerde also does not handle embedded newlines in row text.\n\nA View casting the columns of `wdi_opencsv_text` to the correct types is shown below as `wdi_opencsv_view`. Describe output for this view and its source table are shown side-by-side to compare the column types of each.",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:05:52+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Caveats of <code>OpenCSVSerde</code></h1>\n<p>As shown by the describe statements below, OpenCSVSerde treats all fields as Strings, even if the schema you provide in the creation statement includes non-String types.<br/>In order to see the data using the correct types, a new View which explicitly casts the columns to the correct data types should be created and queried.<br/>Hive&rsquo;s own documentation states that OpenCSVSerde also does not handle embedded newlines in row text.</p>\n<p>A View casting the columns of <code>wdi_opencsv_text</code> to the correct types is shown below as <code>wdi_opencsv_view</code>. Describe output for this view and its source table are shown side-by-side to compare the column types of each.</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582052714046_-1017291200",
+      "id": "20200218-190514_1029385608",
+      "dateCreated": "2020-02-18T19:05:14+0000",
+      "dateStarted": "2020-02-21T15:05:52+0000",
+      "dateFinished": "2020-02-21T15:05:54+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41081"
+    },
+    {
+      "text": "drop view if exists wdi_opencsv_view",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-18T19:47:17+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582055210171_-81956248",
+      "id": "20200218-194650_1177559902",
+      "dateCreated": "2020-02-18T19:46:50+0000",
+      "dateStarted": "2020-02-18T19:47:18+0000",
+      "dateFinished": "2020-02-18T19:47:18+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41082"
+    },
+    {
+      "text": "-- Create a View of wdi_opencsv_text, with values as correct types\ncreate view if not exists wdi_opencsv_view\n(year, countryname, countrycode, indicatorname, indicatorcode, indicatorvalue)\nas select cast(year as integer), countryname, countrycode, indicatorname, indicatorcode, cast(indicatorvalue as float)\nfrom wdi_opencsv_text",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:15:38+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582054178104_-1022958237",
+      "id": "20200218-192938_1784475023",
+      "dateCreated": "2020-02-18T19:29:38+0000",
+      "dateStarted": "2020-02-18T19:47:54+0000",
+      "dateFinished": "2020-02-18T19:47:56+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41083"
+    },
+    {
+      "text": "-- This table uses OpenCSVSerde\ndescribe formatted wdi_opencsv_text",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:02:03+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "col_name": "string",
+                      "data_type": "string",
+                      "comment": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "col_name\tdata_type\tcomment\n# col_name            \tdata_type           \tcomment             \n\tnull\tnull\nyear\tstring\tfrom deserializer\ncountryname\tstring\tfrom deserializer\ncountrycode\tstring\tfrom deserializer\nindicatorname\tstring\tfrom deserializer\nindicatorcode\tstring\tfrom deserializer\nindicatorvalue\tstring\tfrom deserializer\n\tnull\tnull\n# Detailed Table Information\tnull\tnull\nDatabase:           \tdefault             \tnull\nOwner:              \tgpadmin             \tnull\nCreateTime:         \tTue Feb 18 19:02:43 UTC 2020\tnull\nLastAccessTime:     \tUNKNOWN             \tnull\nRetention:          \t0                   \tnull\nLocation:           \thdfs://jarvis-hadoop-hive-mv-m/user/vassairm/hive/wdi/wdi_opencsv_text\tnull\nTable Type:         \tEXTERNAL_TABLE      \tnull\nTable Parameters:\tnull\tnull\n\tCOLUMN_STATS_ACCURATE\t{\\\"BASIC_STATS\\\":\\\"true\\\"}\n\tEXTERNAL            \tTRUE                \n\tnumFiles            \t5                   \n\tnumRows             \t21759408            \n\trawDataSize         \t0                   \n\ttotalSize           \t2422984502          \n\ttransient_lastDdlTime\t1582052704          \n\tnull\tnull\n# Storage Information\tnull\tnull\nSerDe Library:      \torg.apache.hadoop.hive.serde2.OpenCSVSerde\tnull\nInputFormat:        \torg.apache.hadoop.mapred.TextInputFormat\tnull\nOutputFormat:       \torg.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat\tnull\nCompressed:         \tNo                  \tnull\nNum Buckets:        \t-1                  \tnull\nBucket Columns:     \t[]                  \tnull\nSort Columns:       \t[]                  \tnull\nStorage Desc Params:\tnull\tnull\n\tserialization.format\t1                   \n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582054146739_-462603101",
+      "id": "20200218-192906_1413483325",
+      "dateCreated": "2020-02-18T19:29:06+0000",
+      "dateStarted": "2020-02-18T19:29:38+0000",
+      "dateFinished": "2020-02-18T19:29:38+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41084"
+    },
+    {
+      "text": "-- This view casts the year as an integer and the indicator value\n-- as a float\ndescribe formatted wdi_opencsv_view",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:04:01+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "col_name": "string",
+                      "data_type": "string",
+                      "comment": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "col_name\tdata_type\tcomment\n# col_name            \tdata_type           \tcomment             \n\tnull\tnull\nyear\tint\t\ncountryname\tstring\t\ncountrycode\tstring\t\nindicatorname\tstring\t\nindicatorcode\tstring\t\nindicatorvalue\tfloat\t\n\tnull\tnull\n# Detailed Table Information\tnull\tnull\nDatabase:           \tdefault             \tnull\nOwner:              \tgpadmin             \tnull\nCreateTime:         \tTue Feb 18 19:47:56 UTC 2020\tnull\nLastAccessTime:     \tUNKNOWN             \tnull\nRetention:          \t0                   \tnull\nTable Type:         \tVIRTUAL_VIEW        \tnull\nTable Parameters:\tnull\tnull\n\ttransient_lastDdlTime\t1582055274          \n\tnull\tnull\n# Storage Information\tnull\tnull\nSerDe Library:      \tnull                \tnull\nInputFormat:        \torg.apache.hadoop.mapred.TextInputFormat\tnull\nOutputFormat:       \torg.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat\tnull\nCompressed:         \tNo                  \tnull\nNum Buckets:        \t-1                  \tnull\nBucket Columns:     \t[]                  \tnull\nSort Columns:       \t[]                  \tnull\n\tnull\tnull\n# View Information\tnull\tnull\nView Original Text: \tselect cast(year as integer), countryname, countrycode, indicatorname, indicatorcode, cast(indicatorvalue as float)\tnull\n\t                    \tfrom wdi_opencsv_text\nView Expanded Text: \tSELECT `year` AS `year`, `countryname` AS `countryname`, `countrycode` AS `countrycode`, `indicatorname` AS `indicatorname`, `indicatorcode` AS `indicatorcode`, `indicatorvalue` AS `indicatorvalue` FROM (select cast(`wdi_opencsv_text`.`year` as integer), `wdi_opencsv_text`.`countryname`, `wdi_opencsv_text`.`countrycode`, `wdi_opencsv_text`.`indicatorname`, `wdi_opencsv_text`.`indicatorcode`, cast(`wdi_opencsv_text`.`indicatorvalue` as float)\tnull\n\t                    \tfrom `default`.`wdi_opencsv_text`) `default.wdi_opencsv_view`\nView Rewrite Enabled:\tNo                  \tnull\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582054124677_335406632",
+      "id": "20200218-192844_916880570",
+      "dateCreated": "2020-02-18T19:28:44+0000",
+      "dateStarted": "2020-02-21T15:04:01+0000",
+      "dateFinished": "2020-02-21T15:04:02+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41085"
+    },
+    {
+      "text": "%md\n# 2015 GDP Growth for Canada\nTarget indicator name: \"GDP Growth (Annual %)\" -> Code: \"NY.GDP.MKTP.KD.ZG\"\nTarget Country name: Canada -> Code: \"CAN\"\nTarget Year: 2015\nTarget output: `indicatorvalue as gdp_growth_value, year, countryname`\n\n## Observations\nThe direct query on the view to collect these values is rather slow, due in part to the OpenCSVSerde and string comparisons. The table backing `wdi_opencsv_view` is also not partitioned or bucketed, so we are missing out on significant potential optimizations there as well. The data we are using lends itself well to being partitioned by several different columns, the two most logical choices being `year` or `countrycode`. Partitioning the table will dramatically improve runtime by eliminating large amounts of unneeded data from the query.\n\n## Optimization with Partitions\nIn order to optimize the query, we will create a new table partitioned by year. Since we are partitioning by year, it is automatically made into a special column, so we cannot include it in our column definition.\n\nWhen we copy our data into the new table, it is important that we specify all of the columns in our inner select statement, as columns we are using for partitioning purposes must be the rightmost columns in the select. Dynamic-only partitioning must also be explicitly enabled using `set hive.exec.dynamic.partition.mode=nonstrict`.\n\nThe result of our partitioning efforts results in the table data being split into 56 different folders on HDFS, one for each year present in the data, from 1960 to 2016. These folders all have the same name pattern of `year=n` where `n` is one of the years covered by the data.\n\nPerforming the same query as before on this new, partitioned table resulted in a job runtime of approximately 4 seconds, while querying the unpartitioned table took approximately 1 minute and 11 seconds. This speed increase from partitioning is do entirely to needing to search through less data. According to `hdfs dfs -du`, the unpartitioned table is 2.3GB, while each partition of the partitioned table ranges between 36MB and 39MB.",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-20T16:05:29+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>2015 GDP Growth for Canada</h1>\n<p>Target indicator name: &ldquo;GDP Growth (Annual %)&rdquo; -&gt; Code: &ldquo;NY.GDP.MKTP.KD.ZG&rdquo;<br/>Target Country name: Canada -&gt; Code: &ldquo;CAN&rdquo;<br/>Target Year: 2015<br/>Target output: <code>indicatorvalue as gdp_growth_value, year, countryname</code></p>\n<h2>Observations</h2>\n<p>The direct query on the view to collect these values is rather slow, due in part to the OpenCSVSerde and string comparisons. The table backing <code>wdi_opencsv_view</code> is also not partitioned or bucketed, so we are missing out on significant potential optimizations there as well. The data we are using lends itself well to being partitioned by several different columns, the two most logical choices being <code>year</code> or <code>countrycode</code>. Partitioning the table will dramatically improve runtime by eliminating large amounts of unneeded data from the query.</p>\n<h2>Optimization with Partitions</h2>\n<p>In order to optimize the query, we will create a new table partitioned by year. Since we are partitioning by year, it is automatically made into a special column, so we cannot include it in our column definition.</p>\n<p>When we copy our data into the new table, it is important that we specify all of the columns in our inner select statement, as columns we are using for partitioning purposes must be the rightmost columns in the select. Dynamic-only partitioning must also be explicitly enabled using <code>set hive.exec.dynamic.partition.mode=nonstrict</code>.</p>\n<p>The result of our partitioning efforts results in the table data being split into 56 different folders on HDFS, one for each year present in the data, from 1960 to 2016. These folders all have the same name pattern of <code>year=n</code> where <code>n</code> is one of the years covered by the data.</p>\n<p>Performing the same query as before on this new, partitioned table resulted in a job runtime of approximately 4 seconds, while querying the unpartitioned table took approximately 1 minute and 11 seconds. This speed increase from partitioning is do entirely to needing to search through less data. According to <code>hdfs dfs -du</code>, the unpartitioned table is 2.3GB, while each partition of the partitioned table ranges between 36MB and 39MB.</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582055304299_1853414017",
+      "id": "20200218-194824_1515708573",
+      "dateCreated": "2020-02-18T19:48:24+0000",
+      "dateStarted": "2020-02-20T16:05:29+0000",
+      "dateFinished": "2020-02-20T16:05:29+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41086"
+    },
+    {
+      "text": "-- Determine the Country Code for Canada\nselect distinct(countrycode), countryname from wdi_opencsv_view\nwhere countryname like \"Canada\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:07:57+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "countrycode": "string",
+                      "countryname": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "countrycode\tcountryname\nCAN\tCanada\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582057857337_1432527996",
+      "id": "20200218-203057_1507219352",
+      "dateCreated": "2020-02-18T20:30:57+0000",
+      "dateStarted": "2020-02-18T20:32:37+0000",
+      "dateFinished": "2020-02-18T20:34:02+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41087"
+    },
+    {
+      "text": "\n-- Get all GDP-related indicators to find code for GDP Growth %\nselect distinct(indicatorcode), indicatorname from wdi_opencsv_view\nwhere indicatorname like \"%GDP%\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:10:13+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "indicatorcode": "string",
+                      "indicatorname": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "indicatorcode\tindicatorname\nGC.BAL.CASH.GD.ZS\tCash surplus/deficit (% of GDP)\nFS.AST.DOMO.GD.ZS\tClaims on other sectors of the domestic economy (% of GDP)\nNY.GDP.DISC.CN\tDiscrepancy in expenditure estimate of GDP (current LCU)\nFS.AST.DOMS.GD.ZS\tDomestic credit provided by financial sector (% of GDP)\nFD.AST.PRVT.GD.ZS\tDomestic credit to private sector by banks (% of GDP)\nEG.USE.COMM.GD.PP.KD\tEnergy use (kg of oil equivalent) per $1,000 GDP (constant 2011 PPP)\nNY.GDP.MKTP.KD\tGDP at market prices (constant 2010 US$)\nNY.GDP.PCAP.KD\tGDP per capita (constant 2010 US$)\nEG.GDP.PUSE.KO.PP\tGDP per unit of energy use (PPP $ per kg of oil equivalent)\nNE.CON.GOVT.ZS\tGeneral government final consumption expenditure (% of GDP)\nSE.XPD.TERT.PC.ZS\tGovernment expenditure per tertiary student as % of GDP per capita (%)\nNE.GDI.TOTL.ZS\tGross capital formation (% of GDP)\nNE.DAB.TOTL.ZS\tGross national expenditure (% of GDP)\nTG.VAL.TOTL.GD.ZS\tMerchandise trade (% of GDP)\nNY.GDP.NGAS.RT.ZS\tNatural gas rents (% of GDP)\nGC.FIN.DOMS.GD.ZS\tNet incurrence of liabilities, domestic (% of GDP)\nCM.MKT.TRAD.GD.ZS\tStocks traded, total value (% of GDP)\nNY.GDP.TOTL.RT.ZS\tTotal natural resources rents (% of GDP)\nNE.TRD.GNFS.ZS\tTrade (% of GDP)\nPA.NUS.PPP.05\t2005 PPP conversion factor, GDP (LCU per international $)\nGC.DOD.TOTL.GD.ZS\tCentral government debt, total (% of GDP)\nNE.EXP.GNFS.ZS\tExports of goods and services (% of GDP)\nNY.GDP.MKTP.KN\tGDP (constant LCU)\nNY.GDP.MKTP.KD.ZG\tGDP growth (annual %)\nNY.GDP.PCAP.CD\tGDP per capita (current US$)\nNY.GDP.PCAP.PP.KD\tGDP per capita, PPP (constant 2011 international $)\nNY.GDP.PCAP.PP.CD\tGDP per capita, PPP (current international $)\nSL.GDP.PCAP.EM.KD\tGDP per person employed (constant 2011 PPP $)\nSE.XPD.TOTL.GD.ZS\tGovernment expenditure on education, total (% of GDP)\nNY.GDS.TOTL.ZS\tGross domestic savings (% of GDP)\nNV.IND.TOTL.ZS\tIndustry, value added (% of GDP)\nNY.GDP.MINR.RT.ZS\tMineral rents (% of GDP)\nGC.FIN.FRGN.GD.ZS\tNet incurrence of liabilities, foreign (% of GDP)\nPA.NUS.PPP\tPPP conversion factor, GDP (LCU per international $)\nNV.SRV.TETC.ZS\tServices, etc., value added (% of GDP)\nGC.TAX.TOTL.GD.ZS\tTax revenue (% of GDP)\nNV.AGR.TOTL.ZS\tAgriculture, value added (% of GDP)\nEN.ATM.CO2E.PP.GD.KD\tCO2 emissions (kg per 2011 PPP $ of GDP)\nEN.ATM.CO2E.PP.GD\tCO2 emissions (kg per PPP $ of GDP)\nNY.GDP.MKTP.CD\tGDP (current US$)\nNY.GDP.PCAP.KN\tGDP per capita (constant LCU)\nNY.GDP.PCAP.CN\tGDP per capita (current LCU)\nEG.GDP.PUSE.KO.PP.KD\tGDP per unit of energy use (constant 2011 PPP $ per kg of oil equivalent)\nSE.XPD.SECO.PC.ZS\tGovernment expenditure per student, secondary (% of GDP per capita)\nNY.GNS.ICTR.ZS\tGross savings (% of GDP)\nSH.XPD.PRIV.ZS\tHealth expenditure, private (% of GDP)\nSH.XPD.PUBL.ZS\tHealth expenditure, public (% of GDP)\nNE.CON.PETC.ZS\tHousehold final consumption expenditure, etc. (% of GDP)\nNV.IND.MANF.ZS\tManufacturing, value added (% of GDP)\nCM.MKT.LCAP.GD.ZS\tMarket capitalization of listed domestic companies (% of GDP)\nMS.MIL.XPND.GD.ZS\tMilitary expenditure (% of GDP)\nBX.TRF.PWKR.DT.GD.ZS\tPersonal remittances, received (% of GDP)\nFM.LBL.BMNY.GD.ZS\tBroad money (% of GDP)\nEN.ATM.CO2E.KD.GD\tCO2 emissions (kg per 2010 US$ of GDP)\nFS.AST.CGOV.GD.ZS\tClaims on central government, etc. (% GDP)\nNY.GDP.COAL.RT.ZS\tCoal rents (% of GDP)\nBN.CAB.XOKA.GD.ZS\tCurrent account balance (% of GDP)\nNY.GDP.DISC.KN\tDiscrepancy in expenditure estimate of GDP (constant LCU)\nNE.RSB.GNFS.ZS\tExternal balance on goods and services (% of GDP)\nNY.GDP.DEFL.ZS\tGDP deflator (base year varies by country)\nNY.GDP.PCAP.KD.ZG\tGDP per capita growth (annual %)\nNY.GDP.MKTP.PP.KD\tGDP, PPP (constant 2011 international $)\nSE.XPD.PRIM.PC.ZS\tGovernment expenditure per student, primary (% of GDP per capita)\nNE.GDI.FTOT.ZS\tGross fixed capital formation (% of GDP)\nNY.GDP.DEFL.KD.ZG\tInflation, GDP deflator (annual %)\nNY.GDP.PETR.RT.ZS\tOil rents (% of GDP)\nBG.GSR.NFSV.GD.ZS\tTrade in services (% of GDP)\nFS.AST.PRVT.GD.ZS\tDomestic credit to private sector (% of GDP)\nEG.EGY.PRIM.PP.KD\tEnergy intensity level of primary energy (MJ/$2011 PPP GDP)\nGC.XPN.TOTL.GD.ZS\tExpense (% of GDP)\nNE.CON.TETC.ZS\tFinal consumption expenditure, etc. (% of GDP)\nBX.KLT.DINV.WD.GD.ZS\tForeign direct investment, net inflows (% of GDP)\nBM.KLT.DINV.WD.GD.ZS\tForeign direct investment, net outflows (% of GDP)\nNY.GDP.FRST.RT.ZS\tForest rents (% of GDP)\nNY.GDP.MKTP.CN\tGDP (current LCU)\nNY.GDP.MKTP.PP.CD\tGDP, PPP (current international $)\nNE.GDI.FPRV.ZS\tGross fixed capital formation, private sector (% of GDP)\nSH.XPD.TOTL.ZS\tHealth expenditure, total (% of GDP)\nNE.IMP.GNFS.ZS\tImports of goods and services (% of GDP)\nPA.NUS.PPPC.RF\tPrice level ratio of PPP conversion factor (GDP) to market exchange rate\nGB.XPD.RSDV.GD.ZS\tResearch and development expenditure (% of GDP)\nGC.REV.XGRT.GD.ZS\tRevenue, excluding grants (% of GDP)\nER.GDP.FWTL.M3.KD\tWater productivity, total (constant 2010 US$ GDP per cubic meter of total freshwater withdrawal)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582057868975_1800252729",
+      "id": "20200218-203108_1298341205",
+      "dateCreated": "2020-02-18T20:31:08+0000",
+      "dateStarted": "2020-02-18T20:34:09+0000",
+      "dateFinished": "2020-02-18T20:35:24+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41088"
+    },
+    {
+      "text": "-- Get 2015 GDP Growth % for Canada\nselect indicatorvalue as gdp_growth_value, year, countryname from wdi_opencsv_view\nwhere countrycode = \"CAN\" and year = 2015 and indicatorcode = \"NY.GDP.MKTP.KD.ZG\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:14:05+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 84,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "gdp_growth_value": "string",
+                      "year": "string",
+                      "countryname": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "gdp_growth_value\tyear\tcountryname\n1.0782688\t2015\tCanada\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582056490189_756372243",
+      "id": "20200218-200810_689089854",
+      "dateCreated": "2020-02-18T20:08:10+0000",
+      "dateStarted": "2020-02-18T20:41:09+0000",
+      "dateFinished": "2020-02-18T20:42:20+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41089"
+    },
+    {
+      "text": "drop table if exists wdi_opencsv_text_partitioned",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-19T20:57:37+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582056743093_1142780778",
+      "id": "20200218-201223_1271752901",
+      "dateCreated": "2020-02-18T20:12:23+0000",
+      "dateStarted": "2020-02-19T20:57:37+0000",
+      "dateFinished": "2020-02-19T20:57:37+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41090"
+    },
+    {
+      "text": "-- Create a partitioned version of wdi_opencsv_text\ncreate external table if not exists wdi_opencsv_text_partitioned\n(countryName string, countryCode string, indicatorName string, indicatorCode string, indicatorValue float)\npartitioned by (year integer)\nrow format serde \"org.apache.hadoop.hive.serde2.OpenCSVSerde\"\nlocation \"hdfs:///user/vassairm/hive/wdi/wdi_opencsv_text_partitioned/\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:10:53+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582144696862_-870499432",
+      "id": "20200219-203816_1621878837",
+      "dateCreated": "2020-02-19T20:38:16+0000",
+      "dateStarted": "2020-02-19T20:57:40+0000",
+      "dateFinished": "2020-02-19T20:57:41+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41091"
+    },
+    {
+      "text": "-- Set this option to enable dynamic-only partitions\nset hive.exec.dynamic.partition.mode=nonstrict",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:11:30+0000",
+      "config": {
+        "colWidth": 5,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1582146242598_1089470132",
+      "id": "20200219-210402_1110468288",
+      "dateCreated": "2020-02-19T21:04:02+0000",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41092"
+    },
+    {
+      "text": "-- Copy data from base table to partitioned one. Partition by year\n-- All columns specified because Year must be the rightmost column\nfrom wdi_opencsv_text\ninsert overwrite table wdi_opencsv_text_partitioned\npartition(year)\nselect countryName, countryCode, indicatorName, indicatorCode, indicatorValue, year",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:12:44+0000",
+      "config": {
+        "colWidth": 7,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582145366700_1460657185",
+      "id": "20200219-204926_1789376294",
+      "dateCreated": "2020-02-19T20:49:26+0000",
+      "dateStarted": "2020-02-19T21:03:34+0000",
+      "dateFinished": "2020-02-19T21:06:34+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41093"
+    },
+    {
+      "text": "-- Get 2015 GDP Growth % for Canada, using the partitioned table. This is for performance comparison.\nselect indicatorvalue as gdp_growth_value, year, countryname from wdi_opencsv_text_partitioned\nwhere countrycode = \"CAN\" and year = \"2015\" and indicatorcode = \"NY.GDP.MKTP.KD.ZG\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:13:45+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 84,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "gdp_growth_value": "string",
+                      "year": "string",
+                      "countryname": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "gdp_growth_value\tyear\tcountryname\n1.07826875075381\t2015\tCanada\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582145204547_1489103653",
+      "id": "20200219-204644_143869597",
+      "dateCreated": "2020-02-19T20:46:44+0000",
+      "dateStarted": "2020-02-19T21:20:44+0000",
+      "dateFinished": "2020-02-19T21:20:48+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41094"
+    },
+    {
+      "text": "%md\n# Optimization with Columnar Files\nAnother method of optimizing queries is taking advantage of column-based, or Columnar, files. These files store data such that each line represents one column's data for some subset of rows. This allows Hive to skip over certain lines when reading data files. Just like with Partitioning, Columnar files aim to optimize queries by reducing the amount of data that needs to be read and processed. Columnar files work best when queries on their dataset request only some of the columns available.\n\nFor this sample, we will store data as Parquet files. Parquet is a columnar file format that also offers file compression. Columnar files offer higher than average compression ratios due to the fact that they can compress individual lines of \"same type\" data. Parquet in particular uses a combination of Dictionary Encoding (Map values to a shorter value, then replace occurrences with the shortened value), Bit packing (storing two small integers in the same space), and Run-Length Encoding (store value once with number of occurrences).\n\n## Size Comparison Against Plaintext\nTo illustrate the compression savings of Parquet files, I compared the disk size of the tables `wdi_csv_parquet` and `wdi_opencsv_text` using `hdfs dfs -du -s -h`. The plaintext table, `wdi_opencsv_text`, has a disk size of 2.3 GB, while the parquet table, `wdi_csv_parquet`, has a disk size of 137.2MB. That is approximately **6% of the original size**. As shown earlier, the partitions in the partitioned table are between 36MB and 39MB.\n\n## Execution Time Comparison Against Plaintext\nTo compare the execution speed difference between tables using Parquet files and tables using Plaintext files, I ran the same query on both tables, one at a time: `select count(year) from <table_name>`. The Plaintext table completed the query in 1 minute, 33 seconds, while the Parquet table completed the query in 15 seconds. That is **6.2 times faster**. The query `select count(1)` is much faster, but does not adequately show the performance difference.\n\nFurther comparison was made using a query for all 2015 GDP Growth entries. The plaintext table completed this query in 1 minute, 29 seconds while the Parquet table completed the query in 9 seconds. That is **9.8 times faster**. Further comparison was made against the partitioned plaintext table, which completed the query in 3 seconds. The partitioned table was faster because the partition was smaller than the Parquet file. It can therefore be inferred that whichever query scans less data will complete faster, regardless of the total table size. It can also be inferred that combining partitioning and columnar files will yield further performance increases.",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-20T16:08:30+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Optimization with Columnar Files</h1>\n<p>Another method of optimizing queries is taking advantage of column-based, or Columnar, files. These files store data such that each line represents one column&rsquo;s data for some subset of rows. This allows Hive to skip over certain lines when reading data files. Just like with Partitioning, Columnar files aim to optimize queries by reducing the amount of data that needs to be read and processed. Columnar files work best when queries on their dataset request only some of the columns available.</p>\n<p>For this sample, we will store data as Parquet files. Parquet is a columnar file format that also offers file compression. Columnar files offer higher than average compression ratios due to the fact that they can compress individual lines of &ldquo;same type&rdquo; data. Parquet in particular uses a combination of Dictionary Encoding (Map values to a shorter value, then replace occurrences with the shortened value), Bit packing (storing two small integers in the same space), and Run-Length Encoding (store value once with number of occurrences).</p>\n<h2>Size Comparison Against Plaintext</h2>\n<p>To illustrate the compression savings of Parquet files, I compared the disk size of the tables <code>wdi_csv_parquet</code> and <code>wdi_opencsv_text</code> using <code>hdfs dfs -du -s -h</code>. The plaintext table, <code>wdi_opencsv_text</code>, has a disk size of 2.3 GB, while the parquet table, <code>wdi_csv_parquet</code>, has a disk size of 137.2MB. That is approximately <strong>6% of the original size</strong>. As shown earlier, the partitions in the partitioned table are between 36MB and 39MB.</p>\n<h2>Execution Time Comparison Against Plaintext</h2>\n<p>To compare the execution speed difference between tables using Parquet files and tables using Plaintext files, I ran the same query on both tables, one at a time: <code>select count(year) from &lt;table_name&gt;</code>. The Plaintext table completed the query in 1 minute, 33 seconds, while the Parquet table completed the query in 15 seconds. That is <strong>6.2 times faster</strong>. The query <code>select count(1)</code> is much faster, but does not adequately show the performance difference.</p>\n<p>Further comparison was made using a query for all 2015 GDP Growth entries. The plaintext table completed this query in 1 minute, 29 seconds while the Parquet table completed the query in 9 seconds. That is <strong>9.8 times faster</strong>. Further comparison was made against the partitioned plaintext table, which completed the query in 3 seconds. The partitioned table was faster because the partition was smaller than the Parquet file. It can therefore be inferred that whichever query scans less data will complete faster, regardless of the total table size. It can also be inferred that combining partitioning and columnar files will yield further performance increases.</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582145964956_352563238",
+      "id": "20200219-205924_1593382182",
+      "dateCreated": "2020-02-19T20:59:24+0000",
+      "dateStarted": "2020-02-20T16:08:30+0000",
+      "dateFinished": "2020-02-20T16:08:30+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41095"
+    },
+    {
+      "text": "drop table if exists wdi_csv_parquet",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-20T15:01:22+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582210184049_1651130786",
+      "id": "20200220-144944_1639565342",
+      "dateCreated": "2020-02-20T14:49:44+0000",
+      "dateStarted": "2020-02-20T15:01:14+0000",
+      "dateFinished": "2020-02-20T15:01:21+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41096"
+    },
+    {
+      "text": "-- Create a new table like wdi-opencsv_text that uses Parquet\ncreate external table wdi_csv_parquet\n(year integer, countryName string, countryCode string, indicatorName string, indicatorCode string, indicatorValue float)\nstored as parquet\nlocation \"hdfs:///user/vassairm/hive/wdi/wdi_csv_parquet\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:26:36+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582210874357_-824838926",
+      "id": "20200220-150114_1433012476",
+      "dateCreated": "2020-02-20T15:01:14+0000",
+      "dateStarted": "2020-02-20T15:06:31+0000",
+      "dateFinished": "2020-02-20T15:06:33+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41097"
+    },
+    {
+      "text": "-- Copy data from the plaintext table into the Parquet table. The Parquet SerDe will reorganize the files as they come in\nfrom wdi_opencsv_gs\ninsert overwrite table wdi_csv_parquet\nselect *",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:27:24+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : -1"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582211190967_2044646022",
+      "id": "20200220-150630_1265953351",
+      "dateCreated": "2020-02-20T15:06:30+0000",
+      "dateStarted": "2020-02-20T15:08:12+0000",
+      "dateFinished": "2020-02-20T15:10:26+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41098"
+    },
+    {
+      "text": "-- Count rows by querying for years, slower than count(1)\n-- but better for showing time differences\nselect count(year) from wdi_opencsv_text",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:28:15+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 84,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "_c0": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "_c0\n21759408\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582211231521_489499980",
+      "id": "20200220-150711_655038893",
+      "dateCreated": "2020-02-20T15:07:11+0000",
+      "dateStarted": "2020-02-20T15:38:12+0000",
+      "dateFinished": "2020-02-20T15:39:45+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41099"
+    },
+    {
+      "text": "-- Count rows by querying for years, slower than count(1)\n-- but better for showing time differences\nselect count(year) from wdi_csv_parquet",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:28:30+0000",
+      "config": {
+        "colWidth": 6,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 84,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "_c0": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "_c0\n21759408\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582211437362_179746100",
+      "id": "20200220-151037_1288419988",
+      "dateCreated": "2020-02-20T15:10:37+0000",
+      "dateStarted": "2020-02-20T15:39:51+0000",
+      "dateFinished": "2020-02-20T15:40:06+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41100"
+    },
+    {
+      "text": "-- Get GDP growth for 2015\n-- For all countries, text version\nselect indicatorvalue as gdp_growth_value, year, countryname from wdi_opencsv_text\nwhere year=\"2015\" and indicatorcode \"NY.GDP.MKTP.KD.ZG\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:31:44+0000",
+      "config": {
+        "colWidth": 4,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "gdp_growth_value": "string",
+                      "year": "string",
+                      "countryname": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "gdp_growth_value\tyear\tcountryname\n0.09999452777447\t2015\tGuinea\n0.899999999999991\t2015\tJamaica\n3.37469381321137\t2015\tMontenegro\n5.53810056237647\t2015\tPakistan\n-0.687050494180042\t2015\tLatin America & the Caribbean (IDA & IBRD countries)\n4.2\t2015\tEgypt, Arab Rep.\n2.36055032117865\t2015\tHong Kong SAR, China\n0\t2015\tSt. Martin (French part)\n3.60530160522534\t2015\tNiger\n0\t2015\tTonga\n1.96630855696449\t2015\tOECD members\n3.37960832603727\t2015\tPacific island small states\n0\t2015\tTurks and Caicos Islands\n0.290361072781906\t2015\tEcuador\n3.98485920209721\t2015\tTurkey\n3.2215756747497\t2015\tZambia\n6.23918824565037\t2015\tCameroon\n-0.841319408731295\t2015\tLatin America & Caribbean (excluding high income)\n0\t2015\tNauru\n-6.34977795213874\t2015\tSouth Sudan\n5.47526898534858\t2015\tTogo\n0.862105018651633\t2015\tAustria\n1.49933210760594\t2015\tSuriname\n1.00627370178125\t2015\tTrinidad and Tobago\n0\t2015\tMiddle East & North Africa (excluding high income)\n8.44171317126172\t2015\tCote d'Ivoire\n-0.40000000000002\t2015\tKuwait\n4.40000000000001\t2015\tMorocco\n3.66528037380903\t2015\tMacedonia, FYR\n2.97845892007096\t2015\tSub-Saharan Africa (IDA & IBRD countries)\n7.61105766991039\t2015\tMali\n5.24044710163763\t2015\tBenin\n7.57013036787396\t2015\tIndia\n6.48519475351929\t2015\tSenegal\n2.37229601701262\t2015\tArgentina\n0\t2015\tCayman Islands\n2.64644793533981\t2015\tCongo, Rep.\n2.99770407322555\t2015\tAngola\n1.07826875075381\t2015\tCanada\n0.90963699789468\t2015\tSwitzerland\n1.17855128146489\t2015\tDenmark\n3.89999999999992\t2015\tAlgeria\n-20.3487325573108\t2015\tMacao SAR, China\n2.29544361018836\t2015\tMongolia\n0\t2015\tNew Caledonia\n7.1963624560039\t2015\tSouth Asia (IDA & IBRD)\n3.88270446873706\t2015\tGhana\n9.36309199782252\t2015\tPalau\n-3.88769850231654\t2015\tBelarus\n4.30566975243482\t2015\tIDA blend\n1.28329572193775\t2015\tSouth Africa\n2.95650382219988\t2015\tUpper middle income\n2.87916089867399\t2015\tSlovenia\n6.96787163423413\t2015\tTanzania\n6.91618781038289\t2015\tCongo, Dem. Rep.\n4.6180979240618\t2015\tSt. Kitts and Nevis\n-10.2\t2015\tLibya\n6.90420311499894\t2015\tRwanda\n0.982258638441039\t2015\tUruguay\n2.81968312231784\t2015\tThailand\n1.09999999999999\t2015\tAzerbaijan\n3.39302764953476\t2015\tNew Zealand\n1.3739371824101\t2015\tBelgium\n0\t2015\tGibraltar\n1.64461325883687\t2015\tCroatia\n4.62998238903896\t2015\tIDA total\n3.52249793242711\t2015\tIDA & IBRD total\n0\t2015\tPapua New Guinea\n5.47698379998968\t2015\tLower middle income\n1.45190441606769\t2015\tSt. Vincent and the Grenadines\n3.21428640203662\t2015\tSpain\n2.46640414916892\t2015\tWorld\n2.54686997094976\t2015\tMexico\n0\t2015\tSomalia\n3.635262488484\t2015\tHonduras\n0\t2015\tSan Marino\n1.22048360020888\t2015\tBahamas, The\n0\t2015\tNot classified\n0\t2015\tNorthern Mariana Islands\n1.65166137703218\t2015\tHaiti\n0\t2015\tMalta\n-3.84736249471105\t2015\tBrazil\n1.58620634106657\t2015\tCyprus\n6.67928878891431\t2015\tVietnam\n2.008372345195\t2015\tSingapore\n2.97164832223424\t2015\tArab World\n5.80572866285858\t2015\tPhilippines\n1.48248236849531\t2015\tEurope & Central Asia\n-0.231571523177266\t2015\tGreece\n4.78598456723587\t2015\tSri Lanka\n3.12269866304793\t2015\tPre-demographic dividend\n0\t2015\tMonaco\n3.64971913068008\t2015\tPoland\n0\t2015\tSyrian Arab Republic\n3.35463617829366\t2015\tLate-demographic dividend\n0\t2015\tMiddle East & North Africa (IDA & IBRD countries)\n3.66412072919201\t2015\tAntigua and Barbuda\n3.18267819490927\t2015\tUnited Arab Emirates\n-0.0521813094531467\t2015\tEurope & Central Asia (IDA & IBRD countries)\n1.06784053106526\t2015\tEstonia\n7.99999999999994\t2015\tUzbekistan\n4.81728297445456\t2015\tHeavily indebted poor countries (HIPC)\n1.88691229576618\t2015\tLatvia\n1.50856704175307\t2015\tLebanon\n3.0819280333819\t2015\tColombia\n3.01656888622577\t2015\tMadagascar\n6.26654205664995\t2015\tMozambique\n1.99058496608222\t2015\tNetherlands\n3.97954206700174\t2015\tBurkina Faso\n2.38268662851466\t2015\tJordan\n2.65269362304348\t2015\tNigeria\n1.59377460567481\t2015\tLithuania\n3.53458539934964\t2015\tMiddle income\n0\t2015\tAmerican Samoa\n6.46026027710909\t2015\tEast Asia & Pacific (excluding high income)\n3.36295318337802\t2015\tNepal\n2.75974025974025\t2015\tDominica\n4.14878447478388\t2015\tGuatemala\n2.45506222153942\t2015\tEl Salvador\n0\t2015\tYemen, Rep.\n3.48565641322274\t2015\tSaudi Arabia\n3.41956517888973\t2015\tFiji\n0\t2015\tAruba\n1.5980686009933\t2015\tNorway\n0.726074886537418\t2015\tSerbia\n4.69332866026795\t2015\tLow income\n2.48807622448481\t2015\tIsrael\n2.92656721719055\t2015\tBahrain\n2.96713547854921\t2015\tBulgaria\n1.45446380454275\t2015\tPortugal\n7.1963624560039\t2015\tSouth Asia\n2.09999999999999\t2015\tIraq\n0.472784704380771\t2015\tJapan\n3.62444572970888\t2015\tKosovo\n0\t2015\tTuvalu\n5.04298098022802\t2015\tUganda\n-2.53586564202618\t2015\tBurundi\n6.55263331602802\t2015\tBangladesh\n-0.5\t2015\tBrunei Darussalam\n3.55054071612028\t2015\tLow & middle income\n3.15757629916973\t2015\tBosnia and Herzegovina\n1.98269580202029\t2015\tFragile and conflict affected situations\n0\t2015\tAndorra\n3.4109856574598\t2015\tGrenada\n-20.3012459204578\t2015\tSierra Leone\n3.85668373369244\t2015\tGabon\n2.93891579055648\t2015\tHungary\n4.95237060557724\t2015\tMalaysia\n3.49781386633352\t2015\tSeychelles\n4.251\t2015\tTimor-Leste\n2.29266790028235\t2015\tNorth America\n2.32918332093841\t2015\tUnited Kingdom\n1.32220667224226\t2015\tCaribbean small states\n0\t2015\tBermuda\n9.60751800101079\t2015\tEthiopia\n1.07343170905358\t2015\tZimbabwe\n1.65738729452222\t2015\tSwaziland\n12.393242937326\t2015\tWest Bank and Gaza\n6.46026027710909\t2015\tEast Asia & Pacific (IDA & IBRD countries)\n-0.654397251125928\t2015\tEurope & Central Asia (excluding high income)\n2.95000000182051\t2015\tMalawi\n0\t2015\tEritrea\n-9.89998298945031\t2015\tUkraine\n3.14465408805003\t2015\tKiribati\n0\t2015\tMauritania\n3.96172807160788\t2015\tBolivia\n-0.254733178383304\t2015\tBotswana\n3.88580010635326\t2015\tEast Asia & Pacific\n6.99522551975515\t2015\tLao PDR\n3.2568998598711\t2015\tPeru\n2.97845892007098\t2015\tSub-Saharan Africa\n0.990099009900987\t2015\tBarbados\n2.26740145708222\t2015\tSmall states\n3.25398558637258\t2015\tSolomon Islands\n0\t2015\tMicronesia, Fed. Sts.\n2.90802878660665\t2015\tMiddle East & North Africa\n3.39782204299459\t2015\tCentral Europe and the Baltics\n0\t2015\tFaroe Islands\n2.55999999999999\t2015\tAlbania\n4.928954391584\t2015\tNicaragua\n2.52310849162525\t2015\tCabo Verde\n1.94875959684644\t2015\tEuropean Union\n-12.1938526619848\t2015\tEquatorial Guinea\n1.79999952119844\t2015\tChad\n5.64919707770292\t2015\tKenya\n1.63477602628133\t2015\tSamoa\n2.77492809454047\t2015\tGeorgia\n-0.68300846573392\t2015\tLatin America & Caribbean\n4.11610666127132\t2015\tEarly-demographic dividend\n2.06614051943535\t2015\tChile\n3.43961625016777\t2015\tSudan\n5.77739347257827\t2015\tPanama\n6.99127097835952\t2015\tMyanmar\n3.73668357850366\t2015\tRomania\n3.25425473889356\t2015\tBhutan\n7.81139599459044\t2015\tIreland\n5.4864585599304\t2015\tCentral African Republic\n3.49999999999999\t2015\tOman\n3.00581407799206\t2015\tGuyana\n2.75744382071217\t2015\tCosta Rica\n0.759532980888949\t2015\tItaly\n1.79058368562073\t2015\tPost-demographic dividend\n-3.72667344001421\t2015\tRussian Federation\n0\t2015\tCuba\n0\t2015\tIsle of Man\n0\t2015\tFrench Polynesia\n0\t2015\tCuracao\n0\t2015\tLesotho\n0\t2015\tVanuatu\n-0.5\t2015\tMoldova\n0\t2015\tSao Tome and Principe\n0\t2015\tSint Maarten (Dutch part)\n1.65687486593195\t2015\tEuro area\n3.43533571931704\t2015\tIBRD only\n1.76048008929645\t2015\tSt. Lucia\n-5.7\t2015\tVenezuela, RB\n1.68772378120711\t2015\tGermany\n3.95712220060858\t2015\tIceland\n4.7939213038221\t2015\tIndonesia\n1.51991126448578\t2015\tAfghanistan\n0\t2015\tGambia, The\n0\t2015\tIran, Islamic Rep.\n4.44044999922129\t2015\tLeast developed countries: UN classification\n0.800000080241176\t2015\tTunisia\n1.51388419597605\t2015\tMaldives\n2.25782511179634\t2015\tAustralia\n3.46928079781574\t2015\tKyrgyz Republic\n2.97805985273705\t2015\tSub-Saharan Africa (excluding high income)\n3.00000000125773\t2015\tArmenia\n4.84923322229909\t2015\tLuxembourg\n1.91337668078133\t2015\tHigh income\n6.49999990951666\t2015\tTurkmenistan\n6.95331362092455\t2015\tDominican Republic\n2.41745723864879\t2015\tOther small states\n6.90000000000018\t2015\tChina\n0.297657564384608\t2015\tLiberia\n0\t2015\tBritish Virgin Islands\n0\t2015\tVirgin Islands (U.S.)\n7.03608717936477\t2015\tCambodia\n5.06597384421164\t2015\tIDA only\n0\t2015\tChannel Islands\n3.59502093291218\t2015\tSlovak Republic\n1.155966988731\t2015\tFrance\n4.79677983138016\t2015\tGuinea-Bissau\n1.20000000000036\t2015\tKazakhstan\n5.66377418129068\t2015\tNamibia\n4.09363731662084\t2015\tSweden\n2.42597052645783\t2015\tUnited States\n0\t2015\tGuam\n0\t2015\tMarshall Islands\n3.50001022697057\t2015\tMauritius\n0\t2015\tPuerto Rico\n3.58277342974473\t2015\tQatar\n0.546055313579501\t2015\tFinland\n0\t2015\tDjibouti\n0\t2015\tGreenland\n4.19999999999999\t2015\tTajikistan\n0\t2015\tLiechtenstein\n4.19804965676525\t2015\tCzech Republic\n1.91848581422531\t2015\tBelize\n0\t2015\tComoros\n2.61193540870619\t2015\tKorea, Rep.\n3.01474650923549\t2015\tParaguay\n0\t2015\tKorea, Dem. People�s Rep.\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582212925844_793892250",
+      "id": "20200220-153525_273798645",
+      "dateCreated": "2020-02-20T15:35:25+0000",
+      "dateStarted": "2020-02-20T15:57:38+0000",
+      "dateFinished": "2020-02-20T15:59:07+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41101"
+    },
+    {
+      "text": "-- Get GDP Growth for 2015\n-- For all countries, Parquet ver\nselect indicatorvalu as gdp_growth_value, year, countryname from wdi_csv_parquet\nwhere year=\"2015\" and indicatorcode=\"NY.GDP.MKTP.KD.ZG\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:30:17+0000",
+      "config": {
+        "colWidth": 4,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "gdp_growth_value": "string",
+                      "year": "string",
+                      "countryname": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "gdp_growth_value\tyear\tcountryname\n0.099994525\t2015\tGuinea\n0.9\t2015\tJamaica\n3.3746939\t2015\tMontenegro\n5.5381007\t2015\tPakistan\n-0.6870505\t2015\tLatin America & the Caribbean (IDA & IBRD countries)\n4.2\t2015\tEgypt, Arab Rep.\n2.3605504\t2015\tHong Kong SAR, China\n0.0\t2015\tSt. Martin (French part)\n3.6053016\t2015\tNiger\n0.0\t2015\tTonga\n1.9663086\t2015\tOECD members\n3.3796084\t2015\tPacific island small states\n0.0\t2015\tTurks and Caicos Islands\n0.29036108\t2015\tEcuador\n3.9848592\t2015\tTurkey\n3.2215757\t2015\tZambia\n6.239188\t2015\tCameroon\n-0.8413194\t2015\tLatin America & Caribbean (excluding high income)\n0.0\t2015\tNauru\n-6.349778\t2015\tSouth Sudan\n5.475269\t2015\tTogo\n0.862105\t2015\tAustria\n1.4993321\t2015\tSuriname\n1.0062737\t2015\tTrinidad and Tobago\n0.0\t2015\tMiddle East & North Africa (excluding high income)\n8.441713\t2015\tCote d'Ivoire\n-0.4\t2015\tKuwait\n4.4\t2015\tMorocco\n3.6652803\t2015\tMacedonia, FYR\n2.978459\t2015\tSub-Saharan Africa (IDA & IBRD countries)\n7.6110578\t2015\tMali\n5.240447\t2015\tBenin\n7.5701303\t2015\tIndia\n6.4851947\t2015\tSenegal\n2.372296\t2015\tArgentina\n0.0\t2015\tCayman Islands\n2.646448\t2015\tCongo, Rep.\n-0.5\t2015\tMoldova\n0.0\t2015\tSao Tome and Principe\n0.0\t2015\tSint Maarten (Dutch part)\n1.6568749\t2015\tEuro area\n3.4353356\t2015\tIBRD only\n1.76048\t2015\tSt. Lucia\n-5.7\t2015\tVenezuela, RB\n1.6877238\t2015\tGermany\n3.957122\t2015\tIceland\n4.7939215\t2015\tIndonesia\n1.5199113\t2015\tAfghanistan\n0.0\t2015\tGambia, The\n0.0\t2015\tIran, Islamic Rep.\n4.44045\t2015\tLeast developed countries: UN classification\n2.997704\t2015\tAngola\n1.0782688\t2015\tCanada\n0.909637\t2015\tSwitzerland\n1.1785513\t2015\tDenmark\n3.9\t2015\tAlgeria\n-20.348732\t2015\tMacao SAR, China\n2.2954435\t2015\tMongolia\n0.0\t2015\tNew Caledonia\n7.1963625\t2015\tSouth Asia (IDA & IBRD)\n3.8827045\t2015\tGhana\n9.363092\t2015\tPalau\n-3.8876984\t2015\tBelarus\n4.30567\t2015\tIDA blend\n1.2832958\t2015\tSouth Africa\n2.9565039\t2015\tUpper middle income\n2.879161\t2015\tSlovenia\n6.9678717\t2015\tTanzania\n6.916188\t2015\tCongo, Dem. Rep.\n4.618098\t2015\tSt. Kitts and Nevis\n-10.2\t2015\tLibya\n6.904203\t2015\tRwanda\n0.9822586\t2015\tUruguay\n2.819683\t2015\tThailand\n1.1\t2015\tAzerbaijan\n3.3930275\t2015\tNew Zealand\n1.3739371\t2015\tBelgium\n0.0\t2015\tGibraltar\n1.6446133\t2015\tCroatia\n4.6299825\t2015\tIDA total\n3.522498\t2015\tIDA & IBRD total\n0.0\t2015\tPapua New Guinea\n5.476984\t2015\tLower middle income\n1.4519044\t2015\tSt. Vincent and the Grenadines\n3.2142863\t2015\tSpain\n2.4664042\t2015\tWorld\n2.54687\t2015\tMexico\n0.0\t2015\tSomalia\n3.6352625\t2015\tHonduras\n0.0\t2015\tSan Marino\n1.2204835\t2015\tBahamas, The\n0.0\t2015\tNot classified\n0.0\t2015\tNorthern Mariana Islands\n1.6516614\t2015\tHaiti\n0.0\t2015\tMalta\n-3.8473625\t2015\tBrazil\n1.5862063\t2015\tCyprus\n6.679289\t2015\tVietnam\n2.0083723\t2015\tSingapore\n2.9716482\t2015\tArab World\n5.8057284\t2015\tPhilippines\n1.4824823\t2015\tEurope & Central Asia\n-0.23157153\t2015\tGreece\n7.036087\t2015\tCambodia\n5.0659738\t2015\tIDA only\n0.0\t2015\tChannel Islands\n3.595021\t2015\tSlovak Republic\n1.155967\t2015\tFrance\n4.7967796\t2015\tGuinea-Bissau\n1.2\t2015\tKazakhstan\n5.663774\t2015\tNamibia\n4.0936375\t2015\tSweden\n2.4259706\t2015\tUnited States\n4.7859845\t2015\tSri Lanka\n3.1226985\t2015\tPre-demographic dividend\n0.0\t2015\tMonaco\n3.6497192\t2015\tPoland\n0.0\t2015\tSyrian Arab Republic\n3.3546362\t2015\tLate-demographic dividend\n0.0\t2015\tMiddle East & North Africa (IDA & IBRD countries)\n3.6641207\t2015\tAntigua and Barbuda\n3.1826782\t2015\tUnited Arab Emirates\n-0.05218131\t2015\tEurope & Central Asia (IDA & IBRD countries)\n1.0678406\t2015\tEstonia\n8.0\t2015\tUzbekistan\n4.817283\t2015\tHeavily indebted poor countries (HIPC)\n1.8869123\t2015\tLatvia\n1.5085671\t2015\tLebanon\n3.081928\t2015\tColombia\n3.016569\t2015\tMadagascar\n6.266542\t2015\tMozambique\n1.990585\t2015\tNetherlands\n3.979542\t2015\tBurkina Faso\n2.3826866\t2015\tJordan\n2.6526935\t2015\tNigeria\n1.5937746\t2015\tLithuania\n3.5345855\t2015\tMiddle income\n0.0\t2015\tAmerican Samoa\n6.4602604\t2015\tEast Asia & Pacific (excluding high income)\n3.3629532\t2015\tNepal\n2.7597404\t2015\tDominica\n4.1487846\t2015\tGuatemala\n2.4550622\t2015\tEl Salvador\n0.0\t2015\tYemen, Rep.\n3.4856565\t2015\tSaudi Arabia\n3.4195652\t2015\tFiji\n0.0\t2015\tAruba\n1.5980686\t2015\tNorway\n0.7260749\t2015\tSerbia\n4.693329\t2015\tLow income\n0.8000001\t2015\tTunisia\n1.5138842\t2015\tMaldives\n2.2578251\t2015\tAustralia\n3.4692807\t2015\tKyrgyz Republic\n2.9780598\t2015\tSub-Saharan Africa (excluding high income)\n3.0\t2015\tArmenia\n4.849233\t2015\tLuxembourg\n1.9133767\t2015\tHigh income\n6.5\t2015\tTurkmenistan\n6.953314\t2015\tDominican Republic\n2.4174573\t2015\tOther small states\n6.9\t2015\tChina\n0.29765758\t2015\tLiberia\n0.0\t2015\tBritish Virgin Islands\n0.0\t2015\tVirgin Islands (U.S.)\n2.4880762\t2015\tIsrael\n2.9265673\t2015\tBahrain\n2.9671354\t2015\tBulgaria\n1.4544638\t2015\tPortugal\n7.1963625\t2015\tSouth Asia\n2.1\t2015\tIraq\n0.4727847\t2015\tJapan\n3.6244457\t2015\tKosovo\n0.0\t2015\tTuvalu\n5.042981\t2015\tUganda\n-2.5358655\t2015\tBurundi\n6.5526333\t2015\tBangladesh\n-0.5\t2015\tBrunei Darussalam\n3.5505407\t2015\tLow & middle income\n3.1575763\t2015\tBosnia and Herzegovina\n1.9826958\t2015\tFragile and conflict affected situations\n0.0\t2015\tAndorra\n3.4109857\t2015\tGrenada\n-20.301247\t2015\tSierra Leone\n3.8566837\t2015\tGabon\n2.9389157\t2015\tHungary\n4.9523706\t2015\tMalaysia\n3.497814\t2015\tSeychelles\n4.251\t2015\tTimor-Leste\n2.2926679\t2015\tNorth America\n2.3291833\t2015\tUnited Kingdom\n1.3222066\t2015\tCaribbean small states\n0.0\t2015\tBermuda\n9.607518\t2015\tEthiopia\n1.0734317\t2015\tZimbabwe\n1.6573873\t2015\tSwaziland\n12.393243\t2015\tWest Bank and Gaza\n6.4602604\t2015\tEast Asia & Pacific (IDA & IBRD countries)\n-0.65439725\t2015\tEurope & Central Asia (excluding high income)\n2.95\t2015\tMalawi\n0.0\t2015\tEritrea\n-9.899983\t2015\tUkraine\n3.144654\t2015\tKiribati\n0.0\t2015\tMauritania\n3.961728\t2015\tBolivia\n-0.25473318\t2015\tBotswana\n3.8858001\t2015\tEast Asia & Pacific\n6.9952254\t2015\tLao PDR\n3.2568998\t2015\tPeru\n2.978459\t2015\tSub-Saharan Africa\n0.990099\t2015\tBarbados\n2.2674015\t2015\tSmall states\n3.2539856\t2015\tSolomon Islands\n0.0\t2015\tMicronesia, Fed. Sts.\n2.9080288\t2015\tMiddle East & North Africa\n3.3978221\t2015\tCentral Europe and the Baltics\n0.0\t2015\tFaroe Islands\n0.0\t2015\tGuam\n0.0\t2015\tMarshall Islands\n3.5000103\t2015\tMauritius\n0.0\t2015\tPuerto Rico\n3.5827734\t2015\tQatar\n0.5460553\t2015\tFinland\n0.0\t2015\tDjibouti\n0.0\t2015\tGreenland\n4.2\t2015\tTajikistan\n0.0\t2015\tLiechtenstein\n4.1980495\t2015\tCzech Republic\n1.9184858\t2015\tBelize\n0.0\t2015\tComoros\n2.6119354\t2015\tKorea, Rep.\n3.0147464\t2015\tParaguay\n2.56\t2015\tAlbania\n4.9289546\t2015\tNicaragua\n2.5231085\t2015\tCabo Verde\n1.9487596\t2015\tEuropean Union\n-12.193852\t2015\tEquatorial Guinea\n1.7999995\t2015\tChad\n5.649197\t2015\tKenya\n1.634776\t2015\tSamoa\n2.774928\t2015\tGeorgia\n-0.6830085\t2015\tLatin America & Caribbean\n4.1161065\t2015\tEarly-demographic dividend\n2.0661404\t2015\tChile\n3.4396162\t2015\tSudan\n5.7773933\t2015\tPanama\n6.991271\t2015\tMyanmar\n3.7366836\t2015\tRomania\n3.2542548\t2015\tBhutan\n7.811396\t2015\tIreland\n5.486459\t2015\tCentral African Republic\n3.5\t2015\tOman\n3.005814\t2015\tGuyana\n2.757444\t2015\tCosta Rica\n0.759533\t2015\tItaly\n1.7905837\t2015\tPost-demographic dividend\n-3.7266734\t2015\tRussian Federation\n0.0\t2015\tCuba\n0.0\t2015\tIsle of Man\n0.0\t2015\tFrench Polynesia\n0.0\t2015\tCuracao\n0.0\t2015\tLesotho\n0.0\t2015\tVanuatu\n0.0\t2015\tKorea, Dem. People�s Rep.\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582213422059_-1371518438",
+      "id": "20200220-154342_2137075459",
+      "dateCreated": "2020-02-20T15:43:42+0000",
+      "dateStarted": "2020-02-20T15:59:16+0000",
+      "dateFinished": "2020-02-20T15:59:25+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41102"
+    },
+    {
+      "text": "--Get GDP Growth for 2015\n--For all countries, Partition ver\nselect indicatorvalue as gdp_growth_value, year, countryname from wdi_opencsv_text_partitioned\nwhere year=\"2015\" and indicatorcode=\"NY.GDP.MKTP.KD.ZG\"",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:31:23+0000",
+      "config": {
+        "colWidth": 4,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "gdp_growth_value": "string",
+                      "year": "string",
+                      "countryname": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "gdp_growth_value\tyear\tcountryname\n0.09999452777447\t2015\tGuinea\n0.899999999999991\t2015\tJamaica\n3.37469381321137\t2015\tMontenegro\n5.53810056237647\t2015\tPakistan\n-0.687050494180042\t2015\tLatin America & the Caribbean (IDA & IBRD countries)\n4.2\t2015\tEgypt, Arab Rep.\n2.36055032117865\t2015\tHong Kong SAR, China\n0\t2015\tSt. Martin (French part)\n3.60530160522534\t2015\tNiger\n0\t2015\tTonga\n1.96630855696449\t2015\tOECD members\n3.37960832603727\t2015\tPacific island small states\n0\t2015\tTurks and Caicos Islands\n0.290361072781906\t2015\tEcuador\n3.98485920209721\t2015\tTurkey\n3.2215756747497\t2015\tZambia\n6.23918824565037\t2015\tCameroon\n-0.841319408731295\t2015\tLatin America & Caribbean (excluding high income)\n0\t2015\tNauru\n-6.34977795213874\t2015\tSouth Sudan\n5.47526898534858\t2015\tTogo\n0.862105018651633\t2015\tAustria\n1.49933210760594\t2015\tSuriname\n1.00627370178125\t2015\tTrinidad and Tobago\n0\t2015\tMiddle East & North Africa (excluding high income)\n8.44171317126172\t2015\tCote d'Ivoire\n-0.40000000000002\t2015\tKuwait\n4.40000000000001\t2015\tMorocco\n3.66528037380903\t2015\tMacedonia, FYR\n2.97845892007096\t2015\tSub-Saharan Africa (IDA & IBRD countries)\n7.61105766991039\t2015\tMali\n5.24044710163763\t2015\tBenin\n7.57013036787396\t2015\tIndia\n6.48519475351929\t2015\tSenegal\n2.37229601701262\t2015\tArgentina\n0\t2015\tCayman Islands\n2.64644793533981\t2015\tCongo, Rep.\n2.99770407322555\t2015\tAngola\n1.07826875075381\t2015\tCanada\n0.90963699789468\t2015\tSwitzerland\n1.17855128146489\t2015\tDenmark\n3.89999999999992\t2015\tAlgeria\n-20.3487325573108\t2015\tMacao SAR, China\n2.29544361018836\t2015\tMongolia\n0\t2015\tNew Caledonia\n7.1963624560039\t2015\tSouth Asia (IDA & IBRD)\n3.88270446873706\t2015\tGhana\n9.36309199782252\t2015\tPalau\n-3.88769850231654\t2015\tBelarus\n4.30566975243482\t2015\tIDA blend\n1.28329572193775\t2015\tSouth Africa\n2.95650382219988\t2015\tUpper middle income\n2.87916089867399\t2015\tSlovenia\n6.96787163423413\t2015\tTanzania\n6.91618781038289\t2015\tCongo, Dem. Rep.\n4.6180979240618\t2015\tSt. Kitts and Nevis\n-10.2\t2015\tLibya\n6.90420311499894\t2015\tRwanda\n0.982258638441039\t2015\tUruguay\n2.81968312231784\t2015\tThailand\n1.09999999999999\t2015\tAzerbaijan\n3.39302764953476\t2015\tNew Zealand\n1.3739371824101\t2015\tBelgium\n0\t2015\tGibraltar\n1.64461325883687\t2015\tCroatia\n4.62998238903896\t2015\tIDA total\n3.52249793242711\t2015\tIDA & IBRD total\n0\t2015\tPapua New Guinea\n5.47698379998968\t2015\tLower middle income\n1.45190441606769\t2015\tSt. Vincent and the Grenadines\n3.21428640203662\t2015\tSpain\n2.46640414916892\t2015\tWorld\n2.54686997094976\t2015\tMexico\n0\t2015\tSomalia\n3.635262488484\t2015\tHonduras\n0\t2015\tSan Marino\n1.22048360020888\t2015\tBahamas, The\n0\t2015\tNot classified\n0\t2015\tNorthern Mariana Islands\n1.65166137703218\t2015\tHaiti\n0\t2015\tMalta\n-3.84736249471105\t2015\tBrazil\n1.58620634106657\t2015\tCyprus\n6.67928878891431\t2015\tVietnam\n2.008372345195\t2015\tSingapore\n2.97164832223424\t2015\tArab World\n5.80572866285858\t2015\tPhilippines\n1.48248236849531\t2015\tEurope & Central Asia\n-0.231571523177266\t2015\tGreece\n4.78598456723587\t2015\tSri Lanka\n3.12269866304793\t2015\tPre-demographic dividend\n0\t2015\tMonaco\n3.64971913068008\t2015\tPoland\n0\t2015\tSyrian Arab Republic\n3.35463617829366\t2015\tLate-demographic dividend\n0\t2015\tMiddle East & North Africa (IDA & IBRD countries)\n3.66412072919201\t2015\tAntigua and Barbuda\n3.18267819490927\t2015\tUnited Arab Emirates\n-0.0521813094531467\t2015\tEurope & Central Asia (IDA & IBRD countries)\n1.06784053106526\t2015\tEstonia\n7.99999999999994\t2015\tUzbekistan\n4.81728297445456\t2015\tHeavily indebted poor countries (HIPC)\n1.88691229576618\t2015\tLatvia\n1.50856704175307\t2015\tLebanon\n3.0819280333819\t2015\tColombia\n3.01656888622577\t2015\tMadagascar\n6.26654205664995\t2015\tMozambique\n1.99058496608222\t2015\tNetherlands\n3.97954206700174\t2015\tBurkina Faso\n2.38268662851466\t2015\tJordan\n2.65269362304348\t2015\tNigeria\n1.59377460567481\t2015\tLithuania\n3.53458539934964\t2015\tMiddle income\n0\t2015\tAmerican Samoa\n6.46026027710909\t2015\tEast Asia & Pacific (excluding high income)\n3.36295318337802\t2015\tNepal\n2.75974025974025\t2015\tDominica\n4.14878447478388\t2015\tGuatemala\n2.45506222153942\t2015\tEl Salvador\n0\t2015\tYemen, Rep.\n3.48565641322274\t2015\tSaudi Arabia\n3.41956517888973\t2015\tFiji\n0\t2015\tAruba\n1.5980686009933\t2015\tNorway\n0.726074886537418\t2015\tSerbia\n4.69332866026795\t2015\tLow income\n2.48807622448481\t2015\tIsrael\n2.92656721719055\t2015\tBahrain\n2.96713547854921\t2015\tBulgaria\n1.45446380454275\t2015\tPortugal\n7.1963624560039\t2015\tSouth Asia\n2.09999999999999\t2015\tIraq\n0.472784704380771\t2015\tJapan\n3.62444572970888\t2015\tKosovo\n0\t2015\tTuvalu\n5.04298098022802\t2015\tUganda\n-2.53586564202618\t2015\tBurundi\n6.55263331602802\t2015\tBangladesh\n-0.5\t2015\tBrunei Darussalam\n3.55054071612028\t2015\tLow & middle income\n3.15757629916973\t2015\tBosnia and Herzegovina\n1.98269580202029\t2015\tFragile and conflict affected situations\n0\t2015\tAndorra\n3.4109856574598\t2015\tGrenada\n-20.3012459204578\t2015\tSierra Leone\n3.85668373369244\t2015\tGabon\n2.93891579055648\t2015\tHungary\n4.95237060557724\t2015\tMalaysia\n3.49781386633352\t2015\tSeychelles\n4.251\t2015\tTimor-Leste\n2.29266790028235\t2015\tNorth America\n2.32918332093841\t2015\tUnited Kingdom\n1.32220667224226\t2015\tCaribbean small states\n0\t2015\tBermuda\n9.60751800101079\t2015\tEthiopia\n1.07343170905358\t2015\tZimbabwe\n1.65738729452222\t2015\tSwaziland\n12.393242937326\t2015\tWest Bank and Gaza\n6.46026027710909\t2015\tEast Asia & Pacific (IDA & IBRD countries)\n-0.654397251125928\t2015\tEurope & Central Asia (excluding high income)\n2.95000000182051\t2015\tMalawi\n0\t2015\tEritrea\n-9.89998298945031\t2015\tUkraine\n3.14465408805003\t2015\tKiribati\n0\t2015\tMauritania\n3.96172807160788\t2015\tBolivia\n-0.254733178383304\t2015\tBotswana\n3.88580010635326\t2015\tEast Asia & Pacific\n6.99522551975515\t2015\tLao PDR\n3.2568998598711\t2015\tPeru\n2.97845892007098\t2015\tSub-Saharan Africa\n0.990099009900987\t2015\tBarbados\n2.26740145708222\t2015\tSmall states\n3.25398558637258\t2015\tSolomon Islands\n0\t2015\tMicronesia, Fed. Sts.\n2.90802878660665\t2015\tMiddle East & North Africa\n3.39782204299459\t2015\tCentral Europe and the Baltics\n0\t2015\tFaroe Islands\n2.55999999999999\t2015\tAlbania\n4.928954391584\t2015\tNicaragua\n2.52310849162525\t2015\tCabo Verde\n1.94875959684644\t2015\tEuropean Union\n-12.1938526619848\t2015\tEquatorial Guinea\n1.79999952119844\t2015\tChad\n5.64919707770292\t2015\tKenya\n1.63477602628133\t2015\tSamoa\n2.77492809454047\t2015\tGeorgia\n-0.68300846573392\t2015\tLatin America & Caribbean\n4.11610666127132\t2015\tEarly-demographic dividend\n2.06614051943535\t2015\tChile\n3.43961625016777\t2015\tSudan\n5.77739347257827\t2015\tPanama\n6.99127097835952\t2015\tMyanmar\n3.73668357850366\t2015\tRomania\n3.25425473889356\t2015\tBhutan\n7.81139599459044\t2015\tIreland\n5.4864585599304\t2015\tCentral African Republic\n3.49999999999999\t2015\tOman\n3.00581407799206\t2015\tGuyana\n2.75744382071217\t2015\tCosta Rica\n0.759532980888949\t2015\tItaly\n1.79058368562073\t2015\tPost-demographic dividend\n-3.72667344001421\t2015\tRussian Federation\n0\t2015\tCuba\n0\t2015\tIsle of Man\n0\t2015\tFrench Polynesia\n0\t2015\tCuracao\n0\t2015\tLesotho\n0\t2015\tVanuatu\n-0.5\t2015\tMoldova\n0\t2015\tSao Tome and Principe\n0\t2015\tSint Maarten (Dutch part)\n1.65687486593195\t2015\tEuro area\n3.43533571931704\t2015\tIBRD only\n1.76048008929645\t2015\tSt. Lucia\n-5.7\t2015\tVenezuela, RB\n1.68772378120711\t2015\tGermany\n3.95712220060858\t2015\tIceland\n4.7939213038221\t2015\tIndonesia\n1.51991126448578\t2015\tAfghanistan\n0\t2015\tGambia, The\n0\t2015\tIran, Islamic Rep.\n4.44044999922129\t2015\tLeast developed countries: UN classification\n0.800000080241176\t2015\tTunisia\n1.51388419597605\t2015\tMaldives\n2.25782511179634\t2015\tAustralia\n3.46928079781574\t2015\tKyrgyz Republic\n2.97805985273705\t2015\tSub-Saharan Africa (excluding high income)\n3.00000000125773\t2015\tArmenia\n4.84923322229909\t2015\tLuxembourg\n1.91337668078133\t2015\tHigh income\n6.49999990951666\t2015\tTurkmenistan\n6.95331362092455\t2015\tDominican Republic\n2.41745723864879\t2015\tOther small states\n6.90000000000018\t2015\tChina\n0.297657564384608\t2015\tLiberia\n0\t2015\tBritish Virgin Islands\n0\t2015\tVirgin Islands (U.S.)\n7.03608717936477\t2015\tCambodia\n5.06597384421164\t2015\tIDA only\n0\t2015\tChannel Islands\n3.59502093291218\t2015\tSlovak Republic\n1.155966988731\t2015\tFrance\n4.79677983138016\t2015\tGuinea-Bissau\n1.20000000000036\t2015\tKazakhstan\n5.66377418129068\t2015\tNamibia\n4.09363731662084\t2015\tSweden\n2.42597052645783\t2015\tUnited States\n0\t2015\tGuam\n0\t2015\tMarshall Islands\n3.50001022697057\t2015\tMauritius\n0\t2015\tPuerto Rico\n3.58277342974473\t2015\tQatar\n0.546055313579501\t2015\tFinland\n0\t2015\tDjibouti\n0\t2015\tGreenland\n4.19999999999999\t2015\tTajikistan\n0\t2015\tLiechtenstein\n4.19804965676525\t2015\tCzech Republic\n1.91848581422531\t2015\tBelize\n0\t2015\tComoros\n2.61193540870619\t2015\tKorea, Rep.\n3.01474650923549\t2015\tParaguay\n0\t2015\tKorea, Dem. People�s Rep.\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582213465181_-1398457491",
+      "id": "20200220-154425_514865451",
+      "dateCreated": "2020-02-20T15:44:25+0000",
+      "dateStarted": "2020-02-20T16:00:06+0000",
+      "dateFinished": "2020-02-20T16:00:09+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41103"
+    },
+    {
+      "text": "%md\n# Highest GDP Growth year per Country\nGoal: for each country, find the year it experienced the most GDP growth.\nTarget output: `max(indicatorValue) as gdp_growth_value, year, countryName`\nIndicator Code: NY.GDP.MKTP.KD.ZG\n\n## The Query\nWe want `max(indicatorValue)`, grouped by country, but **not grouped by year**. We are exluding any years in which no GDP change was recorded. Since all selected columns must appear in a group by, we must use a subquery to generate a table which consists of the highest GDP growth recorded in each country, then join that intermediate table to our original data based on which rows in our original data match up with the intermediate table. Duplicate country entries may still appear where that country experiences the same GDP growth in multiple years. Hive allows us to \"join\" tables in the `from` clause, which also permits subqueries, so I generate my intermediate table there and use the `where` clause to determine join conditions. This query took 1 minute, 52 seconds to complete.\n\n## Comparison with Spark.SQL interpreter\nTo compare execution time differences, I ran the same query as before using the Spark SQL interpreteter. Using Spark, the query took 1 minute, 40 seconds to complete. This is about 1.12 times faster than using Hive.",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-20T20:40:00+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Highest GDP Growth year per Country</h1>\n<p>Goal: for each country, find the year it experienced the most GDP growth.<br/>Target output: <code>max(indicatorValue) as gdp_growth_value, year, countryName</code><br/>Indicator Code: NY.GDP.MKTP.KD.ZG</p>\n<h2>The Query</h2>\n<p>We want <code>max(indicatorValue)</code>, grouped by country, but <strong>not grouped by year</strong>. We are exluding any years in which no GDP change was recorded. Since all selected columns must appear in a group by, we must use a subquery to generate a table which consists of the highest GDP growth recorded in each country, then join that intermediate table to our original data based on which rows in our original data match up with the intermediate table. Duplicate country entries may still appear where that country experiences the same GDP growth in multiple years. Hive allows us to &ldquo;join&rdquo; tables in the <code>from</code> clause, which also permits subqueries, so I generate my intermediate table there and use the <code>where</code> clause to determine join conditions. This query took 1 minute, 52 seconds to complete.</p>\n<h2>Comparison with Spark.SQL interpreter</h2>\n<p>To compare execution time differences, I ran the same query as before using the Spark SQL interpreteter. Using Spark, the query took 1 minute, 40 seconds to complete. This is about 1.12 times faster than using Hive.</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582213950913_1943590709",
+      "id": "20200220-155230_1985070862",
+      "dateCreated": "2020-02-20T15:52:30+0000",
+      "dateStarted": "2020-02-20T20:40:00+0000",
+      "dateFinished": "2020-02-20T20:40:00+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41104"
+    },
+    {
+      "text": "-- Get Highest GDP Growth year per country, and the growth experienced in that year\n-- Countries may be listed multiple times if multiple years have the max growth value.\n-- Years where no change was recorded are filtered out, so some countries may not appear in the results.\nselect a.indicatorValue as gdp_max_value, a.year as max_growth_year, a.countryName as country \nfrom wdi_csv_parquet as a,\n(select max(indicatorValue) as maxIndicator, countryName from wdi_csv_parquet\n    where indicatorCode = \"NY.GDP.MKTP.KD.ZG\" and indicatorValue <> 0\n    group by countryName) b\nwhere a.indicatorValue = b.maxIndicator and a.countryName = b.countryName",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:34:26+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "gdp_max_value": "string",
+                      "max_growth_year": "string",
+                      "country": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "tableHide": false,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "gdp_max_value\tmax_growth_year\tcountry\n21.020649\t2009\tAfghanistan\n13.501173\t1999\tAlbania\n34.31373\t1963\tAlgeria\n12.02392\t2003\tAndorra\n22.593054\t2007\tAngola\n13.3764\t2006\tAntigua and Barbuda\n12.896334\t1976\tArab World\n12.66971\t1991\tArgentina\n14.040795\t2003\tArmenia\n7.8144317\t1996\tAruba\n7.1668916\t1970\tAustralia\n6.275867\t1969\tAustria\n34.5\t2000\tAzerbaijan\n34.5\t2006\tAzerbaijan\n26.139296\t1979\tBahamas, The\n12.870007\t1993\tBahrain\n10.952788\t1964\tBangladesh\n5.6764426\t2006\tBarbados\n11.449743\t2004\tBelarus\n6.9566846\t1964\tBelgium\n15.166518\t1980\tBelize\n9.954231\t1981\tBenin\n14.363636\t1966\tBermuda\n28.696266\t1987\tBhutan\n7.9674854\t1972\tBolivia\n88.957664\t1996\tBosnia and Herzegovina\n26.36194\t1972\tBotswana\n13.978692\t1973\tBrazil\n22.562428\t1979\tBrunei Darussalam\n10.944692\t1988\tBulgaria\n11.014744\t1996\tBurkina Faso\n21.32567\t1970\tBurundi\n19.182642\t1994\tCabo Verde\n13.250086\t2005\tCambodia\n22.003004\t1978\tCameroon\n7.1167793\t1962\tCanada\n9.048841\t1972\tCaribbean small states\n5.305203\t1994\tCayman Islands\n9.481555\t1984\tCentral African Republic\n6.5672135\t2006\tCentral Europe and the Baltics\n33.62937\t2004\tChad\n5.8983297\t2007\tChannel Islands\n12.27793\t1992\tChile\n19.4\t1970\tChina\n19.4\t2011\tChina\n8.46345\t1978\tColombia\n10.848075\t2000\tComoros\n21.200697\t1962\tCongo, Dem. Rep.\n23.5977\t1982\tCongo, Rep.\n9.8296175\t1965\tCosta Rica\n17.613089\t1964\tCote d'Ivoire\n6.645474\t1997\tCroatia\n19.688335\t1981\tCuba\n20.266293\t1976\tCyprus\n6.8765445\t2006\tCzech Republic\n9.269938\t1964\tDenmark\n6.0001945\t2014\tDjibouti\n14.260685\t1980\tDominica\n18.226683\t1970\tDominican Republic\n8.312726\t1964\tEarly-demographic dividend\n11.645651\t1969\tEast Asia & Pacific\n13.160728\t1970\tEast Asia & Pacific (IDA & IBRD countries)\n13.160728\t1970\tEast Asia & Pacific (excluding high income)\n13.950682\t1973\tEcuador\n14.627248\t1976\tEgypt, Arab Rep.\n7.5433373\t1992\tEl Salvador\n149.97296\t1997\tEquatorial Guinea\n21.22141\t1994\tEritrea\n11.798595\t1997\tEstonia\n13.85933\t1987\tEthiopia\n6.9535418\t1969\tEuro area\n6.008331\t1973\tEurope & Central Asia\n7.7826047\t2006\tEurope & Central Asia (IDA & IBRD countries)\n8.195589\t2004\tEurope & Central Asia (excluding high income)\n6.100627\t1973\tEuropean Union\n13.351832\t1967\tFiji\n9.593287\t1969\tFinland\n16.241243\t1990\tFragile and conflict affected situations\n6.9905305\t1969\tFrance\n18.001049\t1974\tFrench Polynesia\n39.487095\t1974\tGabon\n12.393429\t1975\tGambia, The\n12.344\t2007\tGeorgia\n5.2550063\t1990\tGermany\n14.046002\t2011\tGhana\n11.149537\t1961\tGreece\n13.060854\t1971\tGreenland\n13.273064\t2005\tGrenada\n9.541044\t1963\tGuatemala\n6.308117\t1988\tGuinea\n18.167528\t1981\tGuinea-Bissau\n11.360282\t1964\tGuyana\n5.523738\t2011\tHaiti\n6.8927703\t1962\tHeavily indebted poor countries (HIPC)\n6.4625196\t1964\tHigh income\n10.500693\t1976\tHonduras\n16.164154\t1976\tHong Kong SAR, China\n4.9377146\t2004\tHungary\n8.692858\t2007\tIBRD only\n8.533192\t2007\tIDA & IBRD total\n18.005667\t1970\tIDA blend\n6.9591\t2007\tIDA only\n11.229955\t2004\tIDA total\n13.060838\t1971\tIceland\n10.259963\t2010\tIndia\n12.034179\t1968\tIndonesia\n23.171246\t1982\tIran, Islamic Rep.\n57.81783\t1990\tIraq\n11.1779995\t1997\tIreland\n19.105537\t1986\tIsle of Man\n16.241957\t1968\tIsrael\n8.207246\t1961\tItaly\n18.008554\t1972\tJamaica\n12.882468\t1968\tJapan\n24.309572\t1976\tJordan\n13.5\t2012\tKazakhstan\n13.5\t2014\tKazakhstan\n13.5\t1999\tKazakhstan\n13.5\t2001\tKazakhstan\n13.5\t1999\tKazakhstan\n13.5\t2012\tKazakhstan\n13.5\t1999\tKazakhstan\n13.5\t1995\tKazakhstan\n22.173891\t1971\tKenya\n45.302753\t1974\tKiribati\n14.787517\t1973\tKorea, Rep.\n26.973917\t2001\tKosovo\n33.990467\t1993\tKuwait\n13.20003\t1988\tKyrgyz Republic\n14.190637\t1989\tLao PDR\n10.016272\t1970\tLate-demographic dividend\n8.6221485\t1973\tLatin America & Caribbean\n9.227175\t1973\tLatin America & Caribbean (excluding high income)\n8.755049\t1973\tLatin America & the Caribbean (IDA & IBRD countries)\n11.902191\t2006\tLatvia\n9.378625\t2007\tLeast developed countries: UN classification\n38.20071\t1991\tLebanon\n26.40488\t1973\tLesotho\n106.27981\t1997\tLiberia\n104.486786\t2012\tLibya\n10.410924\t1999\tLiechtenstein\n11.086954\t2007\tLithuania\n8.618244\t2007\tLow & middle income\n6.7345076\t2010\tLow income\n8.394322\t2004\tLower middle income\n9.983934\t1986\tLuxembourg\n26.754988\t2004\tMacao SAR, China\n6.473487\t2007\tMacedonia, FYR\n9.8546505\t1979\tMadagascar\n16.728817\t1995\tMalawi\n11.714203\t1973\tMalaysia\n20.654325\t2006\tMaldives\n20.286634\t1985\tMali\n19.560095\t1975\tMalta\n24.542517\t1986\tMarshall Islands\n27.690886\t1964\tMauritania\n9.742033\t1986\tMauritius\n11.90548\t1964\tMexico\n8.1406555\t1993\tMicronesia, Fed. Sts.\n15.106996\t1972\tMiddle East & North Africa\n15.916227\t1976\tMiddle East & North Africa (IDA & IBRD countries)\n15.916227\t1976\tMiddle East & North Africa (excluding high income)\n8.645224\t2007\tMiddle income\n11.730911\t1982\tMoldova\n14.582442\t2007\tMonaco\n17.290777\t2011\tMongolia\n10.657902\t2007\tMontenegro\n12.372876\t1996\tMorocco\n26.845322\t1996\tMozambique\n13.843995\t2003\tMyanmar\n12.269548\t2004\tNamibia\n9.68113\t1984\tNepal\n8.643095\t1965\tNetherlands\n34.600002\t1988\tNew Caledonia\n6.416388\t1993\tNew Zealand\n14.192425\t1974\tNicaragua\n13.472612\t1978\tNiger\n33.735775\t2004\tNigeria\n7.1167274\t1984\tNorth America\n6.2733355\t1961\tNorway\n6.5564966\t1964\tOECD members\n189.82993\t1965\tOman\n10.583844\t2006\tOther small states\n6.6795015\t1984\tPacific island small states\n11.353461\t1970\tPakistan\n10.9000435\t1995\tPalau\n15.315924\t2007\tPanama\n18.202286\t1993\tPapua New Guinea\n14.036278\t2013\tParaguay\n12.308128\t1994\tPeru\n8.920647\t1973\tPhilippines\n7.2016835\t2007\tPoland\n12.612603\t1970\tPortugal\n6.466701\t1964\tPost-demographic dividend\n21.244144\t2004\tPre-demographic dividend\n9.849452\t2001\tPuerto Rico\n26.170246\t2006\tQatar\n8.458984\t2008\tRomania\n10.0\t2000\tRussian Federation\n10.0\t2014\tRussian Federation\n10.0\t1999\tRussian Federation\n10.0\t2002\tRussian Federation\n10.0\t2000\tRussian Federation\n10.0\t2001\tRussian Federation\n10.0\t2001\tRussian Federation\n10.0\t2003\tRussian Federation\n10.0\t2008\tRussian Federation\n10.0\t2010\tRussian Federation\n10.0\t2006\tRussian Federation\n10.0\t2011\tRussian Federation\n10.0\t2000\tRussian Federation\n10.0\t2004\tRussian Federation\n10.0\t1996\tRussian Federation\n10.0\t2007\tRussian Federation\n10.0\t2002\tRussian Federation\n10.0\t2000\tRussian Federation\n10.0\t2013\tRussian Federation\n10.0\t2006\tRussian Federation\n10.0\t2002\tRussian Federation\n10.0\t1996\tRussian Federation\n10.0\t2003\tRussian Federation\n10.0\t2010\tRussian Federation\n10.0\t2005\tRussian Federation\n10.0\t1999\tRussian Federation\n10.0\t2012\tRussian Federation\n10.0\t2009\tRussian Federation\n35.22408\t1995\tRwanda\n7.178966\t1996\tSamoa\n9.292035\t1995\tSan Marino\n9.115646\t2006\tSao Tome and Principe\n22.672523\t1973\tSaudi Arabia\n8.920504\t1976\tSenegal\n9.046513\t2004\tSerbia\n21.151693\t1978\tSeychelles\n26.268576\t2002\tSierra Leone\n15.240377\t2010\tSingapore\n10.834435\t2007\tSlovak Republic\n6.941572\t2007\tSlovenia\n9.668261\t2006\tSmall states\n12.928475\t2011\tSolomon Islands\n30.073698\t1975\tSomalia\n8.89603\t1965\tSouth Africa\n9.08357\t2010\tSouth Asia\n9.08357\t2010\tSouth Asia (IDA & IBRD)\n13.129731\t2013\tSouth Sudan\n11.838675\t1961\tSpain\n9.144579\t2012\tSri Lanka\n10.583587\t1986\tSt. Kitts and Nevis\n23.544891\t1990\tSt. Lucia\n25.83149\t1972\tSt. Vincent and the Grenadines\n11.588021\t2004\tSub-Saharan Africa\n11.588021\t2004\tSub-Saharan Africa (IDA & IBRD countries)\n11.60034\t2004\tSub-Saharan Africa (excluding high income)\n16.66522\t1976\tSudan\n11.018513\t1989\tSuriname\n21.018\t1990\tSwaziland\n6.821457\t1964\tSweden\n4.330794\t1989\tSwitzerland\n25.027607\t1972\tSyrian Arab Republic\n13.9\t2000\tTajikistan\n13.9\t2002\tTajikistan\n13.9\t1988\tTajikistan\n13.9\t1999\tTajikistan\n8.464381\t2007\tTanzania\n13.288115\t1988\tThailand\n17.505634\t2000\tTimor-Leste\n15.459713\t1965\tTogo\n6.5584636\t1985\tTonga\n14.441417\t2003\tTrinidad and Tobago\n17.742718\t1972\tTunisia\n11.212815\t1966\tTurkey\n35.38456\t1990\tTurkmenistan\n15.50122\t1998\tTuvalu\n11.523244\t1995\tUganda\n12.1\t2016\tUkraine\n12.1\t1990\tUkraine\n12.1\t1998\tUkraine\n12.1\t1991\tUkraine\n12.1\t1995\tUkraine\n12.1\t2015\tUkraine\n12.1\t2000\tUkraine\n12.1\t1990\tUkraine\n12.1\t2004\tUkraine\n12.1\t1992\tUkraine\n12.1\t1997\tUkraine\n23.874775\t1980\tUnited Arab Emirates\n6.5399766\t1973\tUnited Kingdom\n7.259087\t1984\tUnited States\n9.048979\t2007\tUpper middle income\n8.809809\t1986\tUruguay\n9.921154\t2007\tUzbekistan\n13.833095\t1983\tVanuatu\n18.286606\t2004\tVenezuela, RB\n9.540481\t1995\tVietnam\n14.667397\t1972\tVirgin Islands (U.S.)\n25.947592\t1998\tWest Bank and Gaza\n6.645997\t1964\tWorld\n8.207598\t1992\tYemen, Rep.\n16.647455\t1965\tZambia\n22.565151\t1970\tZimbabwe\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582215036066_767108751",
+      "id": "20200220-161036_167620751",
+      "dateCreated": "2020-02-20T16:10:36+0000",
+      "dateStarted": "2020-02-20T19:35:50+0000",
+      "dateFinished": "2020-02-20T19:37:42+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41105"
+    },
+    {
+      "text": "%spark.sql\n-- The same query as above, but using the Spark SQL interpreter, for the sake of performance comparison.\nselect a.indicatorValue as gdp_max_value, a.year as max_growth_year, a.countryName as country \nfrom wdi_csv_parquet as a,\n(select max(indicatorValue) as maxIndicator, countryName from wdi_csv_parquet\n    where indicatorCode = \"NY.GDP.MKTP.KD.ZG\" and indicatorValue <> 0\n    group by countryName) b\nwhere a.indicatorValue = b.maxIndicator and a.countryName = b.countryName",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:34:59+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "gdp_max_value": "string",
+                      "max_growth_year": "string",
+                      "country": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true,
+          "completionKey": "TAB"
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "gdp_max_value\tmax_growth_year\tcountry\n189.82993\t1965\tOman\n14.582442\t2007\tMonaco\n17.505634\t2000\tTimor-Leste\n19.560095\t1975\tMalta\n9.08357\t2010\tSouth Asia (IDA & IBRD)\n5.2550063\t1990\tGermany\n8.809809\t1986\tUruguay\n10.016272\t1970\tLate-demographic dividend\n12.344\t2007\tGeorgia\n6.5672135\t2006\tCentral Europe and the Baltics\n7.1167274\t1984\tNorth America\n21.200697\t1962\tCongo, Dem. Rep.\n15.106996\t1972\tMiddle East & North Africa\n25.027607\t1972\tSyrian Arab Republic\n8.1406555\t1993\tMicronesia, Fed. Sts.\n9.668261\t2006\tSmall states\n7.1668916\t1970\tAustralia\n9.849452\t2001\tPuerto Rico\n33.62937\t2004\tChad\n11.360282\t1964\tGuyana\n7.8144317\t1996\tAruba\n16.241957\t1968\tIsrael\n18.005667\t1970\tIDA blend\n11.730911\t1982\tMoldova\n6.645474\t1997\tCroatia\n11.353461\t1970\tPakistan\n13.060854\t1971\tGreenland\n23.171246\t1982\tIran, Islamic Rep.\n20.286634\t1985\tMali\n8.755049\t1973\tLatin America & the Caribbean (IDA & IBRD countries)\n34.31373\t1963\tAlgeria\n12.27793\t1992\tChile\n8.643095\t1965\tNetherlands\n14.040795\t2003\tArmenia\n8.618244\t2007\tLow & middle income\n9.227175\t1973\tLatin America & Caribbean (excluding high income)\n24.542517\t1986\tMarshall Islands\n13.833095\t1983\tVanuatu\n8.920647\t1973\tPhilippines\n6.275867\t1969\tAustria\n6.5399766\t1973\tUnited Kingdom\n6.6795015\t1984\tPacific island small states\n11.90548\t1964\tMexico\n13.160728\t1970\tEast Asia & Pacific (excluding high income)\n23.874775\t1980\tUnited Arab Emirates\n10.944692\t1988\tBulgaria\n12.393429\t1975\tGambia, The\n13.978692\t1973\tBrazil\n106.27981\t1997\tLiberia\n14.190637\t1989\tLao PDR\n27.690886\t1964\tMauritania\n5.8983297\t2007\tChannel Islands\n6.5584636\t1985\tTonga\n8.195589\t2004\tEurope & Central Asia (excluding high income)\n14.363636\t1966\tBermuda\n14.260685\t1980\tDominica\n8.645224\t2007\tMiddle income\n17.742718\t1972\tTunisia\n8.464381\t2007\tTanzania\n9.540481\t1995\tVietnam\n11.902191\t2006\tLatvia\n8.394322\t2004\tLower middle income\n9.481555\t1984\tCentral African Republic\n35.22408\t1995\tRwanda\n9.292035\t1995\tSan Marino\n11.149537\t1961\tGreece\n13.273064\t2005\tGrenada\n26.40488\t1973\tLesotho\n34.5\t2000\tAzerbaijan\n34.5\t2006\tAzerbaijan\n15.315924\t2007\tPanama\n9.742033\t1986\tMauritius\n13.129731\t2013\tSouth Sudan\n6.416388\t1993\tNew Zealand\n23.544891\t1990\tSt. Lucia\n14.036278\t2013\tParaguay\n19.688335\t1981\tCuba\n8.89603\t1965\tSouth Africa\n8.920504\t1976\tSenegal\n8.207598\t1992\tYemen, Rep.\n12.308128\t1994\tPeru\n14.787517\t1973\tKorea, Rep.\n6.308117\t1988\tGuinea\n6.7345076\t2010\tLow income\n10.583587\t1986\tSt. Kitts and Nevis\n15.240377\t2010\tSingapore\n7.9674854\t1972\tBolivia\n11.588021\t2004\tSub-Saharan Africa\n11.838675\t1961\tSpain\n6.9591\t2007\tIDA only\n9.8296175\t1965\tCosta Rica\n26.36194\t1972\tBotswana\n26.845322\t1996\tMozambique\n9.048841\t1972\tCaribbean small states\n9.144579\t2012\tSri Lanka\n12.1\t1992\tUkraine\n12.1\t1997\tUkraine\n12.1\t2004\tUkraine\n12.1\t1991\tUkraine\n12.1\t1990\tUkraine\n12.1\t1998\tUkraine\n12.1\t2015\tUkraine\n12.1\t1990\tUkraine\n12.1\t2000\tUkraine\n12.1\t2016\tUkraine\n12.1\t1995\tUkraine\n23.5977\t1982\tCongo, Rep.\n10.500693\t1976\tHonduras\n13.250086\t2005\tCambodia\n25.83149\t1972\tSt. Vincent and the Grenadines\n13.9\t1999\tTajikistan\n13.9\t2002\tTajikistan\n13.9\t1988\tTajikistan\n13.9\t2000\tTajikistan\n11.018513\t1989\tSuriname\n20.266293\t1976\tCyprus\n7.5433373\t1992\tEl Salvador\n16.66522\t1976\tSudan\n6.0001945\t2014\tDjibouti\n11.60034\t2004\tSub-Saharan Africa (excluding high income)\n11.645651\t1969\tEast Asia & Pacific\n22.003004\t1978\tCameroon\n10.410924\t1999\tLiechtenstein\n12.66971\t1991\tArgentina\n14.627248\t1976\tEgypt, Arab Rep.\n39.487095\t1974\tGabon\n15.916227\t1976\tMiddle East & North Africa (excluding high income)\n9.954231\t1981\tBenin\n12.896334\t1976\tArab World\n7.2016835\t2007\tPoland\n9.8546505\t1979\tMadagascar\n28.696266\t1987\tBhutan\n10.0\t2008\tRussian Federation\n10.0\t2000\tRussian Federation\n10.0\t2006\tRussian Federation\n10.0\t2011\tRussian Federation\n10.0\t2010\tRussian Federation\n10.0\t1996\tRussian Federation\n10.0\t2012\tRussian Federation\n10.0\t2003\tRussian Federation\n10.0\t2005\tRussian Federation\n10.0\t2010\tRussian Federation\n10.0\t1999\tRussian Federation\n10.0\t2009\tRussian Federation\n10.0\t1999\tRussian Federation\n10.0\t2000\tRussian Federation\n10.0\t2000\tRussian Federation\n10.0\t2001\tRussian Federation\n10.0\t2002\tRussian Federation\n10.0\t2014\tRussian Federation\n10.0\t2003\tRussian Federation\n10.0\t2001\tRussian Federation\n10.0\t2000\tRussian Federation\n10.0\t2007\tRussian Federation\n10.0\t2002\tRussian Federation\n10.0\t1996\tRussian Federation\n10.0\t2004\tRussian Federation\n10.0\t2013\tRussian Federation\n10.0\t2002\tRussian Federation\n10.0\t2006\tRussian Federation\n12.02392\t2003\tAndorra\n38.20071\t1991\tLebanon\n9.115646\t2006\tSao Tome and Principe\n10.952788\t1964\tBangladesh\n13.950682\t1973\tEcuador\n6.9535418\t1969\tEuro area\n149.97296\t1997\tEquatorial Guinea\n21.244144\t2004\tPre-demographic dividend\n24.309572\t1976\tJordan\n9.541044\t1963\tGuatemala\n8.692858\t2007\tIBRD only\n6.8927703\t1962\tHeavily indebted poor countries (HIPC)\n11.449743\t2004\tBelarus\n6.100627\t1973\tEuropean Union\n15.459713\t1965\tTogo\n15.50122\t1998\tTuvalu\n45.302753\t1974\tKiribati\n4.9377146\t2004\tHungary\n8.207246\t1961\tItaly\n6.5564966\t1964\tOECD members\n13.3764\t2006\tAntigua and Barbuda\n9.046513\t2004\tSerbia\n22.562428\t1979\tBrunei Darussalam\n10.657902\t2007\tMontenegro\n15.916227\t1976\tMiddle East & North Africa (IDA & IBRD countries)\n18.167528\t1981\tGuinea-Bissau\n13.5\t2001\tKazakhstan\n13.5\t2014\tKazakhstan\n13.5\t2012\tKazakhstan\n13.5\t1999\tKazakhstan\n13.5\t1999\tKazakhstan\n13.5\t1999\tKazakhstan\n13.5\t2012\tKazakhstan\n13.5\t1995\tKazakhstan\n33.990467\t1993\tKuwait\n22.173891\t1971\tKenya\n12.928475\t2011\tSolomon Islands\n17.613089\t1964\tCote d'Ivoire\n26.973917\t2001\tKosovo\n21.020649\t2009\tAfghanistan\n19.105537\t1986\tIsle of Man\n6.645997\t1964\tWorld\n18.001049\t1974\tFrench Polynesia\n14.441417\t2003\tTrinidad and Tobago\n11.588021\t2004\tSub-Saharan Africa (IDA & IBRD countries)\n18.008554\t1972\tJamaica\n13.288115\t1988\tThailand\n16.241243\t1990\tFragile and conflict affected situations\n16.647455\t1965\tZambia\n19.182642\t1994\tCabo Verde\n6.473487\t2007\tMacedonia, FYR\n25.947592\t1998\tWest Bank and Gaza\n7.1167793\t1962\tCanada\n10.583844\t2006\tOther small states\n26.754988\t2004\tMacao SAR, China\n6.821457\t1964\tSweden\n18.202286\t1993\tPapua New Guinea\n5.305203\t1994\tCayman Islands\n17.290777\t2011\tMongolia\n21.32567\t1970\tBurundi\n16.728817\t1995\tMalawi\n6.9905305\t1969\tFrance\n21.22141\t1994\tEritrea\n26.170246\t2006\tQatar\n5.6764426\t2006\tBarbados\n8.533192\t2007\tIDA & IBRD total\n11.229955\t2004\tIDA total\n9.921154\t2007\tUzbekistan\n11.523244\t1995\tUganda\n19.4\t2011\tChina\n19.4\t1970\tChina\n8.312726\t1964\tEarly-demographic dividend\n22.593054\t2007\tAngola\n6.466701\t1964\tPost-demographic dividend\n8.6221485\t1973\tLatin America & Caribbean\n14.046002\t2011\tGhana\n14.667397\t1972\tVirgin Islands (U.S.)\n26.139296\t1979\tBahamas, The\n104.486786\t2012\tLibya\n12.372876\t1996\tMorocco\n12.870007\t1993\tBahrain\n5.523738\t2011\tHaiti\n13.85933\t1987\tEthiopia\n8.458984\t2008\tRomania\n12.269548\t2004\tNamibia\n12.882468\t1968\tJapan\n11.212815\t1966\tTurkey\n13.351832\t1967\tFiji\n22.565151\t1970\tZimbabwe\n6.2733355\t1961\tNorway\n11.086954\t2007\tLithuania\n9.378625\t2007\tLeast developed countries: UN classification\n7.178966\t1996\tSamoa\n10.259963\t2010\tIndia\n13.472612\t1978\tNiger\n30.073698\t1975\tSomalia\n4.330794\t1989\tSwitzerland\n11.014744\t1996\tBurkina Faso\n10.9000435\t1995\tPalau\n16.164154\t1976\tHong Kong SAR, China\n8.46345\t1978\tColombia\n9.048979\t2007\tUpper middle income\n13.501173\t1999\tAlbania\n20.654325\t2006\tMaldives\n6.941572\t2007\tSlovenia\n21.018\t1990\tSwaziland\n18.226683\t1970\tDominican Republic\n33.735775\t2004\tNigeria\n22.672523\t1973\tSaudi Arabia\n11.714203\t1973\tMalaysia\n13.160728\t1970\tEast Asia & Pacific (IDA & IBRD countries)\n9.08357\t2010\tSouth Asia\n34.600002\t1988\tNew Caledonia\n9.269938\t1964\tDenmark\n9.593287\t1969\tFinland\n11.1779995\t1997\tIreland\n6.8765445\t2006\tCzech Republic\n10.848075\t2000\tComoros\n6.9566846\t1964\tBelgium\n12.612603\t1970\tPortugal\n13.843995\t2003\tMyanmar\n21.151693\t1978\tSeychelles\n7.7826047\t2006\tEurope & Central Asia (IDA & IBRD countries)\n10.834435\t2007\tSlovak Republic\n18.286606\t2004\tVenezuela, RB\n14.192425\t1974\tNicaragua\n6.008331\t1973\tEurope & Central Asia\n6.4625196\t1964\tHigh income\n12.034179\t1968\tIndonesia\n9.68113\t1984\tNepal\n9.983934\t1986\tLuxembourg\n7.259087\t1984\tUnited States\n13.060838\t1971\tIceland\n88.957664\t1996\tBosnia and Herzegovina\n35.38456\t1990\tTurkmenistan\n26.268576\t2002\tSierra Leone\n13.20003\t1988\tKyrgyz Republic\n11.798595\t1997\tEstonia\n15.166518\t1980\tBelize\n57.81783\t1990\tIraq\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582221233634_1149102390",
+      "id": "20200220-175353_605249481",
+      "dateCreated": "2020-02-20T17:53:53+0000",
+      "dateStarted": "2020-02-20T19:40:36+0000",
+      "dateFinished": "2020-02-20T19:42:16+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41106"
+    },
+    {
+      "text": "%md\n# Sort Annual GDP Growth by Country and Year\nGoal: Get Annual GDP Growth % for every country and every year, sorted by both country and year.\nTarget Output: `countryName, year, indicatorCode, indicatorValue` sorted by countryName, then by year.\nIndicator Code: NY.GDP.MKTP.KD.ZG\n\n## The Query\nThe query itself is very straightforward. Select the columns we want, filter out rows with indicators we don't want, then sort them. Since the order of the sorts was unclear, I opted not to perform any absolute ordering of the results. Instead I chose to distribute the rows based on the Country, then use map-side sorting to sort the data each mapper recieved by Country, then by year. `Order By` applies absolute ordering, which is done by a single reducer, which can be slow when working with extremely large datasets. `Order By` also requires that you specify a limit, since the single reducer may take too long to complete or run out of memory if the query is left unlimited.",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:25:03+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Sort Annual GDP Growth by Country and Year</h1>\n<p>Goal: Get Annual GDP Growth % for every country and every year, sorted by both country and year.<br/>Target Output: <code>countryName, year, indicatorCode, indicatorValue</code> sorted by countryName, then by year.<br/>Indicator Code: NY.GDP.MKTP.KD.ZG</p>\n<h2>The Query</h2>\n<p>The query itself is very straightforward. Select the columns we want, filter out rows with indicators we don&rsquo;t want, then sort them. Since the order of the sorts was unclear, I opted not to perform any absolute ordering of the results. Instead I chose to distribute the rows based on the Country, then use map-side sorting to sort the data each mapper recieved by Country, then by year. <code>Order By</code> applies absolute ordering, which is done by a single reducer, which can be slow when working with extremely large datasets. <code>Order By</code> also requires that you specify a limit, since the single reducer may take too long to complete or run out of memory if the query is left unlimited.</p>\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582227636515_-643841376",
+      "id": "20200220-194036_1964234981",
+      "dateCreated": "2020-02-20T19:40:36+0000",
+      "dateStarted": "2020-02-20T20:39:45+0000",
+      "dateFinished": "2020-02-20T20:39:48+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41107"
+    },
+    {
+      "text": "-- Get the Annual GDP Growth % for every country and year. This query avoids using absolute ordering\n-- by using distribute by and sort by, so each mapper gets all years for every country recieved\n-- and then is able to do local year and country ordering, as such countries might not be fully ordered.\nselect countryName as country, year, indicatorCode as indicator, indicatorValue as annual_gdp_growth from wdi_csv_parquet\nwhere indicatorCode = \"NY.GDP.MKTP.KD.ZG\"\ndistribute by country\nsort by country, year\nlimit 200",
+      "user": "anonymous",
+      "dateUpdated": "2020-02-21T15:40:23+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "country": "string",
+                      "year": "string",
+                      "indicator": "string",
+                      "annual_gdp_growth": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "country\tyear\tindicator\tannual_gdp_growth\nAfghanistan\t1960\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1961\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1962\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1963\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1964\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1965\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1966\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1967\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1968\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1969\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1970\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1971\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1972\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1973\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1974\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1975\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1976\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1977\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1978\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1979\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1980\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1981\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1982\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1983\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1984\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1985\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1986\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1987\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1988\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1989\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1990\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1991\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1992\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1993\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1994\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1995\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1996\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1997\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1998\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t1999\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t2000\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t2001\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t2002\tNY.GDP.MKTP.KD.ZG\t0.0\nAfghanistan\t2003\tNY.GDP.MKTP.KD.ZG\t8.444163\nAfghanistan\t2004\tNY.GDP.MKTP.KD.ZG\t1.0555558\nAfghanistan\t2005\tNY.GDP.MKTP.KD.ZG\t11.17527\nAfghanistan\t2006\tNY.GDP.MKTP.KD.ZG\t5.5541377\nAfghanistan\t2007\tNY.GDP.MKTP.KD.ZG\t13.740205\nAfghanistan\t2008\tNY.GDP.MKTP.KD.ZG\t3.6113684\nAfghanistan\t2009\tNY.GDP.MKTP.KD.ZG\t21.020649\nAfghanistan\t2010\tNY.GDP.MKTP.KD.ZG\t8.4332905\nAfghanistan\t2011\tNY.GDP.MKTP.KD.ZG\t6.113685\nAfghanistan\t2012\tNY.GDP.MKTP.KD.ZG\t14.434741\nAfghanistan\t2013\tNY.GDP.MKTP.KD.ZG\t1.9591229\nAfghanistan\t2014\tNY.GDP.MKTP.KD.ZG\t1.3125309\nAfghanistan\t2015\tNY.GDP.MKTP.KD.ZG\t1.5199113\nAfghanistan\t2016\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1960\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1961\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1962\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1963\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1964\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1965\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1966\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1967\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1968\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1969\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1970\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1971\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1972\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1973\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1974\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1975\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1976\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1977\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1978\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1979\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1980\tNY.GDP.MKTP.KD.ZG\t0.0\nAlbania\t1981\tNY.GDP.MKTP.KD.ZG\t5.745635\nAlbania\t1982\tNY.GDP.MKTP.KD.ZG\t2.9485967\nAlbania\t1983\tNY.GDP.MKTP.KD.ZG\t1.1049383\nAlbania\t1984\tNY.GDP.MKTP.KD.ZG\t-1.2515967\nAlbania\t1985\tNY.GDP.MKTP.KD.ZG\t1.7806439\nAlbania\t1986\tNY.GDP.MKTP.KD.ZG\t5.6372433\nAlbania\t1987\tNY.GDP.MKTP.KD.ZG\t-0.78784263\nAlbania\t1988\tNY.GDP.MKTP.KD.ZG\t-1.4200397\nAlbania\t1989\tNY.GDP.MKTP.KD.ZG\t9.836549\nAlbania\t1990\tNY.GDP.MKTP.KD.ZG\t-9.57564\nAlbania\t1991\tNY.GDP.MKTP.KD.ZG\t-29.588997\nAlbania\t1992\tNY.GDP.MKTP.KD.ZG\t-7.2\nAlbania\t1993\tNY.GDP.MKTP.KD.ZG\t9.6\nAlbania\t1994\tNY.GDP.MKTP.KD.ZG\t8.3\nAlbania\t1995\tNY.GDP.MKTP.KD.ZG\t13.3\nAlbania\t1996\tNY.GDP.MKTP.KD.ZG\t9.1\nAlbania\t1997\tNY.GDP.MKTP.KD.ZG\t-10.837855\nAlbania\t1998\tNY.GDP.MKTP.KD.ZG\t9.008853\nAlbania\t1999\tNY.GDP.MKTP.KD.ZG\t13.501173\nAlbania\t2000\tNY.GDP.MKTP.KD.ZG\t6.6666207\nAlbania\t2001\tNY.GDP.MKTP.KD.ZG\t7.9403315\nAlbania\t2002\tNY.GDP.MKTP.KD.ZG\t4.231371\nAlbania\t2003\tNY.GDP.MKTP.KD.ZG\t5.7734904\nAlbania\t2004\tNY.GDP.MKTP.KD.ZG\t5.7095566\nAlbania\t2005\tNY.GDP.MKTP.KD.ZG\t5.72082\nAlbania\t2006\tNY.GDP.MKTP.KD.ZG\t5.4310126\nAlbania\t2007\tNY.GDP.MKTP.KD.ZG\t5.9\nAlbania\t2008\tNY.GDP.MKTP.KD.ZG\t7.53\nAlbania\t2009\tNY.GDP.MKTP.KD.ZG\t3.35\nAlbania\t2010\tNY.GDP.MKTP.KD.ZG\t3.71\nAlbania\t2011\tNY.GDP.MKTP.KD.ZG\t2.55\nAlbania\t2012\tNY.GDP.MKTP.KD.ZG\t1.42\nAlbania\t2013\tNY.GDP.MKTP.KD.ZG\t1.11\nAlbania\t2014\tNY.GDP.MKTP.KD.ZG\t2.0\nAlbania\t2015\tNY.GDP.MKTP.KD.ZG\t2.56\nAlbania\t2016\tNY.GDP.MKTP.KD.ZG\t0.0\nAlgeria\t1960\tNY.GDP.MKTP.KD.ZG\t0.0\nAlgeria\t1961\tNY.GDP.MKTP.KD.ZG\t-13.605441\nAlgeria\t1962\tNY.GDP.MKTP.KD.ZG\t-19.685041\nAlgeria\t1963\tNY.GDP.MKTP.KD.ZG\t34.31373\nAlgeria\t1964\tNY.GDP.MKTP.KD.ZG\t5.839413\nAlgeria\t1965\tNY.GDP.MKTP.KD.ZG\t6.206898\nAlgeria\t1966\tNY.GDP.MKTP.KD.ZG\t-4.8049707\nAlgeria\t1967\tNY.GDP.MKTP.KD.ZG\t9.452963\nAlgeria\t1968\tNY.GDP.MKTP.KD.ZG\t10.796239\nAlgeria\t1969\tNY.GDP.MKTP.KD.ZG\t8.43328\nAlgeria\t1970\tNY.GDP.MKTP.KD.ZG\t8.862658\nAlgeria\t1971\tNY.GDP.MKTP.KD.ZG\t-11.331719\nAlgeria\t1972\tNY.GDP.MKTP.KD.ZG\t27.42397\nAlgeria\t1973\tNY.GDP.MKTP.KD.ZG\t3.8131764\nAlgeria\t1974\tNY.GDP.MKTP.KD.ZG\t7.494918\nAlgeria\t1975\tNY.GDP.MKTP.KD.ZG\t5.0453415\nAlgeria\t1976\tNY.GDP.MKTP.KD.ZG\t8.386757\nAlgeria\t1977\tNY.GDP.MKTP.KD.ZG\t5.258586\nAlgeria\t1978\tNY.GDP.MKTP.KD.ZG\t9.214836\nAlgeria\t1979\tNY.GDP.MKTP.KD.ZG\t7.4778266\nAlgeria\t1980\tNY.GDP.MKTP.KD.ZG\t0.790607\nAlgeria\t1981\tNY.GDP.MKTP.KD.ZG\t2.9999962\nAlgeria\t1982\tNY.GDP.MKTP.KD.ZG\t6.400004\nAlgeria\t1983\tNY.GDP.MKTP.KD.ZG\t5.400003\nAlgeria\t1984\tNY.GDP.MKTP.KD.ZG\t5.5999966\nAlgeria\t1985\tNY.GDP.MKTP.KD.ZG\t3.6999972\nAlgeria\t1986\tNY.GDP.MKTP.KD.ZG\t0.400001\nAlgeria\t1987\tNY.GDP.MKTP.KD.ZG\t-0.69999754\nAlgeria\t1988\tNY.GDP.MKTP.KD.ZG\t-1.0000055\nAlgeria\t1989\tNY.GDP.MKTP.KD.ZG\t4.400002\nAlgeria\t1990\tNY.GDP.MKTP.KD.ZG\t0.8000006\nAlgeria\t1991\tNY.GDP.MKTP.KD.ZG\t-1.2000006\nAlgeria\t1992\tNY.GDP.MKTP.KD.ZG\t1.8000023\nAlgeria\t1993\tNY.GDP.MKTP.KD.ZG\t-2.1000009\nAlgeria\t1994\tNY.GDP.MKTP.KD.ZG\t-0.8999965\nAlgeria\t1995\tNY.GDP.MKTP.KD.ZG\t3.7999947\nAlgeria\t1996\tNY.GDP.MKTP.KD.ZG\t4.0999985\nAlgeria\t1997\tNY.GDP.MKTP.KD.ZG\t1.0999999\nAlgeria\t1998\tNY.GDP.MKTP.KD.ZG\t5.1000037\nAlgeria\t1999\tNY.GDP.MKTP.KD.ZG\t3.2000015\nAlgeria\t2000\tNY.GDP.MKTP.KD.ZG\t3.8\nAlgeria\t2001\tNY.GDP.MKTP.KD.ZG\t3.0\nAlgeria\t2002\tNY.GDP.MKTP.KD.ZG\t5.6\nAlgeria\t2003\tNY.GDP.MKTP.KD.ZG\t7.2\nAlgeria\t2004\tNY.GDP.MKTP.KD.ZG\t4.3\nAlgeria\t2005\tNY.GDP.MKTP.KD.ZG\t5.9\nAlgeria\t2006\tNY.GDP.MKTP.KD.ZG\t1.7\nAlgeria\t2007\tNY.GDP.MKTP.KD.ZG\t3.4\nAlgeria\t2008\tNY.GDP.MKTP.KD.ZG\t2.4\nAlgeria\t2009\tNY.GDP.MKTP.KD.ZG\t1.6\nAlgeria\t2010\tNY.GDP.MKTP.KD.ZG\t3.6\nAlgeria\t2011\tNY.GDP.MKTP.KD.ZG\t2.9\nAlgeria\t2012\tNY.GDP.MKTP.KD.ZG\t3.4\nAlgeria\t2013\tNY.GDP.MKTP.KD.ZG\t2.8\nAlgeria\t2014\tNY.GDP.MKTP.KD.ZG\t3.8\nAlgeria\t2015\tNY.GDP.MKTP.KD.ZG\t3.9\nAlgeria\t2016\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1960\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1961\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1962\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1963\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1964\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1965\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1966\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1967\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1968\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1969\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1970\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1971\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1972\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1973\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1974\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1975\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1976\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1977\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1978\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1979\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1980\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1981\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1982\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1983\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1984\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1985\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1986\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1987\tNY.GDP.MKTP.KD.ZG\t0.0\nAmerican Samoa\t1988\tNY.GDP.MKTP.KD.ZG\t0.0\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1582229897543_-41867043",
+      "id": "20200220-201817_227458447",
+      "dateCreated": "2020-02-20T20:18:17+0000",
+      "dateStarted": "2020-02-20T20:39:03+0000",
+      "dateFinished": "2020-02-20T20:39:35+0000",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:41108"
+    }
+  ],
+  "name": "/hive/Jarvis Hive Project",
+  "id": "2F2E1GQRB",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "hive:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "checkpoint": {
+    "message": "Comments, Formatting"
+  }
+}
