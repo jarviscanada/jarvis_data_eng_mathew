@@ -3,6 +3,7 @@
 ## Table of Contents
 * [Introduction](#introduction)
 * [Hadoop Cluster](#hadoop-cluster)
+  * [Project Tools](#project-tools)
 * [The Hive Project](#the-hive-project)
 * [Improvements](#improvements)
 
@@ -28,9 +29,9 @@ expansion of the MapReduce workflow which executes jobs represented by Directed 
 
 Hive is a special form of database built specifically to work with distributed file systems like
 HDFS. Instead of storing all of its data in specialized, vendor-specific files, Hive works with
-files as-is, using either its' warehouse directory or external files as data sources for its tables.
+files as-is, using either its warehouse directory or external files as data sources for its tables.
 Hive's tables only enforce their schema when data is loaded from them, using a Serializer-Deserializer,
-or SerDe.
+or SerDe, to parse input and format output.
 
 Zeppelin Notebook is a service which provides a web-interface for writing distributed jobs using
 various languages, as long as there is an interpreter available to run it with. For this project,
@@ -46,7 +47,7 @@ All three nodes in the cluster have 2 vCPUs, 12 GB of RAM, and 100 GB of storage
 
 ![Hadoop Cluster Diagram](assets/hadoop_cluster_diagram.png)
 
-### Tools used
+### Project Tools
 
 * HDFS
   * A distributed virtual file system, which is interacted with via Hadoop. HDFS consists of one
@@ -55,9 +56,10 @@ All three nodes in the cluster have 2 vCPUs, 12 GB of RAM, and 100 GB of storage
   to the replication status and location of file blocks.
    
   * HDFS focuses on data availability and integrity, and uses block replication to achieve these. 
-  HDFS automatically replicates data until by default 3 copies of that data exist in the system. If 
-  any of those replicas should become corrupted, the other replicas are used to restore it. If a
-  replica were removed, then a new replica is made.
+  HDFS automatically breaks data files into blocks, and replicates each block until by default 3 
+  replicas of each block exist in the system. If any of those replicas should become corrupted, the
+  other replicas are used to restore it. If a replica were removed, most likely due to node failure,
+  then a new replica is made.
   
 * Hadoop
   * Hadoop manages HDFS and provides an interface to perform distributed processing on the cluster
@@ -74,11 +76,13 @@ All three nodes in the cluster have 2 vCPUs, 12 GB of RAM, and 100 GB of storage
   it in some way, then writing it out to temporary files. The Shuffle phase is used to pass data from
   the Mappers to the Reducers. Some jobs may specify how the Mappers should distribute their data.
   
-  * The Reduce phase involves filtering, combining, and otherwise aggregating the data received by the 
-  Mappers in order to generate some useful output.
+  * The Reduce phase involves filtering, combining, sorting, and otherwise aggregating the data 
+  received from the Mappers in order to generate some useful output. Some jobs may not feature a Reduce phase,
+  such as in cases where only map-side filtering is needed.
   
 * Yarn
-  * Yarn acts as an intermediary between Hadoop and other third party applications. Yarn consists of
+  * Yarn acts as an intermediary between Hadoop and other third party applications, managing the details
+  of job execution, such as resource allocation, scheduling, and container management. Yarn consists of
   two major components, the Resource Manager and the Application Manager. Yarn maintains information
   on the nodes in the cluster through the use of a "heartbeat" message periodically sent by each node
   that contains information on the node's resource usage and container status.
