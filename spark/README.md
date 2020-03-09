@@ -2,6 +2,8 @@
 #### Table of Contents
 * [Introduction](#introduction)
 * [Spark Architecture](#spark-architecture)
+* [Spark RDD Project](#spark-rdd-project)
+* [Spark DataFrame Project](#spark-dataframe-project)
 
 ## Introduction
 This project acts as an introduction to Big Data processing using Apache Spark and Scala.
