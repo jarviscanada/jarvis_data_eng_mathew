@@ -17,7 +17,6 @@ eb init $app_name --platform java --region us-east-1
 eb use $deploy_env
 
 # Generate new deployment file
-rm -rf .elasticbeanstalk/*
 cat >> .elasticbeanstalk/config.yml << _EOF
 deploy:
     artifact: springboot/target/trading-1.0-SNAPSHOT.jar
