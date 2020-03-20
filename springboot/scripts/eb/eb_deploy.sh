@@ -9,8 +9,8 @@ then
   exit 1
 fi
 
-app_name = $1
-deploy_env = $2
+app_name=$1
+deploy_env=$2
 
 # Init Beanstalk app and set environment
 eb init $app_name --platform java --region us-east-1
