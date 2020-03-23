@@ -3,6 +3,12 @@
 ## Table of Contents
 
 * [Introduction](#introduction)
+* [Cloud Application Architecture](#cloud-application-architecture)
+  * [Scaling](#scaling)
+* [Deployment Environments](#deployment-environments)
+* [Jenkins Server](#jenkins-server)
+  * [Jenkins CI/CD Pipeline](#jenkins-cicd-pipeline)
+* [Project Improvements](#project-improvements)
 
 ## Introduction
 
