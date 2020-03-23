@@ -20,13 +20,13 @@ pipeline {
         stage('Deploy_dev') {
             steps {
                 echo "Current branch is ${env.GIT_BRANCH}"
-                sh 'bash ./springboot/scripts/eb/eb_deploy.sh ${app_name} JarvisTradingApp-development'
+                sh "bash ./springboot/scripts/eb/eb_deploy.sh ${app_name} JarvisTradingApp-development"
             }
         }
         stage('Deploy_prod') {
             steps {
                 echo "Current branch is ${env.GIT_BRANCH}"
-                sh 'bash ./springboot/scripts/eb/eb_deploy.sh ${app_name} JarvisTradingApp-prod'
+                sh "bash ./springboot/scripts/eb/eb_deploy.sh ${app_name} JarvisTradingApp-prod"
             }
         }
     }
