@@ -9,3 +9,4 @@ buildNumber.properties
 helloworld.java
 .idea/
 *.iml
+node_modules/
