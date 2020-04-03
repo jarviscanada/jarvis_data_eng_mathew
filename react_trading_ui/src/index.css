@@ -11,3 +11,72 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+p {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+input {
+  margin: 0 5px;
+}
+
+button {
+  margin: 10px 5px 10px 5px;
+}
+
+label {
+  margin: 5px 0;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.sidebar {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: 100%;
+  position: -webkit-sticky;
+  position:sticky; /* This makes the sidebar "stick" to the viewport */
+  top: 15px;
+  background-color: #a0a0ee;
+}
+
+.main-content {
+  margin: 15px;
+  display: inline-block;
+  width: 80%;
+  height: 200vh;
+}
+
+.key-col, .val-col {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  width: 50%;
+}
+
+.key-col {
+  order: 1;
+  text-align: right;
+}
+
+.val-col {
+  order: 2;
+  text-align: left;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.input-form {
+  display:flex;
+  flex-direction: column;
+  width: 30%;
+}
