@@ -13,7 +13,7 @@ export default function JsonComponent(props) {
 
         if(typeof(value) === "object") {
             valueJsx = (
-                <JsonComponent json={value} parent={key}/>
+                <JsonComponent id={key + "collapsible"}json={value} parent={key}/>
             );
         } else {
             valueJsx = (<p style={{float:"left", order:1}} key={key + "val"}>{value}</p>);
@@ -21,8 +21,8 @@ export default function JsonComponent(props) {
 
         rows.push(
             <div key={parent + key} style={{display:"flex",flexDirection:"row"}}>
-            <p style={{float:"left",order:0}} key={key}>{key + ":"}</p>
-            {valueJsx}
+                <p style={{float:"left",order:0}} key={key}>{key + ":"}</p>
+                {valueJsx}
             </div>
         );
     }

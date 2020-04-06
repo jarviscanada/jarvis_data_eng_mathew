@@ -2,14 +2,13 @@ import React from 'react';
 import Welcome from './pages/welcome';
 import AccountServices from './pages/account-services';
 
-const fetch = require('node-fetch');
-// This is a dummy object for testing JsonComponent with.
+/* // This is a dummy object for testing JsonComponent with.
 const testobj = {
     prop1: "val1",
     prop2: "val2",
     prop3: 333333,
     reallylongpropnamefortestingpurposes: "test value",
-}
+}*/
 
 // This is the top-level component definition. It defines a sidebar with buttons to swap between
 // the various endpoints, and a main content area to display endpoint-specific information.

@@ -1,5 +1,8 @@
 import React from 'react';
 import CreateForm from '../forms/create-form';
+import SingleFieldForm from '../forms/single-field-form';
+import DepositForm from '../forms/deposit-form';
+import WithdrawForm from '../forms/withdraw-form';
 
 export default class AccountServices extends React.Component {
 
@@ -8,9 +11,10 @@ export default class AccountServices extends React.Component {
         this.lastButton = false;
         this.forms = {
             "create": <CreateForm />,
-            /*"delete": <DeleteForm />,
+            "delete": <SingleFieldForm label="User ID:" verb="delete"
+              url="http://localhost:8080/trader/delete" />,
             "deposit": <DepositForm />,
-            "withdraw": <WithdrawForm />,*/
+            "withdraw": <WithdrawForm />,
         }
         this.state = {
             currentEndpoint: <p>Here's a placeholder</p>,

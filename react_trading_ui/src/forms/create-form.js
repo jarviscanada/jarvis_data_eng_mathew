@@ -24,7 +24,7 @@ export default class CreateForm extends React.Component {
         const button = event.target;
         const {message, ...user} = this.state;
         button.disabled=true;
-        console.log(JSON.stringify(user));
+
         Fetch(endpointUrl, {
             method: "post",
             body: JSON.stringify(user),
@@ -33,7 +33,6 @@ export default class CreateForm extends React.Component {
             if(res.ok) {
                 return res.json();
             } else {
-                res.text().then(text => console.log(text));
                 throw new Error("Request failed.");
             }
         }).then(json => this.setState({
@@ -62,7 +61,8 @@ export default class CreateForm extends React.Component {
                 </label>
                 <label>
                     Email Address:
-                    <input type="text" id="email" value={this.state.email} onChange={(e) => this.update(e)}/>
+                    <input type="text" id="email" value={this.state.email} onChange={(e) => this.update(e)}
+                      required={true} />
                 </label>
                 <label>
                     Country:
