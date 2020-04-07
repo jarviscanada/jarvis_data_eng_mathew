@@ -16,7 +16,7 @@ export default function JsonComponent(props) {
                 <JsonComponent id={key + "collapsible"}json={value} parent={key}/>
             );
         } else {
-            valueJsx = (<p style={{float:"left", order:1}} key={key + "val"}>{value}</p>);
+            valueJsx = (<p style={{float:"left", order:1}} key={key + "val"}>{value.toString()}</p>);
         }
 
         rows.push(

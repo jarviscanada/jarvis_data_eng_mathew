@@ -32,21 +32,17 @@ export default class SingleFieldForm extends React.Component {
             url = `${url}/${this.props.suffix}`;
         }
         const verb = this.props.verb;
-        let responseLength;
 
         // Send the request and render the result using JsonComponent
         Fetch(url, {
             method: verb,
             headers: {"Content-Type":"application/json",},
         }).then(res => {
-            responseLength = res.headers.get("Content-Length");
             let responseBody;
             if (res.ok){
-                if (responseLength) {
-                    responseBody = res.json();
-                } else {
-                    responseBody = {status: "Success"};
-                } 
+                responseBody = res.json().catch(err => {
+                    return ({status: "Success"})
+                });
             } else {
                 responseBody = res.json().then(err => {
                     return({error: err['error'],message:err['message']});

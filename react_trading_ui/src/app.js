@@ -1,6 +1,7 @@
 import React from 'react';
 import Welcome from './pages/welcome';
 import AccountServices from './pages/account-services';
+import QuoteServices from './pages/quote-services';
 
 /* // This is a dummy object for testing JsonComponent with.
 const testobj = {
@@ -19,7 +20,8 @@ export default class App extends React.Component {
         this.welcomeButton = React.createRef();
         this.pages = {
             "welcome": <Welcome />,
-            "account": <AccountServices />
+            "account": <AccountServices />,
+            "quote": <QuoteServices />,
         }
         this.state = {
             currentEndpoint: "Welcome", //Name of the endpoint
