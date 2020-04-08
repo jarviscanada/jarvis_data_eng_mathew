@@ -1,7 +1,9 @@
 import React from 'react';
+import Kvp from './kvp-component';
 
 /* This function provides a simple means of displaying the KVPs of an object or JSON
- * document (from Fetch's response.json()) passed to it.
+ * document (from Fetch's response.json()) passed to it. Nested objects are handled
+ * but nested arrays are treated as objects.
  */
 export default function JsonComponent(props) {
     let rows = [];
@@ -9,22 +11,18 @@ export default function JsonComponent(props) {
 
     for (const key in props.json) {
         const value = props.json[key];
-        let valueJsx;
 
+        // If the value's an object, render the object as a JsonComponent.
         if(typeof(value) === "object") {
-            valueJsx = (
-                <JsonComponent id={key + "collapsible"}json={value} parent={key}/>
+            rows.push(
+                <div key={parent + key} style={{display:"flex",flexDirection:"row"}}>
+                    <p style={{float:"left",order:0}} key={key}>{key + ":"}</p>
+                    <JsonComponent id={key} json={value} parent={key}/>
+                </div>
             );
         } else {
-            valueJsx = (<p style={{float:"left", order:1}} key={key + "val"}>{value.toString()}</p>);
+            rows.push(<Kvp key={key + "val"} kvpKey={key} value={value} />);
         }
-
-        rows.push(
-            <div key={parent + key} style={{display:"flex",flexDirection:"row"}}>
-                <p style={{float:"left",order:0}} key={key}>{key + ":"}</p>
-                {valueJsx}
-            </div>
-        );
     }
 
     return (

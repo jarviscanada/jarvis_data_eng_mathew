@@ -2,14 +2,8 @@ import React from 'react';
 import Welcome from './pages/welcome';
 import AccountServices from './pages/account-services';
 import QuoteServices from './pages/quote-services';
-
-/* // This is a dummy object for testing JsonComponent with.
-const testobj = {
-    prop1: "val1",
-    prop2: "val2",
-    prop3: 333333,
-    reallylongpropnamefortestingpurposes: "test value",
-}*/
+import Dashboards from './pages/dashboards';
+import OrderServices from './pages/order-services';
 
 // This is the top-level component definition. It defines a sidebar with buttons to swap between
 // the various endpoints, and a main content area to display endpoint-specific information.
@@ -18,10 +12,12 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.welcomeButton = React.createRef();
-        this.pages = {
+        this.pages = { // List of all the "Pages" in the app. The app is all under one address.
             "welcome": <Welcome />,
             "account": <AccountServices />,
             "quote": <QuoteServices />,
+            "dash": <Dashboards />,
+            "order": <OrderServices />,
         }
         this.state = {
             currentEndpoint: "Welcome", //Name of the endpoint
@@ -29,14 +25,16 @@ export default class App extends React.Component {
         };
     }
 
+    // Disable the welcome button since we start on that page.
     componentDidMount(){
         this.inactiveButton = this.welcomeButton.current;
         this.inactiveButton.disabled=true;
     }
 
+    // Called when a main menu button is clicked. Disables the button and loads the associated page.
     loadPage(e) {
-        e.target.disabled=true;
-        this.inactiveButton.disabled=false;
+        e.target.disabled=true; // Disable the clicked button
+        this.inactiveButton.disabled=false; // Enable the last button
         this.inactiveButton=e.target;
         if(this.pages[e.target.id]){
             this.setState({
@@ -46,6 +44,7 @@ export default class App extends React.Component {
         }
     }
 
+    // Set up the top-level page layout.
     render() {           
         return(
             <div className="wrapper">
