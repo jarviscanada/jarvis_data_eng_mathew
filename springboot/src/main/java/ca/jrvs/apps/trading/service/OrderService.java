@@ -9,7 +9,6 @@ import ca.jrvs.apps.trading.model.domain.MarketOrder;
 import ca.jrvs.apps.trading.model.domain.Position;
 import ca.jrvs.apps.trading.model.domain.SecurityOrder;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
@@ -59,7 +58,7 @@ public class OrderService {
   }
 
   private SecurityOrder executeSell(SecurityOrder order, Account account) {
-    List<Position> positions = positionDao.findAllById(Collections.singletonList(account.getId()));
+    List<Position> positions = positionDao.findAllForId(account.getId());
     for (Position p : positions) {
       if (order.getTicker().equals(p.getTicker()) && p.getPosition() >= Math.abs(order.getSize())) {
         order.setStatus("FILLED");
