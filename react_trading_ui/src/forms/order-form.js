@@ -62,21 +62,21 @@ export default class OrderForm extends React.Component {
             <div style={{display:"flex"}} >
                     <form className="input-form" onSubmit={(e) => this.placeOrder(e)}>
                         <label>
-                            Account ID:
+                            <p className="input-label">Account ID:</p>
                             <input type="text" id="accountId" className="input-field" required
                             onChange={(e) => this.updateNumber(e)} value={this.state.accountId} />
                         </label>
                         <label>
-                            Symbol:
+                            <p className="input-label">Symbol:</p>
                             <input type="text" id="symbol" className="input-field" required
                             onChange={(e) => this.updateText(e)} value={this.state.symbol} />
                         </label>
                         <label>
-                            Amount:
+                            <p className="input-label">Amount:</p>
                             <input type="text" id="amount" className="input-field" required
                             onChange={(e) => this.updateNumber(e)} value={this.state.amount} />
                         </label>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Submit" className="input-submit" />
                     </form>
                 {this.state.message}
             </div>

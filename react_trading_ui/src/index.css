@@ -13,9 +13,8 @@ code {
 }
 
 p {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 10px 0;
+  padding: 0 5px;
+  margin: 5px 0;
 }
 
 button {
@@ -77,11 +76,20 @@ label {
 .input-form {
   display:flex;
   flex-direction: column;
-  width: 30%;
+  width: 40%;
+}
+
+.input-label {
+  flex: 0.5;
+  text-align: left;
 }
 
 .input-field {
   margin: 5px;
   height: 1em;
   flex: 1;
+}
+
+.input-submit {
+  align-self: flex-end;
 }

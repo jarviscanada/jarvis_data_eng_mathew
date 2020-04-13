@@ -109,11 +109,11 @@ export default class PortfolioForm extends React.Component {
         <div style={{display:"flex"}}>
             <form className="input-form" onSubmit={(e) => this.getPortfolio(e)}>
                 <label>
-                    User ID:
+                    <p className="input-label">User ID:</p>
                     <input type="text" onChange={(e) => this.updateField(e)} value={this.state.id} 
                     className="input-field" />
                 </label>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" className="input-submit" />
             </form>
             {this.state.message}
         </div>

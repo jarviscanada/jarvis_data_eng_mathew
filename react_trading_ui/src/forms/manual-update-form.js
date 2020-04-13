@@ -67,36 +67,36 @@ export default class ManualUpdate extends React.Component {
             <div style={{display:"flex"}}>
                 <form className="input-form" onSubmit={(e) => this.sendUpdate(e)}>
                     <label>
-                        Symbol:
+                        <p className="input-label">Symbol:</p>
                         <input type="text" id="symbol" onChange={(e) => this.textUpdate(e)} value={this.state.symbol}
                         className="input-field" />
                     </label>
                     <label>
-                        Ask Price:
+                        <p className="input-label">Ask Price:</p>
                         <input type="text" id="askPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.askPrice}
                         className="input-field" />
                     </label>
                     <label>
-                        Ask Size:
+                        <p className="input-label">Ask Size:</p>
                         <input type="number" id="askSize" onChange={(e) => this.textUpdate(e)} value={this.state.askSize}
                         className="input-field" />
                     </label>
                     <label>
-                        Bid Price:
+                        <p className="input-label">Bid Price:</p>
                         <input type="text" id="bidPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.bidPrice}
                         className="input-field" />
                     </label>
                     <label>
-                        Bid Size:
+                        <p className="input-label">Bid Size:</p>
                         <input type="number" id="bidSize" onChange={(e) => this.textUpdate(e)} value={this.state.bidSize}
                         className="input-field"/>
                     </label>
                     <label>
-                        Last Price:
+                        <p className="input-label">Last Price:</p>
                         <input type="text" id="lastPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.lastPrice}
                         className="input-field" />
                     </label>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Submit" className="input-submit" />
                 </form>
                 {this.state.message}
             </div>

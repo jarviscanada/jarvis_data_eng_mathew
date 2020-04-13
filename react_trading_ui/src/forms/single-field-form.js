@@ -59,11 +59,11 @@ export default class SingleFieldForm extends React.Component {
             <div style={{display:'flex'}}>
                 <form className='input-form' onSubmit={(e) => this.submitForm(e)}>
                     <label>
-                        {this.props.label}
+                        <p className="input-label">{this.props.label}</p>
                         <input type='text' onChange={(e) => this.updateText(e)} value={this.state.fieldText}
                           required={true} className="input-field" />
                     </label>
-                    <input type='submit' value='Submit' />
+                    <input type='submit' value='Submit' className="input-submit" />
                 </form>
                 {this.state.message}
             </div>

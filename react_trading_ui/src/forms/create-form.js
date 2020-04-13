@@ -52,31 +52,31 @@ export default class CreateForm extends React.Component {
             <div style={{display:"flex", flexDirection:"row"}}>
             <form className="input-form" onSubmit={(e) => this.createUser(e)}>
                 <label>
-                    First Name:
+                    <p className="input-label">First Name:</p>
                     <input type="text" id="firstName" value={this.state.fName} onChange={(e) => this.update(e)}
                     className="input-field" />
                 </label>
                 <label>
-                    Last Name:
+                    <p className="input-label">Last Name:</p>
                     <input type="text" id="lastName" value={this.state.lName} onChange={(e) => this.update(e)}
                     className="input-field" />
                 </label>
                 <label>
-                    Email Address:
+                    <p className="input-label">Email Address:</p>
                     <input type="text" id="email" value={this.state.email} onChange={(e) => this.update(e)}
                       required={true} className="input-field" />
                 </label>
                 <label>
-                    Country:
+                    <p className="input-label">Country:</p>
                     <input type="text" id="country" value={this.state.country} onChange={(e) => this.update(e)}
                     className="input-field" />
                 </label>
                 <label>
-                    Birthdate:
+                    <p className="input-label">Birthdate:</p>
                     <input type="date" id="dob" value={this.state.birthdate} onChange={(e) => this.update(e)}
                     className="input-field" />
                 </label>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" className="input-submit" />
             </form>
             {this.state.message}
             </div>
