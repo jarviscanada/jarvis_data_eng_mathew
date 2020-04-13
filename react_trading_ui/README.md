@@ -1,10 +1,10 @@
 # Springboot Trading App UI with React
 
 Table of Contents
-- (Introduction)[#introduction]
-- (Quick Start)[#quick-start]
-- (Usage)[#usage]
-- (Improvements)[#improvements]
+* [Introduction](#introduction)
+* [Quick Start](#quick-start)
+* [Usage](#usage)
+* [Improvements](#improvements)
 
 ## Introduction
 
@@ -20,7 +20,7 @@ some rudimentary HTML and CSS.
 - Requirements:
   - `Node.js` version 8.10 or higher
   - `npm` version 6 or higher
-  - (Springboot Stock Trading Web API)[../springboot] running (This app assumes the API is hosted at localhost:8080)
+  - [Springboot Stock Trading Web API](../springboot/) running (This app assumes the API is hosted at localhost:8080)
   - Any modern web browser
 - Development version
   - Navigate to the project directory and execute `npm start`, or the equivalent `yarn` command.
