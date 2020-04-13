@@ -68,29 +68,33 @@ export default class ManualUpdate extends React.Component {
                 <form className="input-form" onSubmit={(e) => this.sendUpdate(e)}>
                     <label>
                         Symbol:
-                        <input type="text" id="symbol" onChange={(e) => this.textUpdate(e)} value={this.state.symbol}/>
+                        <input type="text" id="symbol" onChange={(e) => this.textUpdate(e)} value={this.state.symbol}
+                        className="input-field" />
                     </label>
                     <label>
                         Ask Price:
-                        <input type="text" id="askPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.askPrice}/>
+                        <input type="text" id="askPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.askPrice}
+                        className="input-field" />
                     </label>
                     <label>
                         Ask Size:
                         <input type="number" id="askSize" onChange={(e) => this.textUpdate(e)} value={this.state.askSize}
-                            style={{padding:"8px 0"}}/>
+                        className="input-field" />
                     </label>
                     <label>
                         Bid Price:
-                        <input type="text" id="bidPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.bidPrice}/>
+                        <input type="text" id="bidPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.bidPrice}
+                        className="input-field" />
                     </label>
                     <label>
                         Bid Size:
                         <input type="number" id="bidSize" onChange={(e) => this.textUpdate(e)} value={this.state.bidSize}
-                            style={{padding:"8px 0"}}/>
+                        className="input-field"/>
                     </label>
                     <label>
                         Last Price:
-                        <input type="text" id="lastPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.lastPrice}/>
+                        <input type="text" id="lastPrice" onChange={(e) => this.moneyUpdate(e)} value={this.state.lastPrice}
+                        className="input-field" />
                     </label>
                     <input type="submit" value="Submit" />
                 </form>

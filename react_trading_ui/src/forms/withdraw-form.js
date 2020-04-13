@@ -54,12 +54,12 @@ export default class WithdrawForm extends React.Component {
                     <label>
                         User ID:
                         <input id='user' type='text' onChange={(e) => this.updateInput(e)} required={true}
-                          value={this.state.user} />
+                          value={this.state.user} className="input-field" />
                     </label>
                     <label>
                         Amount($)
                         <input id='amount' type='text' onChange={(e) => this.updateInput(e)} required={true}
-                          value={this.state.amount} /> 
+                          value={this.state.amount} className="input-field" /> 
                     </label>
                     <input type='submit' value='Submit' />
                 </form>

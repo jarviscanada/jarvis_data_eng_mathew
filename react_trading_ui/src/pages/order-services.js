@@ -1,6 +1,5 @@
 import React from 'react';
-import BuyForm from '../forms/buy-form';
-import SellForm from '../forms/sell-form';
+import OrderForm from '../forms/order-form';
 
 export default class OrderServices extends React.Component {
 
@@ -8,8 +7,8 @@ export default class OrderServices extends React.Component {
         super(props);
         this.lastButton = false;
         this.forms = {
-            buy: <BuyForm />,
-            sell: <SellForm />,
+            buy: <OrderForm id="buy" key="buy" op="buy" />,
+            sell: <OrderForm id="sell" key="sell" op="sell" />,
         };
         this.state = {
             currentEndpoint: [],

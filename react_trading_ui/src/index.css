@@ -18,16 +18,14 @@ p {
   margin: 10px 0;
 }
 
-input {
-  margin: 0 5px;
-}
-
 button {
-  margin: 10px 5px 10px 5px;
+  margin: 10px 5px;
 }
 
 label {
   margin: 5px 0;
+  display: flex;
+  align-items: center;
 }
 
 .wrapper {
@@ -40,7 +38,7 @@ label {
   flex-direction: column;
   width: 20%;
   height: 100%;
-  position: -webkit-sticky;
+  position: -webkit-sticky; /* Legacy support for sticky */
   position:sticky; /* This makes the sidebar "stick" to the viewport */
   top: 15px;
   background-color: #a0a0ee;
@@ -80,4 +78,10 @@ label {
   display:flex;
   flex-direction: column;
   width: 30%;
+}
+
+.input-field {
+  margin: 5px;
+  height: 1em;
+  flex: 1;
 }

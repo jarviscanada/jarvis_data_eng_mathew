@@ -53,24 +53,28 @@ export default class CreateForm extends React.Component {
             <form className="input-form" onSubmit={(e) => this.createUser(e)}>
                 <label>
                     First Name:
-                    <input type="text" id="firstName" value={this.state.fName} onChange={(e) => this.update(e)}/>
+                    <input type="text" id="firstName" value={this.state.fName} onChange={(e) => this.update(e)}
+                    className="input-field" />
                 </label>
                 <label>
                     Last Name:
-                    <input type="text" id="lastName" value={this.state.lName} onChange={(e) => this.update(e)}/>
+                    <input type="text" id="lastName" value={this.state.lName} onChange={(e) => this.update(e)}
+                    className="input-field" />
                 </label>
                 <label>
                     Email Address:
                     <input type="text" id="email" value={this.state.email} onChange={(e) => this.update(e)}
-                      required={true} />
+                      required={true} className="input-field" />
                 </label>
                 <label>
                     Country:
-                    <input type="text" id="country" value={this.state.country} onChange={(e) => this.update(e)}/>
+                    <input type="text" id="country" value={this.state.country} onChange={(e) => this.update(e)}
+                    className="input-field" />
                 </label>
                 <label>
                     Birthdate:
-                    <input type="date" id="dob" value={this.state.birthdate} onChange={(e) => this.update(e)}/>
+                    <input type="date" id="dob" value={this.state.birthdate} onChange={(e) => this.update(e)}
+                    className="input-field" />
                 </label>
                 <input type="submit" value="Submit" />
             </form>
