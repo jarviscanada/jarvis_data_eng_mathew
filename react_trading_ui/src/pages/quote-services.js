@@ -8,6 +8,7 @@ export default class QuoteServices extends React.Component {
 
     constructor(props) {
         super(props);
+        this.buttonRef = React.createRef();
         this.lastButton = false;
         this.forms = {
             "iex": <SingleFieldForm label="Symbol:" verb="get"
@@ -19,9 +20,18 @@ export default class QuoteServices extends React.Component {
             "manual": <ManualUpdate />,
         }
         this.state = {
-            currentEndpoint: <p>Placeholder</p>,
+            currentEndpoint: "",
             currentEndpointName: "",
         };
+    }
+
+    componentDidMount() {
+        this.lastButton = this.buttonRef.current;
+        this.lastButton.disabled = true;
+        this.setState({
+            currentEndpoint: this.forms[this.lastButton.id],
+            currentEndpointName: this.lastButton.innerText,
+        })
     }
 
     loadForm(event) {
@@ -32,7 +42,7 @@ export default class QuoteServices extends React.Component {
         clicked.disabled = true;
         this.lastButton = clicked;
         this.setState({
-            currentEndpointName: clicked.id,
+            currentEndpointName: clicked.innerText,
             currentEndpoint: this.forms[clicked.id],
         });
     }
@@ -41,12 +51,13 @@ export default class QuoteServices extends React.Component {
         return (
         <div style={{width:"100%"}}>
             <div className="button-row">
-                <button id="iex" onClick={e => this.loadForm(e)}>Quote from IEX</button>
+                <button ref={this.buttonRef} id="iex" onClick={e => this.loadForm(e)}>Quote from IEX</button>
                 <button id="track" onClick={e => this.loadForm(e)}>Track Symbol</button>
                 <button id="daily" onClick={e => this.loadForm(e)}>Daily List</button>
                 <button id="updateall" onClick={e => this.loadForm(e)}>Update Tracked</button>
                 <button id="manual" onClick={e => this.loadForm(e)}>Manual Update</button>
             </div>
+            <h3>{this.state.currentEndpointName}</h3>
             {this.state.currentEndpoint}
         </div>
         );

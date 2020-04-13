@@ -6,6 +6,7 @@ export default class Dashboards extends React.Component {
 
     constructor(props) {
         super(props);
+        this.buttonRef = React.createRef();
         this.lastButton = false;
         this.forms = {
             "profile": <SingleFieldForm label="User ID:" verb="get"
@@ -13,9 +14,18 @@ export default class Dashboards extends React.Component {
             "portfolio": <PortfolioForm />,
         };
         this.state = {
-            currentEndpoint: <p>Placeholder</p>,
-            currentEndpointname: "",
+            currentEndpoint: "",
+            currentEndpointName: "",
         }
+    }
+
+    componentDidMount() {
+        this.lastButton = this.buttonRef.current;
+        this.lastButton.disabled = true;
+        this.setState({
+            currentEndpoint: this.forms[this.lastButton.id],
+            currentEndpointName: this.lastButton.innerText,
+        })
     }
 
     loadForm(event) {
@@ -26,7 +36,7 @@ export default class Dashboards extends React.Component {
         this.lastButton = event.target;
         this.setState({
             currentEndpoint: this.forms[event.target.id],
-            currentEndpointname: event.target.innerText,
+            currentEndpointName: event.target.innerText,
         });
     }
 
@@ -34,9 +44,10 @@ export default class Dashboards extends React.Component {
         return(
             <div style={{width:"100%"}}>
                 <div className="button-row">
-                    <button id="profile" onClick={(e) => this.loadForm(e)}>Profiles</button>
+                    <button ref={this.buttonRef} id="profile" onClick={(e) => this.loadForm(e)}>Profiles</button>
                     <button id="portfolio" onClick={(e) => this.loadForm(e)}>Portfolios</button>
                 </div>
+                <h3>{this.state.currentEndpointName}</h3>
                 {this.state.currentEndpoint}
             </div>
         );
