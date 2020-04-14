@@ -10,7 +10,7 @@ export default class Dashboards extends React.Component {
         this.lastButton = false;
         this.forms = {
             "profile": <SingleFieldForm label="User ID:" verb="get"
-            url="http://localhost:8080/dashboard" suffix="profile"/>,
+            url={`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/dashboard`} suffix="profile"/>,
             "portfolio": <PortfolioForm />,
         };
         this.state = {

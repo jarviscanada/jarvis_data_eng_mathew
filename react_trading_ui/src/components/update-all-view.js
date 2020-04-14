@@ -1,7 +1,7 @@
 import React from 'react';
 import Fetch from 'node-fetch';
 
-const url = "http://localhost:8080/quote/iexMarketData";
+const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/iexMarketData`;
 
 export default class UpdateAll extends React.Component {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Fetch from 'node-fetch';
 import JsonComponent from '../components/json-component';
 
-const endpointUrl = "http://localhost:8080/trader/create/prebuilt"
+const endpointUrl = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/trader/create/prebuilt`
 
 export default class CreateForm extends React.Component {
 

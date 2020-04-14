@@ -13,7 +13,7 @@ export default class AccountServices extends React.Component {
         this.forms = {
             "create": <CreateForm />,
             "delete": <SingleFieldForm label="User ID:" verb="delete"
-              url="http://localhost:8080/trader/delete" />,
+              url={`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/trader/delete`} />,
             "deposit": <DepositForm />,
             "withdraw": <WithdrawForm />,
         }

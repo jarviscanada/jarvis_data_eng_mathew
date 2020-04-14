@@ -20,19 +20,23 @@ some rudimentary HTML and CSS.
 - Requirements:
   - `Node.js` version 8.10 or higher
   - `npm` version 6 or higher
-  - [Springboot Stock Trading Web API](../springboot/) running (This app assumes the API is hosted at localhost:8080)
+  - [Springboot Stock Trading Web API](../springboot/).
   - Any modern web browser
 - Development version
-  - Navigate to the project directory and execute `npm start`, or the equivalent `yarn` command.
-  - Server will be hosted on `localhost:3000`.
+  - Edit the `.env` file in this project's root to point to the Springboot API.
+  - Navigate to the project root and execute `npm start`, or the equivalent `yarn` command.
+  - The server will be hosted on `localhost:3000`.
 - Production version
-  - Navigate to the project directory and execute `npm run-script build`, or the equivalent `yarn` command.
+  - Edit the `.env` file in this project's root to point to the Springboot API.
+  - Navigate to the project root and execute `npm run-script build`, or the equivalent `yarn` command.
   - Copy the contents of the `build/` directory to a pre-configured web root, such as `/var/www/html/` for `httpd` servers.
   - App URL will depend on web server configuration and location within the web root.
   
 ## Usage
 
-This app is designed to be used as an administrative console for interacting with the Springboot API project in this repository, similar to that project's `swagger-ui`. The various endpoints are organized into groups based on the services they provide, and each group may be accessed using buttons on the left of the page. The following functions are available within each group.
+This app is designed to be used as an administrative console for interacting with the Springboot API project in this repository,
+similar to that project's `swagger-ui`. The various endpoints are organized into groups based on the services they provide, 
+and each group may be accessed using buttons on the left of the page. The following functions are available within each group.
 
 - Account Services
   - Create and delete trader accounts

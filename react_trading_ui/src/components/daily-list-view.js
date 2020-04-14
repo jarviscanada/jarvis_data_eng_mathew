@@ -2,7 +2,7 @@ import React from 'react';
 import Fetch from 'node-fetch';
 import JsonComponent from './json-component';
 
-const url = "http://localhost:8080/quote/dailylist"
+const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/dailylist`
 
 export default class DailyListView extends React.Component {
 

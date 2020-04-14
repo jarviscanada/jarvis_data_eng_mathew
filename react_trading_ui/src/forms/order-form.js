@@ -8,9 +8,9 @@ export default class OrderForm extends React.Component {
         super(props);
         this.baseUrl = "";
         if(this.props.op==="buy") {
-            this.baseUrl = "http://localhost:8080/order/buy";
+            this.baseUrl = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/order/buy`;
         } else if(this.props.op==="sell") {
-            this.baseUrl = "http://localhost:8080/order/sell";
+            this.baseUrl = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/order/sell`;
         }
         this.state = {
             message: [],

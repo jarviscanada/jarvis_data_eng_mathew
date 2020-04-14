@@ -28,7 +28,7 @@ export default class PortfolioForm extends React.Component {
     // Get the user's portfolio from Springboot
     getPortfolio(event) {
         event.preventDefault();
-        Fetch(`http://localhost:8080/dashboard/${this.state.id}/portfolio`).then( res => {
+        Fetch(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/dashboard/${this.state.id}/portfolio`).then( res => {
             if(res.ok) {
                 return res.json();
             } else {

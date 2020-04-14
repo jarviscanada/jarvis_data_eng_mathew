@@ -2,7 +2,7 @@ import React from 'react';
 import Fetch from 'node-fetch';
 import JsonComponent from '../components/json-component';
 
-const baseUrl = 'http://localhost:8080/trader/withdraw'
+const baseUrl = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/trader/withdraw`
 
 export default class WithdrawForm extends React.Component {
 

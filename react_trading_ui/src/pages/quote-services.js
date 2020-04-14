@@ -12,9 +12,9 @@ export default class QuoteServices extends React.Component {
         this.lastButton = false;
         this.forms = {
             "iex": <SingleFieldForm label="Symbol:" verb="get"
-              url="http://localhost:8080/quote/iex/ticker" />,
+              url={`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/iex/ticker`} />,
             "track": <SingleFieldForm label="Symbol:" verb="post"
-              url="http://localhost:8080/quote/track" />,
+              url={`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/track`} />,
             "daily": <DailyListView />,
             "updateall": <UpdateAll />,
             "manual": <ManualUpdate />,

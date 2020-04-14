@@ -2,7 +2,7 @@ import React from 'react';
 import Fetch from 'node-fetch';
 import JsonComponent from '../components/json-component';
 
-const url = "http://localhost:8080/quote/update";
+const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/update`;
 
 export default class ManualUpdate extends React.Component {
 
