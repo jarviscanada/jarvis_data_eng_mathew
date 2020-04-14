@@ -4,6 +4,7 @@ import SingleFieldForm from '../forms/single-field-form';
 import DepositForm from '../forms/deposit-form';
 import WithdrawForm from '../forms/withdraw-form';
 
+//This component is the portal for Account-related endpoints in the API
 export default class AccountServices extends React.Component {
 
     constructor(props) {
@@ -12,7 +13,7 @@ export default class AccountServices extends React.Component {
         this.lastButton = false;
         this.forms = {
             "create": <CreateForm />,
-            "delete": <SingleFieldForm label="User ID:" verb="delete"
+            "delete": <SingleFieldForm label="User ID:" verb="delete" key="delete"
               url={`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/trader/delete`} />,
             "deposit": <DepositForm />,
             "withdraw": <WithdrawForm />,
@@ -23,6 +24,7 @@ export default class AccountServices extends React.Component {
         };
     }
 
+    //When the component loads, load the default form, "create"
     componentDidMount() {
         this.lastButton = this.buttonRef.current;
         this.lastButton.disabled = true;
@@ -32,6 +34,7 @@ export default class AccountServices extends React.Component {
         });
     }
 
+    //Loads a form corresponding to the clicked button.
     loadForm(event) {
         const clicked = event.target;
         if(this.lastButton) {

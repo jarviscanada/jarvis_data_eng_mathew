@@ -1,6 +1,7 @@
 import React from 'react';
 import OrderForm from '../forms/order-form';
 
+//The portal for Ordering-related endpoints. Users can place Buy and Sell orders here
 export default class OrderServices extends React.Component {
 
     constructor(props) {
@@ -17,6 +18,7 @@ export default class OrderServices extends React.Component {
         };
     }
 
+    //Load the default form, "buy"
     componentDidMount() {
         this.lastButton = this.buttonRef.current;
         this.lastButton.disabled = true;
@@ -26,6 +28,7 @@ export default class OrderServices extends React.Component {
         })
     }
 
+    //Load a form based on the clicked button.
     loadForm(event) {
         const button = event.target;
         button.disabled = true;

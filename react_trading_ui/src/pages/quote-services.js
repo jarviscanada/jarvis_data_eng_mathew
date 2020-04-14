@@ -4,6 +4,8 @@ import DailyListView from '../components/daily-list-view';
 import UpdateAll from '../components/update-all-view';
 import ManualUpdate from '../forms/manual-update-form';
 
+//Portal for Quote-related endpoints. Users can get quotes from the API or IEX, update API data,
+//and track new market symbols
 export default class QuoteServices extends React.Component {
 
     constructor(props) {
@@ -11,9 +13,9 @@ export default class QuoteServices extends React.Component {
         this.buttonRef = React.createRef();
         this.lastButton = false;
         this.forms = {
-            "iex": <SingleFieldForm label="Symbol:" verb="get"
+            "iex": <SingleFieldForm label="Symbol:" verb="get" key="iex"
               url={`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/iex/ticker`} />,
-            "track": <SingleFieldForm label="Symbol:" verb="post"
+            "track": <SingleFieldForm label="Symbol:" verb="post" key="track"
               url={`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/track`} />,
             "daily": <DailyListView />,
             "updateall": <UpdateAll />,
@@ -25,6 +27,7 @@ export default class QuoteServices extends React.Component {
         };
     }
 
+    //When the component loads, load the default form, "iex"
     componentDidMount() {
         this.lastButton = this.buttonRef.current;
         this.lastButton.disabled = true;
@@ -34,6 +37,7 @@ export default class QuoteServices extends React.Component {
         })
     }
 
+    //Load a  form corresponding to the clicked button
     loadForm(event) {
         const clicked = event.target;
         if(this.lastButton) {

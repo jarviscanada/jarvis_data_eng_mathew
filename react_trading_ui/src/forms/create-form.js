@@ -4,6 +4,7 @@ import JsonComponent from '../components/json-component';
 
 const endpointUrl = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/trader/create/prebuilt`
 
+//This form is used to create a new user. Shows the created user on success.
 export default class CreateForm extends React.Component {
 
     constructor(props) {
@@ -19,6 +20,7 @@ export default class CreateForm extends React.Component {
         };
     }
 
+    //Send the form data to the API and parse the response
     createUser(event) {
         event.preventDefault();
         const button = event.target;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+//This is the content of the landing page for the app.
 export default function Welcome(props) {
     return(
         <div >

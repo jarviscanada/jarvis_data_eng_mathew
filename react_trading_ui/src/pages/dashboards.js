@@ -2,6 +2,7 @@ import React from 'react';
 import SingleFieldForm from '../forms/single-field-form';
 import PortfolioForm from '../forms/portfolio-form';
 
+//The portal for viewing Trader dashboards. Info includes Trader profiles and portfolios
 export default class Dashboards extends React.Component {
 
     constructor(props) {
@@ -9,7 +10,7 @@ export default class Dashboards extends React.Component {
         this.buttonRef = React.createRef();
         this.lastButton = false;
         this.forms = {
-            "profile": <SingleFieldForm label="User ID:" verb="get"
+            "profile": <SingleFieldForm label="User ID:" verb="get" key="profile"
             url={`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/dashboard`} suffix="profile"/>,
             "portfolio": <PortfolioForm />,
         };
@@ -19,6 +20,7 @@ export default class Dashboards extends React.Component {
         }
     }
 
+    //Load the default form, "profile"
     componentDidMount() {
         this.lastButton = this.buttonRef.current;
         this.lastButton.disabled = true;
@@ -28,6 +30,7 @@ export default class Dashboards extends React.Component {
         })
     }
 
+    //Load a form corresponding to the clicked button
     loadForm(event) {
         event.target.disabled = true;
         if(this.lastButton) {

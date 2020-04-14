@@ -4,6 +4,7 @@ import JsonComponent from '../components/json-component';
 
 const baseUrl = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/trader/deposit`;
 
+//This form allows the user to deposit simulation money into a Trader's account
 export default class WithdrawForm extends React.Component {
 
     constructor(props){
@@ -15,6 +16,7 @@ export default class WithdrawForm extends React.Component {
         }
     }
 
+    //Sends the deposit request to the API and parses the response
     withdraw(e) {
         e.preventDefault();
         const url = `${baseUrl}/${this.state.user}/?amount=${this.state.amount}`
@@ -37,10 +39,11 @@ export default class WithdrawForm extends React.Component {
         }).catch(err => console.log(err));
     }
 
+    //Live input validation, User ID should be a positive int, money value should be at most 2 decimal places
     updateInput(event) {
         const field = event.target;
         const pattern = field.id === 'user'? /^\d*$/ : /^\d*(\.\d{0,2})?$/;
-        if (pattern.test(field.value)){ //Try to enforce pattern by refusing changes that break it
+        if (pattern.test(field.value)){ 
             this.setState({
                 [field.id]: field.value,
             });

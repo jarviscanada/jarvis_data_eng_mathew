@@ -64,7 +64,11 @@ JSX may also have Javascript code embedded in it, which can be used to reference
 
 This app is designed to be used as an administrative console for interacting with the Springboot API project in this repository,
 similar to that project's `swagger-ui`. The various endpoints are organized into groups based on the services they provide, 
-and each group may be accessed using buttons on the left of the page. The following functions are available within each group.
+and each group may be accessed using buttons on the left of the page. The following screenshot is a sample of the App in use.
+
+![React app sample page](./assets/react-app-sample.png)
+
+The following functions are available within each group.
 
 - Account Services
   - Create and delete trader accounts
@@ -81,5 +85,5 @@ and each group may be accessed using buttons on the left of the page. The follow
   
 ## Improvements
 - Add a built-in web server to the project, such as `Express`, `Serve`, `Fastify`, `Next.js`, etc.
-- Create a "user mode" web page that is overall more useful.
+- Create a "user mode" web page that is overall more useful for the average user.
 - Visual design/CSS improvements.

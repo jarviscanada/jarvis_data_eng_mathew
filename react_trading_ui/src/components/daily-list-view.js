@@ -4,6 +4,7 @@ import JsonComponent from './json-component';
 
 const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/dailylist`
 
+//Shows the most recently stored quote for all tracked symbols
 export default class DailyListView extends React.Component {
 
     constructor(props) {
@@ -13,6 +14,7 @@ export default class DailyListView extends React.Component {
         };
     }
 
+    //Grab quotes once the component loads
     componentDidMount() {
         this.fetchQuotes();
     }
@@ -32,6 +34,7 @@ export default class DailyListView extends React.Component {
         }).then(quotes => this.convertQuotes(quotes)).catch(err => console.log(err));
     }
 
+    //Turn the quotes into JSX and drop them into the component State
     convertQuotes(quotes) {
         let jsx = [];
         quotes.forEach(quote => {
@@ -50,6 +53,7 @@ export default class DailyListView extends React.Component {
         });
     }
 
+    //Expand/collapse quote data
     showHide(event) {
         const button = event.target;
         if(this.state[button.id]){

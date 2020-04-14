@@ -25,7 +25,7 @@ export default class PortfolioForm extends React.Component {
         }
     }
 
-    // Get the user's portfolio from Springboot
+    // Get the user's portfolio from the API
     getPortfolio(event) {
         event.preventDefault();
         Fetch(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/dashboard/${this.state.id}/portfolio`).then( res => {
@@ -80,7 +80,7 @@ export default class PortfolioForm extends React.Component {
                     <p>Positions:</p>
                     <div style={{display:"flex", flexDirection:"column"}}>
                         {data.positions.length <= 0? <p>None</p> : //If there's no Positions, just say "None"
-                            data.positions.map(pos => {
+                            data.positions.map(pos => { //Otherwise map positions to JSX elements
                             return(
                             <div key={pos.position.ticker} style={{display:"flex", alignItems:"flex-start"}}>
                                 <p>{pos.position.ticker}</p>

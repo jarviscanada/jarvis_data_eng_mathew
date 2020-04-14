@@ -3,6 +3,8 @@ import Fetch from 'node-fetch';
 
 const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/iexMarketData`;
 
+//This component triggers a market data update in the Springboot app
+//The message shows if the update completed or not.
 export default class UpdateAll extends React.Component {
 
     constructor(props) {

@@ -4,6 +4,7 @@ import JsonComponent from '../components/json-component';
 
 const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/quote/update`;
 
+//This form is used to manually update or add a symbol to the API's backend
 export default class ManualUpdate extends React.Component {
 
     constructor(props) {
@@ -26,6 +27,7 @@ export default class ManualUpdate extends React.Component {
         });
     }
 
+    //Validate the input is "money-formatted"
     moneyUpdate(event) {
         if(this.moneyPattern.test(event.target.value)) {
             this.setState({
@@ -34,6 +36,7 @@ export default class ManualUpdate extends React.Component {
         }
     }
 
+    //Build up the quote and send it to the API, then parse response.
     sendUpdate(event) {
         event.preventDefault();
         const quote = {

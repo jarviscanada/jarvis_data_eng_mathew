@@ -2,6 +2,8 @@ import React from 'react';
 import Fetch from 'node-fetch';
 import JsonComponent from '../components/json-component';
 
+//This form is used to place buy or sell orders.
+//The operation is selected with the property "op", which must be "buy" or "sell"
 export default class OrderForm extends React.Component {
 
     constructor(props) {
@@ -20,6 +22,7 @@ export default class OrderForm extends React.Component {
         };
     }
 
+    //Positive whole numbers only
     updateNumber(event) {
         if(/^\d*$/.test(event.target.value)){
             this.setState({
@@ -34,6 +37,7 @@ export default class OrderForm extends React.Component {
         });
     }
 
+    //Send the order to the API and parse the response.
     placeOrder(event) {
         event.preventDefault();
         Fetch(`${this.baseUrl}?accountid=${this.state.accountId}&symbol=${this.state.symbol}&amount=${this.state.amount}`,
