@@ -15,13 +15,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo "App name is ${app_name}, remote repo is ${repo_url}, building..."
-                sh "bash ./springboot/scripts/k8s/k8s_build.sh ${app_name} ${repo_url}"
+                sh "cd springboot/ && bash ./scripts/k8s/k8s_build.sh ${app_name} ${repo_url}"
             }
         }
         stage('Deploy') {
             steps {
                 echo "Running deployment script with ${app_name}, ${repo_url}, ${rds_url}"
-                sh "bash ./springboot/scripts/k8s/k8s_deploy ${app_name} ${repo_url} ${rds_url}"
+                sh "cd springboot && bash ./scripts/k8s/k8s_deploy ${app_name} ${repo_url} ${rds_url}"
             }
         }
     }
