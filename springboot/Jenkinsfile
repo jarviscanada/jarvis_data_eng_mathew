@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Running deployment script with ${app_name}, ${repo_url}, ${rds_url}"
-                sh "cd springboot && bash ./scripts/k8s/k8s_deploy ${app_name} ${repo_url} ${rds_url}"
+                sh "cd springboot && bash ./scripts/k8s/k8s_deploy.sh ${app_name} ${repo_url} ${rds_url}"
             }
         }
     }
