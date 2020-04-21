@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-name
+spec:
+  selector:
+    matchLabels:
+      app: app-name
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: app-name
+    spec:
+      containers:
+      - name: app-name
+        image: img-ver
+        env:
+        - name: IEX_TOKEN
+          value: pk_00162a2462f64e5e93e5214c1cefff56
+        - name: PG_USERNAME
+          value: postgres
+        - name: PG_PASSWORD
+          value: password
+        - name: PG_URL
+          value: jdbc:postgresql://psql-server:5432/jrvstrading
+        ports:
+        - containerPort: 8080
