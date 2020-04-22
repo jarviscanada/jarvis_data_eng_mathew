@@ -10,7 +10,7 @@ spec:
   - host: app-name.jrvs
     http:
       paths:
-      - path: /
+      - path: /*
         backend:
           serviceName: app-name-service
           servicePort: 8080
