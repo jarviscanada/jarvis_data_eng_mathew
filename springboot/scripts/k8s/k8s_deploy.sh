@@ -11,12 +11,18 @@ then
 fi
 
 # Check if kubectl is configured
-kubectl config current-context &>/dev/null
+kubectl config current-context
 k8s_configured=$?
 if [ $k8s_configured -ne "0" ]
 then
-	echo "kubectl is not configured, please validate your setup"
-	exit 5
+	echo "kubectl is not configured, attempting to create config"
+	aws --region us-east-1 eks update-kubeconfig --name mathew-k8s
+	kubectl config current-context
+	if [ $? -ne "0" ]
+	then
+		echo "kubectl still not configured, aborting"
+		exit 5
+	fi
 fi
 
 # Get app name, image repo, RDS url from cli
