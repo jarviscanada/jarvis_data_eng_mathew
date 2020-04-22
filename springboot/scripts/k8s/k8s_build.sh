@@ -20,7 +20,7 @@ echo "Retrieving version info from Maven"
 version=$(mvn help:evaluate -Dexpression=project.version | grep ^[[:digit:]])
 
 echo "Building image ${app_name}:${version}"
-docker build --no-cache --rm -t ${repo_url}/${app_name}:${version} . >/dev/null
+docker build --no-cache --rm -t ${repo_url}/${app_name}:${version} .
 
 echo "Logging into AWS ECR"
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${repo_url}
