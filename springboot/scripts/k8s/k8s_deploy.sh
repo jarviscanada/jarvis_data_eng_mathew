@@ -3,7 +3,7 @@
 # Deployment script for pushing the Jarvis Trading Simulation to a k8s cluster
 # Run this script from the project root (springboot/)
 
-# Get image repo and base image name from args, error out if there isn't two args
+# Get image repo and base image name from args, error out if there isn't three args
 if [ $# -ne "3" ]
 then
 	echo "Usage: scripts/k8s/k8s_deploy.sh <app_name> <image_repo> <rds_url>"
@@ -38,7 +38,7 @@ version=$(mvn help:evaluate -Dexpression=project.version | grep ^[[:digit:]])
 echo "Creating new k8s deployment file"
 sed -e "s/app-name/${app_name}/" \
  -e "s;img-ver;${image_repo}/${app_name}:${version};" \
- -e "s/psql-server/${rds_url}/" \
+ -e "s/psql-server/${app_name}-db-service/" \
  scripts/k8s/app-deploy-template.yaml > scripts/k8s/${app_name}-deploy-${version}.yaml
 
 kubectl apply -f scripts/k8s/${app_name}-deploy-${version}.yaml
@@ -46,7 +46,7 @@ kubectl apply -f scripts/k8s/${app_name}-deploy-${version}.yaml
 
 # Check if the service and ingress objects exist. If not, create them.
 echo "Checking if app service exists"
-kubectl get service {app_name}-service &>/dev/null
+kubectl get service ${app_name}-service &>/dev/null
 svc_exists=$?
 if [[ $svc_exists -ne "0" ]]
 then
@@ -55,14 +55,26 @@ then
 	kubectl apply -f scripts/k8s/${app_name}-service.yaml
 fi
 
-echo "Checking if Ingress policy exists"
-kubectl get ingress ${app_name}-ingress &>/dev/null
-ingress_exists=$?
-if [[ $ingress_exists -ne "0" ]]
+echo "Checking if DB ExternalName service exists"
+kubectl get service ${app_name}-db-service &>/dev/null
+db_svc_exists=$?
+if [[ $db_svc_exists --ne "0" ]]
 then
-	echo "Creating Ingress policy"
-	sed "s/app-name/${app_name}/" scripts/k8s/app-ingress-template.yaml > scripts/k8s/${app_name}-ingress.yaml
-	kubectl apply -f scripts/k8s/${app_name}-ingress.yaml
+  echo "Creating new ExternalName service"
+  sed -e "s/app-name/${app_name}/" \
+      -e "s/rds-url/${rds_url}/" scripts/k8s/app-db-service-template.yaml > scripts/k8s/${app_name}-db-service.yaml
+      kubectl apply -f scripts/k8s/${app_name}-db-service.yaml
 fi
+
+## Uncomment this section to use an ALB Ingress policy
+#echo "Checking if Ingress policy exists"
+#kubectl get ingress ${app_name}-ingress &>/dev/null
+#ingress_exists=$?
+#if [[ $ingress_exists -ne "0" ]]
+#then
+#	echo "Creating Ingress policy"
+#	sed "s/app-name/${app_name}/" scripts/k8s/app-ingress-template.yaml > scripts/k8s/${app_name}-ingress.yaml
+#	kubectl apply -f scripts/k8s/${app_name}-ingress.yaml
+#fi
 
 exit 0
