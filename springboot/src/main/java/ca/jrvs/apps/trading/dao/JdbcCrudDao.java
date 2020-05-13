@@ -4,6 +4,7 @@ import ca.jrvs.apps.trading.model.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataRetrievalFailureException;
@@ -126,7 +127,8 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
   public List<T> findAllById(Iterable<Integer> ids) {
     List<T> entities = new ArrayList<>();
     for (int id : ids) {
-      entities.add(findById(id).orElseThrow(IllegalArgumentException::new));
+      entities
+          .add(findById(id).orElseThrow(() -> new EntityNotFoundException("ID Not found:" + id)));
     }
     return entities;
   }
