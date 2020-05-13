@@ -27,6 +27,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_mathew](ht
 - **[Hadoop](./hadoop)**: A data analysis project performed using Hadoop and Hive, accessed through Zeppelin Notebook. Analysis was performed on World Development Indicator data, with a focus on Annual GDP Growth. The Hadoop cluster was hosted on Google Cloud.
 - **[Spark/Scala](./spark)**:  A data analysis project performed using Spark for Scala with Zeppelin Notebook. Analysis was performed on sample sales and customer data using both RDDs and DataFrames in order to compare their styles.
 - **[Cloud & DevOps](./cloud_devops)**: Explores cloud-based services with Amazon Web Services, and Continuous Integration/Continuous Deployment pipelines with Jenkins. This project involved deploying the Springboot project on AWS Elastic Beanstalk.
+- **[React UI for SpringBoot App](./react_trading_ui)**: A Javascript app which allows users to interact with the SpringBoot project's REST API through their browser. This app is built with React, and may be compiled and served on a standard HTTP server.
+- **[Kubernetes DevOps Pipeline](./kubernetes)**: A DevOps pipeline developed for Jenkins, which deploys the SpringBoot application in a Kubernetes cluster hosted by Amazon EKS. It uses Amazon ECR to store Docker images, and provisions a Network Load Balancer to allow scaling.
 
 ## Professional Experiences
 
