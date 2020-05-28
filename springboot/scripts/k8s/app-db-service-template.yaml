@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-name-db-service
+  labels:
+    svc: app-name-db
+spec:
+  type: ExternalName
+  externalName: rds-url
