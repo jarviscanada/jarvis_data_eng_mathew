@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: springboot-ingress
+  labels:
+    ingress: springboot-ingress
+spec:
+  rules:
+  - host: trading.jrvs
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: springboot-service
+          servicePort: 8080

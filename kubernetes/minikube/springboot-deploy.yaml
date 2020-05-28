@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-test #Put deployment name here
+spec:
+  selector:
+    matchLabels:
+      app: springboot-test #Put app name here
+  replicas: 3 #Change this number if needed. Replicas = number of instances.
+  template:
+    metadata:
+      labels:
+        app: springboot-test #Put app name here, should match above.
+    spec:
+      containers:
+      - name: springboot-test #Name of the container, should be unique among containers in deployment
+        image: trading-app-react:1.0 #Docker image to use, tag a specific version.
+        env:
+        - name: IEX_TOKEN
+          value: pk_00162a2462f64e5e93e5214c1cefff56
+        - name: PG_USERNAME
+          value: postgres
+        - name: PG_PASSWORD
+          value: password
+        - name: PG_URL
+          value: jdbc:postgresql://psql-service:5432/jrvstrading
+        ports:
+        - containerPort: 8080 #Port number used by the container

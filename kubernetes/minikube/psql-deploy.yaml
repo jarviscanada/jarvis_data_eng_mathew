@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psql-test
+spec:
+  selector:
+    matchLabels:
+      app: psql-test
+  replicas: 1 #Change this number if needed. Replicas = number of instances.
+  template:
+    metadata:
+      labels:
+        app: psql-test
+    spec:
+      containers:
+      - name: psql-test
+        image: trading-psql:1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: POSTGRES_DB
+          value: jrvstrading
