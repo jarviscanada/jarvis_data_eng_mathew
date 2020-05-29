@@ -1,12 +1,9 @@
 pipeline {
     agent any
-    tools {
-        maven "M3"
-        jdk "java8"
-    }
 
     environment {
         app_name = 'jarvis-trading-app'
+        MAVEN_HOME = '/usr/share/maven'
     }
 
     stages {
@@ -31,7 +28,6 @@ pipeline {
             steps {
                 echo 'Master branch'
                 rtMavenRun(
-                    tool: maven,
                     pom: 'springboot/pom.xml',
                     goals: 'clean install',
                     deployerId: 'MAVEN_DEPLOYER',
@@ -43,7 +39,6 @@ pipeline {
             steps {
                 echo 'Development branch'
                 rtMavenRun(
-                    tool: maven,
                     pom: 'springboot/pom.xml',
                     goals: 'clean install',
                     deployerId: 'MAVEN_DEPLOYER',
