@@ -29,12 +29,19 @@ pipeline {
         stage('build-master') {
             when { branch 'master' }
             steps {
-
+                echo 'Master branch'
+                rtMavenRun(
+                    tool: M3,
+                    pom: 'springboot/pom.xml',
+                    goals: 'clean install',
+                    deployerId: 'MAVEN_DEPLOYER',
+                )
             }
         }
         stage('build-dev') {
             when { branch 'develop' }
             steps {
+                echo 'Development branch'
                 rtMavenRun(
                     tool: M3,
                     pom: 'springboot/pom.xml',
