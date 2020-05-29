@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    tools {
+        maven "M3"
+        jdk "java8"
+    }
+
+    environment {
+        app_name = 'trading-app-mathew'
+	repo_url = '676994804800.dkr.ecr.us-east-1.amazonaws.com'
+	rds_url = 'jrvstrading-mv.cqjlilomcylr.us-east-1.rds.amazonaws.com'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "App name is ${app_name}, remote repo is ${repo_url}, building..."
+                sh "cd springboot/ && bash ./scripts/k8s/k8s_build.sh ${app_name} ${repo_url}"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo "Running deployment script with ${app_name}, ${repo_url}, ${rds_url}"
+                sh "cd springboot && bash ./scripts/k8s/k8s_deploy.sh ${app_name} ${repo_url} ${rds_url}"
+            }
+        }
+    }
+}
