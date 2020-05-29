@@ -11,18 +11,20 @@ pipeline {
 
     stages {
         stage('artifactory setup') {
-            rtServer(
-              id: 'Artifactory',
-              url: 'artifactory:8081/artifactory/trading-app-repo',
-              credentialsId: 'jenkins-artifactory',
-            )
+            steps {
+                rtServer(
+                  id: 'Artifactory',
+                  url: 'artifactory:8081/artifactory/trading-app-repo',
+                  credentialsId: 'jenkins-artifactory',
+                )
 
-            rtMavenDeployer(
-              id: 'MAVEN_DEPLOYER',
-              serverId: 'Artifactory',
-              releaseRepo: 'trading-app-repo',
-              snapshotRepo: 'trading-app-repo',
-            )
+                rtMavenDeployer(
+                  id: 'MAVEN_DEPLOYER',
+                  serverId: 'Artifactory',
+                  releaseRepo: 'trading-app-repo',
+                  snapshotRepo: 'trading-app-repo',
+                )
+            }
         }
         stage('build-master') {
             when { branch 'master' }
