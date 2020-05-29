@@ -11,7 +11,7 @@ pipeline {
             steps {
                 rtServer(
                   id: 'Artifactory',
-                  url: 'http://artifactory:8081/artifactory/trading-app-repo',
+                  url: 'http://artifactory:8081/artifactory/ca',
                   credentialsId: 'jenkins-artifactory',
                 )
 
