@@ -11,7 +11,7 @@ pipeline {
             steps {
                 rtServer(
                   id: 'Artifactory',
-                  url: 'http://artifactory:8081/artifactory/ca',
+                  url: 'http://artifactory:8081/artifactory/',
                   credentialsId: 'jenkins-artifactory',
                 )
 
