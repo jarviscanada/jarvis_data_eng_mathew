@@ -27,9 +27,10 @@ pipeline {
             when { branch 'master' }
             steps {
                 echo 'Master branch'
+                sh '/var/jenkins_home/maven/bin/mvn versions:set -DremoveSnapshot -f springboot/pom.xml'
                 rtMavenRun(
                     pom: 'springboot/pom.xml',
-                    goals: '-DskipTests versions:set -DremoveSnapshot clean install',
+                    goals: '-DskipTests clean install',
                     deployerId: 'MAVEN_DEPLOYER',
                 )
             }
