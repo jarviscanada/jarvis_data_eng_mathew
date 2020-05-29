@@ -29,7 +29,7 @@ pipeline {
                 echo 'Master branch'
                 rtMavenRun(
                     pom: 'springboot/pom.xml',
-                    goals: '-DskipTests clean install',
+                    goals: '-DskipTests versions:set -DremoveSnapshot clean install',
                     deployerId: 'MAVEN_DEPLOYER',
                 )
             }
