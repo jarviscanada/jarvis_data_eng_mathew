@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         app_name = 'jarvis-trading-app'
-        MAVEN_HOME = '/usr/share/maven'
+        MAVEN_HOME = '/var/jenkins_home/maven'
     }
 
     stages {
