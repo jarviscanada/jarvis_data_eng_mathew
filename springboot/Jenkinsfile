@@ -30,7 +30,7 @@ pipeline {
                 sh '/var/jenkins_home/maven/bin/mvn versions:set -DremoveSnapshot -f springboot/pom.xml'
                 rtMavenRun(
                     pom: 'springboot/pom.xml',
-                    goals: '-DskipTests versions:set -DremoveSnapshot clean install',
+                    goals: '-DskipTests clean install',
                     deployerId: 'MAVEN_DEPLOYER',
                 )
             }
@@ -46,6 +46,17 @@ pipeline {
                 )
             }
         }
-
+        stage('deploy-master') {
+            when { branch 'master' }
+            steps {
+                sh 'bash scripts/gcloud-deploy.sh "1.0"'
+            }
+        }
+        stage('deploy-dev') {
+            when { branch 'develop' }
+            steps{
+                sh 'bash scripts/gcloud-deploy.sh "1.0-SNAPSHOT"'
+            }
+        }
     }
 }
