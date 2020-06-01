@@ -1,7 +1,7 @@
 #!/bin/bash
 if [[ $# -ne 1 ]]
 then
-        echo "usage: springboot-deploy.sh <version-number>"
+        echo "usage: gcloud-deploy.sh <version-number>"
         exit 1
 fi
 version=$1
