@@ -46,6 +46,17 @@ pipeline {
                 )
             }
         }
-
+        stage('deploy-master') {
+            when { branch 'master' }
+            steps {
+                sh 'bash springboot/scripts/gcloud-deploy.sh "1.0"'
+            }
+        }
+        stage('deploy-dev') {
+            when { branch 'develop' }
+            steps{
+                sh 'bash springboot/scripts/gcloud-deploy.sh "1.0-SNAPSHOT"'
+            }
+        }
     }
 }
